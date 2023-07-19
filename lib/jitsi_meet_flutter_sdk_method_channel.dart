@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:jitsi_meet_flutter_sdk/method_response.dart';
 
 import 'jitsi_meet_flutter_sdk_platform_interface.dart';
 
@@ -16,7 +17,17 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
   }
 
   @override
-  Future<void> join() async {
-    await methodChannel.invokeListMethod('join');
+  Future<MethodResponse> join() async {
+    return await methodChannel
+        .invokeMethod<String>('join')
+        .then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
   }
 }

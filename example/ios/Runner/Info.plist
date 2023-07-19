@@ -24,6 +24,19 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+    <string>Uses the camera for video conferencing.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Uses the microphone for video conferencing.</string>
+    <key>RTCAppGroupIdentifier</key>
+    <string>group.dev.saibotma.jitsi-meet-wrapper-example.appgroup</string>
+    <key>RTCScreenSharingExtension</key>
+    <string>dev.saibotma.jitsi-meet-wrapper-example.broadcast-extension</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>audio</string>
+        <string>voip</string>
+    </array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

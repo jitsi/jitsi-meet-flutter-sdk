@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_platform_interface.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_method_channel.dart';
+import 'package:jitsi_meet_flutter_sdk/method_response.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockJitsiMeetFlutterSdkPlatform
@@ -12,7 +13,7 @@ class MockJitsiMeetFlutterSdkPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<void> join() {
+  Future<MethodResponse> join() {
     // TODO: implement join
     throw UnimplementedError();
   }

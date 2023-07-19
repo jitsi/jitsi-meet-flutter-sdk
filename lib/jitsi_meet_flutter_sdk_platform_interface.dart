@@ -1,6 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'jitsi_meet_flutter_sdk_method_channel.dart';
+import 'method_response.dart';
 
 abstract class JitsiMeetFlutterSdkPlatform extends PlatformInterface {
   /// Constructs a JitsiMeetFlutterSdkPlatform.
@@ -27,7 +28,7 @@ abstract class JitsiMeetFlutterSdkPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<void> join() {
+  Future<MethodResponse> join() {
     throw UnimplementedError('join() has not been implemented.');
   }
 }
