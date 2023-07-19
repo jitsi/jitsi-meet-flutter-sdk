@@ -22,7 +22,6 @@ class JitsiMeetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.eventSink(["event": "opened"])
         openJitsiMeet();
     }
 
@@ -66,10 +65,6 @@ class JitsiMeetViewController: UIViewController {
 }
 
 extension JitsiMeetViewController: JitsiMeetViewDelegate {
-    func ready(toClose data: [AnyHashable : Any]) {
-        self.eventSink(["event": "readyToClose"])
-    }
-
     func conferenceJoined(_ data: [AnyHashable : Any]) {
         self.eventSink(["event": "conferenceJoined", "data": data])
     }
@@ -82,12 +77,6 @@ extension JitsiMeetViewController: JitsiMeetViewDelegate {
         self.eventSink(["event": "conferenceWillJoin", "data": data])
     }
 
-    func enterPicture(inPicture data: [AnyHashable: Any]) {
-        DispatchQueue.main.async {
-            self.pipViewCoordinator?.enterPictureInPicture()
-        }
-    }
-
     func participantJoined(_ data: [AnyHashable : Any]) {
         self.eventSink(["event": "participantJoined", "data": data])
     }
@@ -98,6 +87,10 @@ extension JitsiMeetViewController: JitsiMeetViewDelegate {
 
     func audioMutedChanged(_ data: [AnyHashable : Any]) {
         self.eventSink(["event": "audioMutedChanged", "data": data])
+    }
+
+    func videoMutedChanged(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "videoMutedChanged", "data": data])
     }
 
     func endpointTextMessageReceived(_ data: [AnyHashable : Any]) {
@@ -116,8 +109,20 @@ extension JitsiMeetViewController: JitsiMeetViewDelegate {
         self.eventSink(["event": "chatToggled", "data": data])
     }
 
-    func videoMutedChanged(_ data: [AnyHashable : Any]) {
-        self.eventSink(["event": "videoMutedChanged", "data": data])
+    func ready(toClose data: [AnyHashable : Any]) {
+        self.eventSink(["event": "readyToClose"])
+        DispatchQueue.main.async {
+            self.pipViewCoordinator?.hide { _ in
+                self.cleanUp()
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+
+    func enterPicture(inPicture data: [AnyHashable: Any]) {
+        DispatchQueue.main.async {
+            self.pipViewCoordinator?.enterPictureInPicture()
+        }
     }
 }
 

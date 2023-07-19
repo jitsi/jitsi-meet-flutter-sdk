@@ -34,7 +34,6 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerForBroadcastMessages()
-        eventStreamHandler.onOpened()
     }
 
     private fun registerForBroadcastMessages() {
@@ -50,10 +49,26 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
             val event = BroadcastEvent(intent)
             val data = event.data
             when (event.type!!) {
-                BroadcastEvent.Type.CONFERENCE_JOINED -> eventStreamHandler.onConferenceJoined(data)
+                BroadcastEvent.Type.CONFERENCE_JOINED -> eventStreamHandler.conferenceJoined(data)
+                BroadcastEvent.Type.CONFERENCE_TERMINATED -> eventStreamHandler.conferenceTerminated(data)
+                BroadcastEvent.Type.CONFERENCE_WILL_JOIN -> eventStreamHandler.conferenceWillJoin(data)
+                BroadcastEvent.Type.PARTICIPANT_JOINED -> eventStreamHandler.participantJoined(data)
+                BroadcastEvent.Type.PARTICIPANT_LEFT -> eventStreamHandler.participantLeft(data)
+                BroadcastEvent.Type.AUDIO_MUTED_CHANGED -> eventStreamHandler.audioMutedChanged(data)
+                BroadcastEvent.Type.VIDEO_MUTED_CHANGED -> eventStreamHandler.videoMutedChanged(data)
+                BroadcastEvent.Type.ENDPOINT_TEXT_MESSAGE_RECEIVED -> eventStreamHandler.endpointTextMessageReceived(data)
+                BroadcastEvent.Type.SCREEN_SHARE_TOGGLED -> eventStreamHandler.screenShareToggled(data)
+                BroadcastEvent.Type.CHAT_MESSAGE_RECEIVED -> eventStreamHandler.chatMessageReceived(data)
+                BroadcastEvent.Type.CHAT_TOGGLED -> eventStreamHandler.chatToggled(data)
+                BroadcastEvent.Type.PARTICIPANTS_INFO_RETRIEVED -> eventStreamHandler.participantsInfoRetrieved(data)
                 BroadcastEvent.Type.READY_TO_CLOSE -> eventStreamHandler.onReadyToClose()
                 else -> {}
             }
         }
+    }
+
+    override fun onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(this.broadcastReceiver)
+        super.onDestroy()
     }
 }

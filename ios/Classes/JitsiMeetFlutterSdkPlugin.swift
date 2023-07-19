@@ -4,7 +4,7 @@ import JitsiMeetSDK
 
 public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     var flutterViewController: UIViewController
-    var jitstMeetViewController: JitsiMeetViewController?
+    var jitsiMeetViewController: JitsiMeetViewController?
     var eventSink: FlutterEventSink?
 
     init(flutterViewController: UIViewController) {
@@ -17,7 +17,6 @@ public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHa
         let instance = JitsiMeetFlutterSdkPlugin(flutterViewController: flutterViewController)
         registrar.addMethodCallDelegate(instance, channel: channel)
 
-        // Setup event channel for conference events
         let eventChannel = FlutterEventChannel(name: "jitsi_meet_flutter_sdk_events", binaryMessenger: registrar.messenger())
         eventChannel.setStreamHandler(instance)
     }
@@ -37,18 +36,18 @@ public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHa
 
     private func join(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
-            builder.room = "testgabigabi"
+            builder.room = "testgabigabi2"
         }
         
-        jitstMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
+        jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
 
-        jitstMeetViewController!.modalPresentationStyle = .overFullScreen
-        flutterViewController.present(jitstMeetViewController!, animated: true)
+        jitsiMeetViewController!.modalPresentationStyle = .overFullScreen
+        flutterViewController.present(jitsiMeetViewController!, animated: true)
         result(nil)
     }
 
     private func hangUp(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        jitstMeetViewController?.jitsiMeetView?.hangUp()
+        jitsiMeetViewController?.jitsiMeetView?.hangUp()
         result(nil)
     }
 

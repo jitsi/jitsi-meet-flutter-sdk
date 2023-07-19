@@ -46,17 +46,69 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
     eventChannel.receiveBroadcastStream().listen((message) {
       final data = message['data'];
       switch (message['event']) {
-        case "opened":
-          _listener?.onOpened?.call();
-          break;
-        case "readyToClose":
-          _listener?.onReadyToClose?.call();
-          break;
-        case "conferenceWillJoin":
-          _listener?.onConferenceWillJoin?.call(data["url"]);
-          break;
         case "conferenceJoined":
-          _listener?.onConferenceJoined?.call(data["url"]);
+          _listener?.conferenceJoined?.call(data["url"]);
+          break;
+
+        case "conferenceTerminated":
+          _listener?.conferenceTerminated?.call(data["url"], data["error"]);
+          break;
+
+        case "conferenceWillJoin":
+          _listener?.conferenceWillJoin?.call(data["url"]);
+          break;
+
+        case "participantJoined":
+          _listener?.participantJoined?.call(
+            data["email"],
+            data["name"],
+            data["role"],
+            data["participantId"],
+          );
+          break;
+
+        case "participantLeft":
+          _listener?.participantLeft?.call(data["participantId"]);
+          break;
+
+        case "audioMutedChanged":
+          _listener?.audioMutedChanged?.call(parseBool(data["muted"]));
+          break;
+
+        case "videoMutedChanged":
+          _listener?.videoMutedChanged?.call(parseBool(data["muted"]));
+          break;
+
+        case "endpointTextMessageReceived":
+          _listener?.endpointTextMessageReceived?.call(data["senderId"], data["message"]);
+          break;
+
+        case "screenShareToggled":
+          _listener?.screenShareToggled
+              ?.call(data["participantId"], parseBool(data["sharing"]));
+          break;
+
+        case "chatMessageReceived":
+          _listener?.chatMessageReceived?.call(
+            data["senderId"],
+            data["message"],
+            parseBool(data["isPrivate"]),
+          );
+          break;
+
+        case "chatToggled":
+          _listener?.chatToggled?.call(parseBool(data["isOpen"]));
+          break;
+
+        case "participantsInfoRetrieved":
+          _listener?.participantsInfoRetrieved?.call(
+            data["participantsInfo"],
+            data["requestId"],
+          );
+          break;
+
+        case "readyToClose":
+          _listener?.readyToClose?.call();
           break;
       }
     }).onError((error) {
