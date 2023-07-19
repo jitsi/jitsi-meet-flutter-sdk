@@ -24,21 +24,37 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>localhost</key>
+            <dict>
+                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
 	<key>NSCameraUsageDescription</key>
-    <string>Uses the camera for video conferencing.</string>
+    <string>The camera is needed for making calls</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Uses the microphone for video conferencing.</string>
-    <key>RTCAppGroupIdentifier</key>
-    <string>group.dev.saibotma.jitsi-meet-wrapper-example.appgroup</string>
-    <key>RTCScreenSharingExtension</key>
-    <string>dev.saibotma.jitsi-meet-wrapper-example.broadcast-extension</string>
+    <string>The microphone is needed for making call</string>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>Local network access is needed for P2P connections.</string>
     <key>UIBackgroundModes</key>
     <array>
         <string>audio</string>
+        <string>fetch</string>
         <string>voip</string>
     </array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+    <array>
+        <string>armv7</string>
+    </array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>

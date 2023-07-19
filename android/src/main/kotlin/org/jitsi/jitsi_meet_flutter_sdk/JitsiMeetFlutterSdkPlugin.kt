@@ -6,41 +6,39 @@ import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import org.jitsi.meet.sdk.JitsiMeetActivity
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import java.net.URL
 
 /** JitsiMeetFlutterSdkPlugin */
 class JitsiMeetFlutterSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
+  private lateinit var methodChannel : MethodChannel
+  private lateinit var eventChannel: EventChannel
+  private val eventStreamHandler = JitsiMeetEventStreamHandler.instance
   private var activity: Activity? = null
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "jitsi_meet_flutter_sdk")
-    channel.setMethodCallHandler(this)
+    methodChannel = MethodChannel(flutterPluginBinding.binaryMessenger, "jitsi_meet_flutter_sdk")
+    methodChannel.setMethodCallHandler(this)
+
+    eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "jitsi_meet_flutter_sdk_events")
+    eventChannel.setStreamHandler(eventStreamHandler)
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    }
-    else if (call.method == "join") {
-      JitsiMeetActivity.launch(activity!!, "https://meet.jit.si/testgabigabi")
-      result.success("Succesfully joined room")
-    }
-    else {
-      result.notImplemented()
+    when (call.method) {
+      "getPlatformVersion" -> {result.success("Android ${android.os.Build.VERSION.RELEASE}")}
+      "join" -> join(call, result)
+      else -> result.notImplemented()
     }
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
+    methodChannel.setMethodCallHandler(null)
   }
 
   override fun onDetachedFromActivity() {
@@ -57,5 +55,15 @@ class JitsiMeetFlutterSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware
 
   override fun onDetachedFromActivityForConfigChanges() {
     onDetachedFromActivity()
+  }
+  private fun join(call: MethodCall, result: Result) {
+    val options = JitsiMeetConferenceOptions.Builder().run {
+      setRoom("testgabigabi")
+      setServerURL(URL("https://meet.jit.si/"))
+      build()
+    }
+
+    WrapperJitsiMeetActivity.launch(activity!!, options)
+    result.success("Successfully joined meeting")
   }
 }

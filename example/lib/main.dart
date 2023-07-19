@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_listener.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_options.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,7 +50,61 @@ class _MyAppState extends State<MyApp> {
   }
 
   join() async{
-    await _jitsiMeetFlutterSdkPlugin.join();
+    var options = JitsiMeetOptions(
+      room: "testgabigabi",
+      serverUrl: "https://meet.jit.si"
+    );
+    var listener = JitsiMeetListener(
+      onOpened: () => debugPrint("onOpened"),
+      onReadyToClose: () {
+        debugPrint("onReadyToClose");
+      },
+      onConferenceWillJoin: (url) {
+        debugPrint("onConferenceWillJoin: url: $url");
+      },
+      onConferenceJoined: (url) {
+        debugPrint("onConferenceJoined: url: $url");
+      },
+      onConferenceTerminated: (url, error) {
+        debugPrint("onConferenceTerminated: url: $url, error: $error");
+      },
+      onAudioMutedChanged: (isMuted) {
+        debugPrint("onAudioMutedChanged: isMuted: $isMuted");
+      },
+      onVideoMutedChanged: (isMuted) {
+        debugPrint("onVideoMutedChanged: isMuted: $isMuted");
+      },
+      onScreenShareToggled: (participantId, isSharing) {
+        debugPrint(
+          "onScreenShareToggled: participantId: $participantId, "
+              "isSharing: $isSharing",
+        );
+      },
+      onParticipantJoined: (email, name, role, participantId) {
+        debugPrint(
+          "onParticipantJoined: email: $email, name: $name, role: $role, "
+              "participantId: $participantId",
+        );
+      },
+      onParticipantLeft: (participantId) {
+        debugPrint("onParticipantLeft: participantId: $participantId");
+      },
+      onParticipantsInfoRetrieved: (participantsInfo, requestId) {
+        debugPrint(
+          "onParticipantsInfoRetrieved: participantsInfo: $participantsInfo, "
+              "requestId: $requestId",
+        );
+      },
+      onChatMessageReceived: (senderId, message, isPrivate) {
+        debugPrint(
+          "onChatMessageReceived: senderId: $senderId, message: $message, "
+              "isPrivate: $isPrivate",
+        );
+      },
+      onChatToggled: (isOpen) => debugPrint("onChatToggled: isOpen: $isOpen"),
+      onClosed: () => debugPrint("onClosed"),
+    );
+    await _jitsiMeetFlutterSdkPlugin.join(options, listener);
   }
 
   @override

@@ -1,3 +1,4 @@
+import Flutter
 import UIKit
 import JitsiMeetSDK
 
@@ -5,10 +6,13 @@ class JitsiMeetViewController: UIViewController {
     fileprivate var pipViewCoordinator: PiPViewCoordinator?
     fileprivate var wrapperJitsiMeetView: UIView?
     var jitsiMeetView: JitsiMeetView?
-    let options: JitsiMeetConferenceOptions
 
-    init(options: JitsiMeetConferenceOptions) {
+    let options: JitsiMeetConferenceOptions
+    let eventSink: FlutterEventSink
+
+    init(options: JitsiMeetConferenceOptions, eventSink: @escaping FlutterEventSink) {
         self.options = options;
+        self.eventSink = eventSink;
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -18,25 +22,22 @@ class JitsiMeetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaultOptions = JitsiMeetConferenceOptions.fromBuilder { (builder) in
-            builder.serverURL = URL(string: "https://meet.jit.si")
-            builder.setFeatureFlag("welcomepage.enabled", withValue: false)
-        }
-                
-        JitsiMeet.sharedInstance().defaultConferenceOptions = defaultOptions
+        self.eventSink(["event": "opened"])
         openJitsiMeet();
     }
 
     func openJitsiMeet() {
         cleanUp()
+
         jitsiMeetView = JitsiMeetView()
         let wrapperJitsiMeetView = WrapperView()
         wrapperJitsiMeetView.backgroundColor = .black
         self.wrapperJitsiMeetView = wrapperJitsiMeetView
-        
+
         wrapperJitsiMeetView.addSubview(jitsiMeetView!)
 
         jitsiMeetView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
         jitsiMeetView!.delegate = self
         jitsiMeetView!.join(options)
 
@@ -47,27 +48,76 @@ class JitsiMeetViewController: UIViewController {
         pipViewCoordinator?.show()
     }
 
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        let rect = CGRect(origin: CGPoint.zero, size: size)
+        pipViewCoordinator?.resetBounds(bounds: rect)
+    }
+
     fileprivate func cleanUp() {
+        jitsiMeetView?.removeFromSuperview()
         wrapperJitsiMeetView?.removeFromSuperview()
+        jitsiMeetView = nil
         wrapperJitsiMeetView = nil
         pipViewCoordinator = nil
-        jitsiMeetView = nil
     }
 }
 
 extension JitsiMeetViewController: JitsiMeetViewDelegate {
-    func conferenceTerminated(_ data: [AnyHashable : Any]!) {
-        DispatchQueue.main.async {
-            self.pipViewCoordinator?.hide() { _ in
-                self.cleanUp()
-            }
-        }
+    func ready(toClose data: [AnyHashable : Any]) {
+        self.eventSink(["event": "readyToClose"])
     }
 
-    func enterPicture(inPicture data: [AnyHashable : Any]!) {
+    func conferenceJoined(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "conferenceJoined", "data": data])
+    }
+
+    func conferenceTerminated(_ data: [AnyHashable: Any]) {
+        self.eventSink(["event": "conferenceTerminated", "data": data])
+    }
+
+    func conferenceWillJoin(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "conferenceWillJoin", "data": data])
+    }
+
+    func enterPicture(inPicture data: [AnyHashable: Any]) {
         DispatchQueue.main.async {
             self.pipViewCoordinator?.enterPictureInPicture()
         }
+    }
+
+    func participantJoined(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "participantJoined", "data": data])
+    }
+
+    func participantLeft(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "participantLeft", "data": data])
+    }
+
+    func audioMutedChanged(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "audioMutedChanged", "data": data])
+    }
+
+    func endpointTextMessageReceived(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "endpointTextMessageReceived", "data": data])
+    }
+
+    func screenShareToggled(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "screenShareToggled", "data": data])
+    }
+
+    func chatMessageReceived(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "chatMessageReceived", "data": data])
+    }
+
+    func chatToggled(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "chatToggled", "data": data])
+    }
+
+    func videoMutedChanged(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "videoMutedChanged", "data": data])
     }
 }
 
