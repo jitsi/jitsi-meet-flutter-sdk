@@ -57,8 +57,20 @@ class JitsiMeetFlutterSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware
     onDetachedFromActivity()
   }
   private fun join(call: MethodCall, result: Result) {
+    val room = call.argument<String>("room")!!
+    if (room.isBlank()) {
+      result.error(
+        "400",
+        "room can not be null or empty",
+        "room can not be null or empty"
+      )
+      return
+    }
+
+
+
     val options = JitsiMeetConferenceOptions.Builder().run {
-      setRoom("testgabigabi")
+      setRoom(room)
       setServerURL(URL("https://meet.jit.si/"))
       build()
     }

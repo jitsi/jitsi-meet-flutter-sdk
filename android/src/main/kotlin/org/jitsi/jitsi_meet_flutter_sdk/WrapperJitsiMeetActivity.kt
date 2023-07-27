@@ -61,7 +61,7 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
                 BroadcastEvent.Type.CHAT_MESSAGE_RECEIVED -> eventStreamHandler.chatMessageReceived(data)
                 BroadcastEvent.Type.CHAT_TOGGLED -> eventStreamHandler.chatToggled(data)
                 BroadcastEvent.Type.PARTICIPANTS_INFO_RETRIEVED -> eventStreamHandler.participantsInfoRetrieved(data)
-                BroadcastEvent.Type.READY_TO_CLOSE -> eventStreamHandler.onReadyToClose()
+                BroadcastEvent.Type.READY_TO_CLOSE -> eventStreamHandler.readyToClose()
                 else -> {}
             }
         }

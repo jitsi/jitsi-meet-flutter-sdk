@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_platform_interface.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_method_channel.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_listener.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_options.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_event_listener.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
 import 'package:jitsi_meet_flutter_sdk/method_response.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -15,7 +15,7 @@ class MockJitsiMeetFlutterSdkPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<MethodResponse> join(JitsiMeetOptions options, JitsiMeetListener? listener) {
+  Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
     // TODO: implement join
     throw UnimplementedError();
   }

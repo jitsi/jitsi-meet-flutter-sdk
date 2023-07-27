@@ -35,8 +35,20 @@ public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHa
     }
 
     private func join(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let arguments = call.arguments as! [String: Any]
+        let room = arguments["room"] as! String
+        if (room.isEmpty) {
+            result(FlutterError.init(
+                code: "400",
+                message: "room can not be null or empty",
+                details: "room can not be null or empty"
+            ))
+            return
+        }
+
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
-            builder.room = "testgabigabi2"
+            builder.room = room;
+            builder.setFeatureFlag("call-integration.enabled", withBoolean: false);
         }
         
         jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)

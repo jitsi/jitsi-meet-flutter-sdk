@@ -1,4 +1,4 @@
-class JitsiMeetListener {
+class JitsiMeetEventListener {
   final Function(String url)? conferenceJoined;
 
   final Function(String url, Object? error)? conferenceTerminated;
@@ -25,7 +25,7 @@ class JitsiMeetListener {
 
   final Function()? readyToClose;
 
-  JitsiMeetListener({
+  JitsiMeetEventListener({
     this.conferenceJoined,
     this.conferenceTerminated,
     this.conferenceWillJoin,

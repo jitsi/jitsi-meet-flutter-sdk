@@ -1,8 +1,8 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'jitsi_meet_flutter_sdk_method_channel.dart';
-import 'jitsi_meet_listener.dart';
-import 'jitsi_meet_options.dart';
+import 'jitsi_meet_event_listener.dart';
+import 'jitsi_meet_conference_options.dart';
 import 'method_response.dart';
 
 abstract class JitsiMeetFlutterSdkPlatform extends PlatformInterface {
@@ -30,7 +30,7 @@ abstract class JitsiMeetFlutterSdkPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<MethodResponse> join(JitsiMeetOptions options, JitsiMeetListener? listener) {
+  Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
     throw UnimplementedError('join() has not been implemented.');
   }
 }

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:jitsi_meet_flutter_sdk/method_response.dart';
 
 import 'jitsi_meet_flutter_sdk_platform_interface.dart';
-import 'jitsi_meet_listener.dart';
-import 'jitsi_meet_options.dart';
+import 'jitsi_meet_event_listener.dart';
+import 'jitsi_meet_conference_options.dart';
 
 /// An implementation of [JitsiMeetFlutterSdkPlatform] that uses method channels.
 class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
@@ -15,7 +15,7 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
   final eventChannel = const EventChannel('jitsi_meet_flutter_sdk_events');
 
   bool _eventChannelIsInitialized = false;
-  JitsiMeetListener? _listener;
+  JitsiMeetEventListener? _listener;
 
   @override
   Future<String?> getPlatformVersion() async {
@@ -24,13 +24,18 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
   }
 
   @override
-  Future<MethodResponse> join(JitsiMeetOptions options, JitsiMeetListener? listener) async {
+  Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) async {
     _listener = listener;
     if (!_eventChannelIsInitialized) {
       _initialize();
     }
+
+    Map<String, dynamic> options0 = {
+      'serverURL': options.serverURL,
+      'room': options.room,
+    };
     return await methodChannel
-        .invokeMethod<String>('join')
+        .invokeMethod<String>('join', options0)
         .then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
