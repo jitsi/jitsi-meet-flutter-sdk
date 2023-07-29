@@ -36,18 +36,42 @@ public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHa
 
     private func join(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let arguments = call.arguments as! [String: Any]
-        let room = arguments["room"] as! String
-        if (room.isEmpty) {
-            result(FlutterError.init(
-                code: "400",
-                message: "room can not be null or empty",
-                details: "room can not be null or empty"
-            ))
-            return
+        let serverURL = arguments["serverURL"] as? String
+        let room = arguments["room"] as? String
+        let token = arguments["token"] as? String
+        let configOverrides = arguments["configOverrides"] as? Dictionary<String, Any>
+        let featureFlags = arguments["featureFlags"] as? Dictionary<String, Any>
+        let rawUserInfo = arguments["userInfo"] as! [String: Any]
+        let displayName = rawUserInfo["displayName"] as? String
+        let email = rawUserInfo["email"] as? String
+        var avatar: URL? = nil
+        if rawUserInfo["avatar"] as? String != nil {
+            avatar = URL(string: rawUserInfo["avatar"] as! String)
+        }
+        var userInfo: JitsiMeetUserInfo? = nil
+        if (displayName != nil || email != nil || avatar != nil) {
+            userInfo = JitsiMeetUserInfo(displayName: displayName, andEmail: email, andAvatar: avatar)
         }
 
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
-            builder.room = room;
+            if (serverURL != nil) {
+                builder.serverURL = URL(string: serverURL as! String)
+            }
+            if (room != nil) {
+                builder.room = room;
+            }
+            if (token != nil) {
+                builder.token = token;
+            }
+            configOverrides?.forEach { key, value in
+                builder.setConfigOverride(key, withValue: value);
+            }
+            featureFlags?.forEach { key, value in
+                builder.setFeatureFlag(key, withValue: value);
+            }
+            if (userInfo != nil) {
+                builder.userInfo = userInfo
+            }
             builder.setFeatureFlag("call-integration.enabled", withBoolean: false);
         }
         

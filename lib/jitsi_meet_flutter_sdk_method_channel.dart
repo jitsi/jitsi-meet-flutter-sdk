@@ -30,12 +30,20 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
       _initialize();
     }
 
-    Map<String, dynamic> options0 = {
+    Map<String, dynamic> parsedOptions = {
       'serverURL': options.serverURL,
       'room': options.room,
+      'token': options.token,
+      'userInfo': {
+        'displayName': options.userInfo?.displayName,
+        'email': options.userInfo?.email,
+        'avatar': options.userInfo?.avatar,
+      },
+      'featureFlags': options.featureFlags,
+      'configOverrides': options.configOverrides
     };
     return await methodChannel
-        .invokeMethod<String>('join', options0)
+        .invokeMethod<String>('join', parsedOptions)
         .then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
