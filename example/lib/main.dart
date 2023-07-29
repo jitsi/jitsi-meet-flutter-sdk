@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -19,11 +21,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool audioMuted = true;
+  bool videoMuted = true;
+  bool screenShareOn = false;
+  List<String> participants = [];
   final _jitsiMeetFlutterSdkPlugin = JitsiMeetFlutterSdk();
 
   join() async{
     var options = JitsiMeetConferenceOptions(
-      room: "mama",
+      room: "testgabigabi",
       configOverrides: {
         "startWithAudioMuted": false,
         "startWithVideoMuted": false,
@@ -57,6 +63,7 @@ class _MyAppState extends State<MyApp> {
           "participantJoined: email: $email, name: $name, role: $role, "
               "participantId: $participantId",
         );
+        participants.add(participantId!);
       },
 
       participantLeft: (participantId) {
@@ -93,10 +100,9 @@ class _MyAppState extends State<MyApp> {
 
       chatToggled: (isOpen) => debugPrint("chatToggled: isOpen: $isOpen"),
 
-      participantsInfoRetrieved: (participantsInfo, requestId) {
+      participantsInfoRetrieved: (participantsInfo) {
         debugPrint(
           "participantsInfoRetrieved: participantsInfo: $participantsInfo, "
-              "requestId: $requestId",
         );
       },
 
@@ -107,6 +113,60 @@ class _MyAppState extends State<MyApp> {
     await _jitsiMeetFlutterSdkPlugin.join(options, listener);
   }
 
+  hangUp() async {
+    await _jitsiMeetFlutterSdkPlugin.hangUp();
+  }
+  
+  setAudioMuted(bool? muted) async{
+    await _jitsiMeetFlutterSdkPlugin.setAudioMuted(muted: muted!);
+    setState(() {
+      audioMuted = muted;
+    });
+  }
+
+  setVideoMuted(bool? muted) async{
+    await _jitsiMeetFlutterSdkPlugin.setVideoMuted(muted: muted!);
+    setState(() {
+      videoMuted = muted;
+    });
+  }
+
+  sendEndpointTextMessage() async{
+    var a = await _jitsiMeetFlutterSdkPlugin.sendEndpointTextMessage(message: "HEY");
+    debugPrint("$a");
+
+    for (var p in participants) {
+      var b = await _jitsiMeetFlutterSdkPlugin.sendEndpointTextMessage(to: p, message: "HEY");
+      debugPrint("$b");
+    }
+  }
+
+  toggleScreenShare(bool? enabled) async{
+    await _jitsiMeetFlutterSdkPlugin.toggleScreenShare(enabled: enabled!);
+
+    setState(() {
+      screenShareOn = enabled;
+    });
+  }
+
+  openChat() async{
+    await _jitsiMeetFlutterSdkPlugin.openChat();
+  }
+
+  sendChatMessage() async{
+    var a = await _jitsiMeetFlutterSdkPlugin.sendChatMessage(to: null, message: "HEY1");
+    debugPrint("$a");
+  }
+
+  closeChat() async{
+    await _jitsiMeetFlutterSdkPlugin.closeChat();
+  }
+
+  retrieveParticipantsInfo() async{
+    var a = await _jitsiMeetFlutterSdkPlugin.retrieveParticipantsInfo();
+    debugPrint("$a");
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -114,10 +174,62 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: TextButton(onPressed: join, child: const Text('Join Meeting')),
-        ),
-      ),
+        body: Center(child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+
+              TextButton(
+                onPressed: join,
+                child: const Text("Join"),
+              ),
+              TextButton(
+                onPressed: hangUp,
+                child: const Text("Hang Up")
+              ),
+              Row(children: [
+                const Text("Set Audio Muted"),
+                Checkbox(
+                  value: audioMuted,
+                  onChanged: setAudioMuted,
+                ),
+              ]),
+              Row(children: [
+                const Text("Set Video Muted"),
+                Checkbox(
+                  value: videoMuted,
+                  onChanged: setVideoMuted,
+                ),
+              ]),
+              TextButton(
+                  onPressed: sendEndpointTextMessage,
+                  child: const Text("Send Hey Endpoint Message To All")
+              ),
+              Row(children: [
+                const Text("Toggle Screen Share"),
+                Checkbox(
+                  value: screenShareOn,
+                  onChanged: toggleScreenShare,
+                ),
+              ]),
+              TextButton(
+                  onPressed: openChat,
+                  child: const Text("Open Chat")
+              ),
+              TextButton(
+                  onPressed: sendChatMessage,
+                  child: const Text("Send Chat Message to All")
+              ),
+              TextButton(
+                  onPressed: closeChat,
+                  child: const Text("Close Chat")
+              ),
+
+              TextButton(
+                  onPressed: retrieveParticipantsInfo,
+                  child: const Text("Retrieve Participants Info")
+              ),
+            ]),
+      )),
     );
   }
 }

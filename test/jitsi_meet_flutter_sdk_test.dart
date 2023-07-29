@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_platform_interface.dart';
@@ -17,6 +19,60 @@ class MockJitsiMeetFlutterSdkPlatform
   @override
   Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
     // TODO: implement join
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> hangUp() {
+    // TODO: implement hangUp
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> setAudioMuted({required bool muted}) {
+    // TODO: implement setAudioMuted
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> setVideoMuted({required bool muted}) {
+    // TODO: implement setVideoMuted
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) {
+    // TODO: implement sendEndpointTextMessage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> toggleScreenShare({required bool enabled}) {
+    // TODO: implement toggleScreenShare
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> openChat({String? to}) {
+    // TODO: implement openChat
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> sendChatMessage({String? to, required String message}) {
+    // TODO: implement sendChatMessage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> closeChat() {
+    // TODO: implement closeChat
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> retrieveParticipantsInfo() {
+    // TODO: implement retrieveParticipantsInfo
     throw UnimplementedError();
   }
 }

@@ -29,6 +29,9 @@ public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHa
         case "join":
             join(call, result: result)
             return
+        case "hangUp":
+            hangUp(call, result: result)
+            return
         default:
           result(FlutterMethodNotImplemented)
         }
@@ -74,17 +77,16 @@ public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHa
             }
             builder.setFeatureFlag("call-integration.enabled", withBoolean: false);
         }
-        
-        jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
 
+        jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
         jitsiMeetViewController!.modalPresentationStyle = .overFullScreen
         flutterViewController.present(jitsiMeetViewController!, animated: true)
-        result(nil)
+        result("Successfully joined meeting")
     }
 
     private func hangUp(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         jitsiMeetViewController?.jitsiMeetView?.hangUp()
-        result(nil)
+        result("Successfully hangUp")
     }
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'jitsi_meet_flutter_sdk_method_channel.dart';
@@ -32,5 +34,44 @@ abstract class JitsiMeetFlutterSdkPlatform extends PlatformInterface {
 
   Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
     throw UnimplementedError('join() has not been implemented.');
+  }
+  Future<MethodResponse> hangUp() {
+    throw UnimplementedError('hangUp() has not been implemented.');
+  }
+  Future<MethodResponse> setAudioMuted({required bool muted}) {
+    throw UnimplementedError('setAudioMuted() has not been implemented.');
+  }
+  Future<MethodResponse> setVideoMuted({required bool muted}) {
+    throw UnimplementedError('setVideoMuted() has not been implemented.');
+  }
+
+  @override
+  Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) async {
+    throw UnimplementedError('sendEndpointTextMessage() has not been implemented.');
+  }
+
+  @override
+  Future<MethodResponse> toggleScreenShare({required bool enabled}) async {
+    throw UnimplementedError('sendEndpointTextMessage() has not been implemented.');
+  }
+
+  @override
+  Future<MethodResponse> openChat({String? to}) async {
+    throw UnimplementedError('openChat() has not been implemented.');
+  }
+
+  @override
+  Future<MethodResponse> sendChatMessage({String? to, required String message}) async {
+    throw UnimplementedError('sendChatMessage() has not been implemented.');
+  }
+
+  @override
+  Future<MethodResponse> closeChat() async {
+    throw UnimplementedError('openChat() has not been implemented.');
+  }
+
+  @override
+  Future<MethodResponse> retrieveParticipantsInfo() async {
+    throw UnimplementedError('retrieveParticipantsInfo() has not been implemented.');
   }
 }

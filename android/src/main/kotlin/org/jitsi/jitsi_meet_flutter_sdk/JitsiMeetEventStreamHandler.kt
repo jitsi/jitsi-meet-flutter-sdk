@@ -63,7 +63,7 @@ class JitsiMeetEventStreamHandler private constructor() : EventChannel.StreamHan
     }
 
     fun participantsInfoRetrieved(data: MutableMap<String, Any>?) {
-        eventSink?.success(mapOf("event" to "participantInfoRetrieved", "data" to data))
+        eventSink?.success(mapOf("event" to "participantsInfoRetrieved", "data" to data))
     }
 
     fun readyToClose() {

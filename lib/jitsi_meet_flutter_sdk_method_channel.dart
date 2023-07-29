@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:jitsi_meet_flutter_sdk/method_response.dart';
@@ -44,6 +46,143 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
     };
     return await methodChannel
         .invokeMethod<String>('join', parsedOptions)
+        .then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> hangUp() async {
+    return await methodChannel
+        .invokeMethod<String>('hangUp')
+        .then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> setAudioMuted({required bool muted}) async {
+    return await methodChannel
+        .invokeMethod<String>('setAudioMuted', {'muted': muted})
+        .then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> setVideoMuted({required bool muted}) async {
+    return await methodChannel
+        .invokeMethod<String>('setVideoMuted', {'muted': muted})
+        .then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) async {
+    return await methodChannel.invokeMethod<String>('sendEndpointTextMessage', {
+          'to': to,
+          'message': message
+        }).then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> toggleScreenShare({required bool enabled}) async {
+    return await methodChannel.invokeMethod<String>('toggleScreenShare', {
+      'enabled': enabled
+    }).then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> openChat({String? to}) async {
+    return await methodChannel.invokeMethod<String>('openChat', {
+      'to': to,
+    }).then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> sendChatMessage({String? to, required String message}) async {
+    return await methodChannel.invokeMethod<String>('sendChatMessage', {
+      'to': to,
+      'message': message
+    }).then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> closeChat() async {
+    return await methodChannel
+        .invokeMethod<String>('closeChat')
+        .then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<MethodResponse> retrieveParticipantsInfo() async {
+    return await methodChannel
+        .invokeMethod<String>('retrieveParticipantsInfo')
         .then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
@@ -116,7 +255,6 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
         case "participantsInfoRetrieved":
           _listener?.participantsInfoRetrieved?.call(
             data["participantsInfo"],
-            data["requestId"],
           );
           break;
 

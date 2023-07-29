@@ -21,7 +21,7 @@ class JitsiMeetEventListener {
 
   final Function(bool isOpen)? chatToggled;
 
-  final Function(Map<String, dynamic> participantsInfo, String requestId)? participantsInfoRetrieved;
+  final Function(String participantsInfo)? participantsInfoRetrieved;
 
   final Function()? readyToClose;
 
