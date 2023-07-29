@@ -140,7 +140,7 @@ class JitsiMeetFlutterSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware
     val message = call.argument<String>("message")
     val sendEndpointTextMessageBroadcastIntent: Intent = BroadcastIntentHelper.buildSendEndpointTextMessageIntent(to, message)
     LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(sendEndpointTextMessageBroadcastIntent)
-    result.success("Successfully send enpoint text message $to")
+    result.success("Successfully send endpoint text message $to")
   }
 
   private fun toggleScreenShare(call: MethodCall, result: Result) {

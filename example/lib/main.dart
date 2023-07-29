@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -36,7 +35,8 @@ class _MyAppState extends State<MyApp> {
         "subject" : "Lipitori"
       },
       featureFlags: {
-        "unsaferoomwarning.enabled": false
+        "unsaferoomwarning.enabled": false,
+        "ios.screensharing.enabled": true
       },
       userInfo: JitsiMeetUserInfo(
           displayName: "Gabi",
@@ -118,14 +118,16 @@ class _MyAppState extends State<MyApp> {
   }
   
   setAudioMuted(bool? muted) async{
-    await _jitsiMeetFlutterSdkPlugin.setAudioMuted(muted: muted!);
+    var a = await _jitsiMeetFlutterSdkPlugin.setAudioMuted(muted: muted!);
+    debugPrint("$a");
     setState(() {
       audioMuted = muted;
     });
   }
 
   setVideoMuted(bool? muted) async{
-    await _jitsiMeetFlutterSdkPlugin.setVideoMuted(muted: muted!);
+    var a = await _jitsiMeetFlutterSdkPlugin.setVideoMuted(muted: muted!);
+    debugPrint("$a");
     setState(() {
       videoMuted = muted;
     });
@@ -156,6 +158,11 @@ class _MyAppState extends State<MyApp> {
   sendChatMessage() async{
     var a = await _jitsiMeetFlutterSdkPlugin.sendChatMessage(to: null, message: "HEY1");
     debugPrint("$a");
+
+    for (var p in participants) {
+      a = await _jitsiMeetFlutterSdkPlugin.sendChatMessage(to: p, message: "HEY2");
+      debugPrint("$a");
+    }
   }
 
   closeChat() async{

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -253,8 +254,14 @@ class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
           break;
 
         case "participantsInfoRetrieved":
+          String participantsInfo = "";
+          if (Platform.isAndroid) {
+            participantsInfo = data["participantsInfo"];
+          } else if (Platform.isIOS) {
+            participantsInfo = data.toString();
+          }
           _listener?.participantsInfoRetrieved?.call(
-            data["participantsInfo"],
+            participantsInfo,
           );
           break;
 
