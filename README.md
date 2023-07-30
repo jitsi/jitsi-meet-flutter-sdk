@@ -79,7 +79,7 @@ android {
 ```
 
 
-The application:label field from the Jitsi Meet Android SDK will conflict with your application's one . Go to `android/app/src/main/AndroidManifest.xml` and add the tools library and `tools:replace="android:label"` to the application tag.
+The `application:label` field from the Jitsi Meet Android SDK will conflict with your application's one . Go to `android/app/src/main/AndroidManifest.xml` and add the tools library and `tools:replace="android:label"` to the application tag.
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
