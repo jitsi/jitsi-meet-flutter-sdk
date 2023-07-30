@@ -97,53 +97,53 @@ The `application:label` field from the Jitsi Meet Android SDK will conflict with
 
 The `JitsiMeet` class is the entry point for the sdk. It is used to launch the meeting screen and to send all the events.
 
-#### JitsiMeet()
-The constructor for the class.
+1. ####  JitsiMeet()
+    The constructor for the class.
 
 
-#### join(JitsiMeetConferenceOptions options, [JitsiMeetEventListener? listener])
-Joins a meeting with the given options and optionally a listener is given
+2. ####  join(JitsiMeetConferenceOptions options, [JitsiMeetEventListener? listener])
+    Joins a meeting with the given options and optionally a listener is given
 
-- `JitsiMeetConferenceOptions` options - meeting options
-- `JitsiMeetEventListener` listener - event listener for events triggered by the native sdks
+    - `options`: meeting options
+    - `listener:` event listener for events triggered by the native sdks
 
-#### hangUp()
+3. #### hangUp()
 
-The localParticipant leaves the current meeting.
+    The localParticipant leaves the current meeting.
 
-#### setAudioMuted({required bool muted})
+4. #### setAudioMuted({required bool muted})
 
-Sets the state of the localParticipant audio muted according to the `muted` parameter.
+    Sets the state of the localParticipant audio muted according to the `muted` parameter.
 
-#### setVideoMuted({required bool muted})
-Sets the state of the localParticipant video muted according to the `muted` parameter.
+5. #### setVideoMuted({required bool muted})
+    Sets the state of the localParticipant video muted according to the `muted` parameter.
 
-#### sendEndpointTextMessage({String? to, required String message})
-Sends a message via the data channel to one particular participant or to all of them. If the to param is empty, the message will be sent to all the participants in the conference.
+6. #### sendEndpointTextMessage({String? to, required String message})
+    Sends a message via the data channel to one particular participant or to all of them. If the to param is empty, the message will be sent to all the participants in the conference.
 
-In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.
+    In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.
 
-#### toggleScreenShare({required bool enabled})
+7. #### toggleScreenShare({required bool enabled})
 
-Sets the state of the localParticipant screen sharing according to the `enabled` parameter.
+    Sets the state of the localParticipant screen sharing according to the `enabled` parameter.
 
-#### openChat({String? to})
+8. #### openChat({String? to})
 
-Opens the chat dialog. If `to` contains a valid participantId, the private chat with that particular participant will be opened.
+    Opens the chat dialog. If `to` contains a valid participantId, the private chat with that particular participant will be opened.
 
-#### sendChatMessage({String? to, required String message})
+9. #### sendChatMessage({String? to, required String message})
 
-Sends a chat message via to one particular participant or to all of them. If the `to` param is empty, the message will be sent to all the participants in the conference.
+    Sends a chat message via to one particular participant or to all of them. If the `to` param is empty, the message will be sent to all the participants in the conference.
 
-In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.
+    In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.Í
 
-#### closeChat()
+10. #### closeChat()
 
-Closes the chat dialog.
+    ÅCloses the chat dialog.
 
-#### retrieveParticipantsInfo()
+11. #### retrieveParticipantsInfo()
 
-Sends and event that will trigger the `participantsInfoRetrieved` events which will contain participants information
+    Sends and event that will trigger the `participantsInfoRetrieved` events which will contain participants information
 
 
 ### JitsiMeetConferenceOptions
@@ -170,97 +170,96 @@ var options = JitsiMeetConferenceOptions(
     );
 ```
 
-All the values that can be added to the `configOverrides` can be found [here](hhttps://github.com/jitsi/jitsi-meet/blob/master/config.js).
+- All the values that can be added to the `configOverrides` can be found [here](hhttps://github.com/jitsi/jitsi-meet/blob/master/config.js).
 
-All the values that can be added to the `featureFlags` can be found [here](https://github.com/jitsi/jitsi-meet/blob/master/react/features/base/flags/constants.ts).
+- All the values that can be added to the `featureFlags` can be found [here](https://github.com/jitsi/jitsi-meet/blob/master/react/features/base/flags/constants.ts).
 
-#### JitsiMeetUserInfo({String displayName, String email, String avatar})
-The constructor for the JitsiMeetUserInfo. 
+- #### JitsiMeetUserInfo({String displayName, String email, String avatar})
+    The constructor for the JitsiMeetUserInfo. 
 P.S. the avatar should be an url.
 
 ### JitsiMeetEventListener
 
 This class intends to be used as a listener for events that come from the native sdks. It will receive as arguments the event handlers
 
-#### Function(String url) conferenceJoined
+1. #### conferenceJoined(String url)
 
-Called when a conference was joined.
-- url: the conference URL
+    Called when a conference was joined.
+    - url: the conference URL
 
-#### Function(String url, Object? error) conferenceTerminated
+2. #### conferenceTerminated(String url, Object? error)
 
-Called when the active conference ends, be it because of user choice or because of a failure.
+    Called when the active conference ends, be it because of user choice or because of a failure.
 
-- url: the conference URL
-- error: missing if the conference finished gracefully, otherwise contains the error message
+    - url: the conference URL
+    - error: missing if the conference finished gracefully, otherwise contains the error message
 
-#### Function(String url) conferenceWillJoin
+3. #### conferenceWillJoin(String url)
 
-Called before a conference is joined.
+    Called before a conference is joined.
 
-- url: the conference URL
+    - url: the conference URL
 
-#### Function(String? email, String? name, String? role, String? participantId) participantJoined
+4. #### participantJoined(String? email, String? name, String? role, String? participantId) 
 
-Called when a participant has joined the conference.
+    Called when a participant has joined the conference.
 
-- email: the email of the participant. It may not be set if the remote participant didn't set one.
-- name: the name of the participant.
-- role: the role of the participant.
-- participantId: the id of the participant.
+    - email: the email of the participant. It may not be set if the remote participant didn't set one.
+    - name: the name of the participant.
+    - role: the role of the participant.
+    - participantId: the id of the participant.
 
-#### Function(String? participantId) participantLeft
+5. #### participantLeft(String? participantId)
 
-Called when a participant has left the conference.
+    Called when a participant has left the conference.
 
-- participantId: the id of the participant that left.
+    - participantId: the id of the participant that left.
 
-#### Function(bool muted) audioMutedChanged
+6. #### audioMutedChanged(bool muted)
 
-Called when the local participant's audio is muted or unmuted. 
+    Called when the local participant's audio is muted or unmuted. 
 
-- muted: a boolean indicating whether the audio is muted or not.
+    - muted: a boolean indicating whether the audio is muted or not.
 
-#### Function(bool muted) videoMutedChanged
+7. #### videoMutedChanged(bool muted)
 
-Called when the local participant's video is muted or unmuted. 
+    Called when the local participant's video is muted or unmuted. 
 
-- muted: an integer indicating whether the video is muted or not. 0 means unmuted, 4 means muted.
+    - muted: a boolean indicating whether the video is muted or not.
 
-#### Function(String senderId, String message) endpointTextMessageReceived
+8. #### endpointTextMessageReceived(String senderId, String message)
 
-Called when an endpoint text message is received.
+    Called when an endpoint text message is received.
 
-- senderId: the participantId of the sender
-- message: the content.
+    - senderId: the participantId of the sender
+    - message: the content.
 
-#### Function(String participantId, bool sharing) screenShareToggled
+9. #### screenShareToggled(String participantId, bool sharing)
 
-Called when a chat message is received.
+    Called when a chat message is received.
 
-- participantId: the id of the participant
-- sharing: the state of screen share
+    - participantId: the id of the participant
+    - sharing: the state of screen share
 
-#### Function(String senderId, String message, bool isPrivate)chatMessageReceived;
+10. #### chatMessageReceived(String senderId, String message, bool isPrivate)
 
-Called when a chat text message is received.
+    Called when a chat text message is received.
 
-- senderId: the id of the participant that sent the message.
-- message: the content of the message.
-- isPrivate: true if the message is private, false otherwise.
-- timestamp: the (optional) timestamp of the message.
+    - senderId: the id of the participant that sent the message.
+    - message: the content of the message.
+    - isPrivate: true if the message is private, false otherwise.
+    - timestamp: the (optional) timestamp of the message.
 
-#### Function(bool isOpen)? chatToggled
+11. #### chatToggled(bool isOpen)
 
-Called when the chat dialog is opened or closed.
+    Called when the chat dialog is opened or closed.
 
-- isOpen: true if the chat dialog is open, false otherwise.
+    - isOpen: true if the chat dialog is open, false otherwise.
 
-#### Function() readyToClose
+12. #### readyToClose()
+    Called when the SDK is ready to be closed. No meeting is happening at this point.
 
-Called when the SDK is ready to be closed. No meeting is happening at this point.
-
-Example of listener:
+#### Example of listener:
 
 ```dart
 var listener = JitsiMeetEventListener(
