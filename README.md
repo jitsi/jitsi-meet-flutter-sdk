@@ -10,8 +10,8 @@ A flutter plugin that serves as a Jitsi Meet flutter SDK.
 Add this to the `pubspec.yaml` file in your project:
 
 ```yaml
-    dependencies:
-        jitsi_meet_flutter_sdk: '^0.0.1'
+dependencies:
+    jitsi_meet_flutter_sdk: '^0.0.1'
 ```
 
 ### Install 
@@ -27,7 +27,7 @@ $ pub get
 Import the following files into your dart code:
 
 ```dart
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
 ```
 
@@ -38,9 +38,9 @@ import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
 Firstly, create a `JitsiMeet` object, then call the method `join` from it with a `JitsiMeetConferenceOptions` object
 
 ```dart
-    var jitsiMeet = JitsiMeet();
-    var options = JitsiMeetConferenceOptions(room: 'jitsiIsAwesome');
-    jitsiMeet.join(options);
+var jitsiMeet = JitsiMeet();
+var options = JitsiMeetConferenceOptions(room: 'jitsiIsAwesome');
+jitsiMeet.join(options);
 ```
 
 ## Configuration
