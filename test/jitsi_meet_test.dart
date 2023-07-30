@@ -1,17 +1,15 @@
-import 'dart:ffi';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_platform_interface.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_method_channel.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_platform_interface.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_method_channel.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_event_listener.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
 import 'package:jitsi_meet_flutter_sdk/method_response.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class MockJitsiMeetFlutterSdkPlatform
+class MockJitsiMeetPlatform
     with MockPlatformInterfaceMixin
-    implements JitsiMeetFlutterSdkPlatform {
+    implements JitsiMeetPlatform {
 
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
@@ -78,17 +76,17 @@ class MockJitsiMeetFlutterSdkPlatform
 }
 
 void main() {
-  final JitsiMeetFlutterSdkPlatform initialPlatform = JitsiMeetFlutterSdkPlatform.instance;
+  final JitsiMeetPlatform initialPlatform = JitsiMeetPlatform.instance;
 
-  test('$MethodChannelJitsiMeetFlutterSdk is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelJitsiMeetFlutterSdk>());
+  test('$MethodChannelJitsiMeet is the default instance', () {
+    expect(initialPlatform, isInstanceOf<MethodChannelJitsiMeet>());
   });
 
   test('getPlatformVersion', () async {
-    JitsiMeetFlutterSdk jitsiMeetFlutterSdkPlugin = JitsiMeetFlutterSdk();
-    MockJitsiMeetFlutterSdkPlatform fakePlatform = MockJitsiMeetFlutterSdkPlatform();
-    JitsiMeetFlutterSdkPlatform.instance = fakePlatform;
+    JitsiMeet jitsiMeetPlugin = JitsiMeet();
+    MockJitsiMeetPlatform fakePlatform = MockJitsiMeetPlatform();
+    JitsiMeetPlatform.instance = fakePlatform;
 
-    expect(await jitsiMeetFlutterSdkPlugin.getPlatformVersion(), '42');
+    expect(await jitsiMeetPlugin.getPlatformVersion(), '42');
   });
 }

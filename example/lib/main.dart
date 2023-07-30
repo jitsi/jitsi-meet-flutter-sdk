@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_event_listener.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_user_info.dart';
@@ -24,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   bool videoMuted = true;
   bool screenShareOn = false;
   List<String> participants = [];
-  final _jitsiMeetFlutterSdkPlugin = JitsiMeetFlutterSdk();
+  final _jitsiMeetPlugin = JitsiMeet();
 
   join() async{
     var options = JitsiMeetConferenceOptions(
@@ -110,15 +108,15 @@ class _MyAppState extends State<MyApp> {
         debugPrint("readyToClose");
       },
     );
-    await _jitsiMeetFlutterSdkPlugin.join(options, listener);
+    await _jitsiMeetPlugin.join(options, listener);
   }
 
   hangUp() async {
-    await _jitsiMeetFlutterSdkPlugin.hangUp();
+    await _jitsiMeetPlugin.hangUp();
   }
   
   setAudioMuted(bool? muted) async{
-    var a = await _jitsiMeetFlutterSdkPlugin.setAudioMuted(muted: muted!);
+    var a = await _jitsiMeetPlugin.setAudioMuted(muted: muted!);
     debugPrint("$a");
     setState(() {
       audioMuted = muted;
@@ -126,7 +124,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   setVideoMuted(bool? muted) async{
-    var a = await _jitsiMeetFlutterSdkPlugin.setVideoMuted(muted: muted!);
+    var a = await _jitsiMeetPlugin.setVideoMuted(muted: muted!);
     debugPrint("$a");
     setState(() {
       videoMuted = muted;
@@ -134,17 +132,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   sendEndpointTextMessage() async{
-    var a = await _jitsiMeetFlutterSdkPlugin.sendEndpointTextMessage(message: "HEY");
+    var a = await _jitsiMeetPlugin.sendEndpointTextMessage(message: "HEY");
     debugPrint("$a");
 
     for (var p in participants) {
-      var b = await _jitsiMeetFlutterSdkPlugin.sendEndpointTextMessage(to: p, message: "HEY");
+      var b = await _jitsiMeetPlugin.sendEndpointTextMessage(to: p, message: "HEY");
       debugPrint("$b");
     }
   }
 
   toggleScreenShare(bool? enabled) async{
-    await _jitsiMeetFlutterSdkPlugin.toggleScreenShare(enabled: enabled!);
+    await _jitsiMeetPlugin.toggleScreenShare(enabled: enabled!);
 
     setState(() {
       screenShareOn = enabled;
@@ -152,25 +150,25 @@ class _MyAppState extends State<MyApp> {
   }
 
   openChat() async{
-    await _jitsiMeetFlutterSdkPlugin.openChat();
+    await _jitsiMeetPlugin.openChat();
   }
 
   sendChatMessage() async{
-    var a = await _jitsiMeetFlutterSdkPlugin.sendChatMessage(to: null, message: "HEY1");
+    var a = await _jitsiMeetPlugin.sendChatMessage(to: null, message: "HEY1");
     debugPrint("$a");
 
     for (var p in participants) {
-      a = await _jitsiMeetFlutterSdkPlugin.sendChatMessage(to: p, message: "HEY2");
+      a = await _jitsiMeetPlugin.sendChatMessage(to: p, message: "HEY2");
       debugPrint("$a");
     }
   }
 
   closeChat() async{
-    await _jitsiMeetFlutterSdkPlugin.closeChat();
+    await _jitsiMeetPlugin.closeChat();
   }
 
   retrieveParticipantsInfo() async{
-    var a = await _jitsiMeetFlutterSdkPlugin.retrieveParticipantsInfo();
+    var a = await _jitsiMeetPlugin.retrieveParticipantsInfo();
     debugPrint("$a");
   }
 

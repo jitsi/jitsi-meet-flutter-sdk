@@ -1,54 +1,54 @@
-import 'jitsi_meet_flutter_sdk_platform_interface.dart';
+import 'jitsi_meet_platform_interface.dart';
 
 import 'jitsi_meet_event_listener.dart';
 import 'jitsi_meet_conference_options.dart';
 import 'method_response.dart';
 
-class JitsiMeetFlutterSdk {
+class JitsiMeet {
   Future<String?> getPlatformVersion() {
-    return JitsiMeetFlutterSdkPlatform.instance.getPlatformVersion();
+    return JitsiMeetPlatform.instance.getPlatformVersion();
   }
 
   Future<MethodResponse> join(JitsiMeetConferenceOptions options, [JitsiMeetEventListener? listener]) async{
-    return await JitsiMeetFlutterSdkPlatform.instance.join(
+    return await JitsiMeetPlatform.instance.join(
         options,
         listener ?? JitsiMeetEventListener()
     );
   }
 
   Future<MethodResponse> hangUp() async{
-    return await JitsiMeetFlutterSdkPlatform.instance.hangUp();
+    return await JitsiMeetPlatform.instance.hangUp();
   }
 
   Future<MethodResponse> setAudioMuted({required bool muted}) async{
-    return await JitsiMeetFlutterSdkPlatform.instance.setAudioMuted(muted: muted);
+    return await JitsiMeetPlatform.instance.setAudioMuted(muted: muted);
   }
 
   Future<MethodResponse> setVideoMuted({required bool muted}) async{
-    return await JitsiMeetFlutterSdkPlatform.instance.setVideoMuted(muted: muted);
+    return await JitsiMeetPlatform.instance.setVideoMuted(muted: muted);
   }
 
   Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) async {
-    return await JitsiMeetFlutterSdkPlatform.instance.sendEndpointTextMessage(to: to, message:message);
+    return await JitsiMeetPlatform.instance.sendEndpointTextMessage(to: to, message:message);
   }
 
   Future<MethodResponse> toggleScreenShare({required bool enabled}) async {
-    return await JitsiMeetFlutterSdkPlatform.instance.toggleScreenShare(enabled: enabled);
+    return await JitsiMeetPlatform.instance.toggleScreenShare(enabled: enabled);
   }
 
   Future<MethodResponse> openChat({String? to}) async {
-    return await JitsiMeetFlutterSdkPlatform.instance.openChat(to: to);
+    return await JitsiMeetPlatform.instance.openChat(to: to);
   }
 
   Future<MethodResponse> sendChatMessage({String? to, required String message}) async {
-    return await JitsiMeetFlutterSdkPlatform.instance.sendChatMessage(to: to, message:message);
+    return await JitsiMeetPlatform.instance.sendChatMessage(to: to, message:message);
   }
 
   Future<MethodResponse> closeChat() async {
-    return await JitsiMeetFlutterSdkPlatform.instance.closeChat();
+    return await JitsiMeetPlatform.instance.closeChat();
   }
 
   Future<MethodResponse> retrieveParticipantsInfo() async {
-    return await JitsiMeetFlutterSdkPlatform.instance.retrieveParticipantsInfo();
+    return await JitsiMeetPlatform.instance.retrieveParticipantsInfo();
   }
 }

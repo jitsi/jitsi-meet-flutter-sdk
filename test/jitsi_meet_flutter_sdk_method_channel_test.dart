@@ -1,11 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk_method_channel.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_method_channel.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MethodChannelJitsiMeetFlutterSdk platform = MethodChannelJitsiMeetFlutterSdk();
+  MethodChannelJitsiMeet platform = MethodChannelJitsiMeet();
   const MethodChannel channel = MethodChannel('jitsi_meet_flutter_sdk');
 
   setUp(() {

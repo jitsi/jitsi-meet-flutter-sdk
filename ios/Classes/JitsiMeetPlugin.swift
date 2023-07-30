@@ -2,7 +2,7 @@ import Flutter
 import UIKit
 import JitsiMeetSDK
 
-public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
+public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     var flutterViewController: UIViewController
     var jitsiMeetViewController: JitsiMeetViewController?
     var eventSink: FlutterEventSink?
@@ -14,7 +14,7 @@ public class JitsiMeetFlutterSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHa
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "jitsi_meet_flutter_sdk", binaryMessenger: registrar.messenger())
         let flutterViewController: UIViewController = (UIApplication.shared.delegate?.window??.rootViewController)!
-        let instance = JitsiMeetFlutterSdkPlugin(flutterViewController: flutterViewController)
+        let instance = JitsiMeetPlugin(flutterViewController: flutterViewController)
         registrar.addMethodCallDelegate(instance, channel: channel)
 
         let eventChannel = FlutterEventChannel(name: "jitsi_meet_flutter_sdk_events", binaryMessenger: registrar.messenger())

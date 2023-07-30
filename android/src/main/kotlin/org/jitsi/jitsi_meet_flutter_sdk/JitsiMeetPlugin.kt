@@ -20,8 +20,8 @@ import org.jitsi.meet.sdk.BroadcastAction
 import org.jitsi.meet.sdk.*
 import java.net.URL
 
-/** JitsiMeetFlutterSdkPlugin */
-class JitsiMeetFlutterSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
+/** JitsiMeetPlugin */
+class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   private lateinit var methodChannel : MethodChannel
   private lateinit var eventChannel: EventChannel
   private val eventStreamHandler = JitsiMeetEventStreamHandler.instance

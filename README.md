@@ -35,10 +35,10 @@ import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
 
 #### Join meeting
 
-Firstly, create a `JitsiMeetFlutterSdk` object, then call the method `join` from it with a `JitsiMeetConferenceOptions` object
+Firstly, create a `JitsiMeet` object, then call the method `join` from it with a `JitsiMeetConferenceOptions` object
 
 ```dart
-    var jitsiMeet = JitsiMeetFlutterSdk();
+    var jitsiMeet = JitsiMeet();
     var options = JitsiMeetConferenceOptions(room: 'jitsiIsAwesome');
     jitsiMeet.join(options);
 ```

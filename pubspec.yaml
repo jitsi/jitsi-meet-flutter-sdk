@@ -1,7 +1,7 @@
 name: jitsi_meet_flutter_sdk
 description: Jitsi Meet Flutter SDK
 version: 0.0.1
-homepage:
+homepage: jitsi.org
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -36,9 +36,9 @@ flutter:
     platforms:
       android:
         package: org.jitsi.jitsi_meet_flutter_sdk
-        pluginClass: JitsiMeetFlutterSdkPlugin
+        pluginClass: JitsiMeetPlugin
       ios:
-        pluginClass: JitsiMeetFlutterSdkPlugin
+        pluginClass: JitsiMeetPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

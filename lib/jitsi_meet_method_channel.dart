@@ -1,16 +1,15 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:jitsi_meet_flutter_sdk/method_response.dart';
 
-import 'jitsi_meet_flutter_sdk_platform_interface.dart';
+import 'jitsi_meet_platform_interface.dart';
 import 'jitsi_meet_event_listener.dart';
 import 'jitsi_meet_conference_options.dart';
 
-/// An implementation of [JitsiMeetFlutterSdkPlatform] that uses method channels.
-class MethodChannelJitsiMeetFlutterSdk extends JitsiMeetFlutterSdkPlatform {
+/// An implementation of [JitsiMeetPlatform] that uses method channels.
+class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   final methodChannel = const MethodChannel('jitsi_meet_flutter_sdk');
