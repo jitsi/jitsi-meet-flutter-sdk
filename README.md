@@ -1,15 +1,65 @@
-# jitsi_meet_flutter_sdk
+# Jitsi Meet Flutter SDK
 
-Jitsi Meet Flutter SDK
+A flutter plugin that serves as a Jitsi Meet flutter SDK.
 
-## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Add dependency
+
+Add this to the `pubspec.yaml` file in your project:
+
+```yaml
+    dependencies:
+        jitsi_meet_flutter_sdk: '^0.0.1'
+```
+
+### Install 
+
+Install the packages from the terminal:
+
+```bash
+$ pub get
+```
+
+### Import files
+
+Import the following files into your dart code:
+
+```dart
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
+```
+
+### Usage
+
+#### Join meeting
+
+Firstly, create a `JitsiMeetFlutterSdk` object, then call the method join from it with a `JitsiMeetConferenceOptions` object
+
+```dart
+    var jitsiMeet = JitsiMeetFlutterSdk();
+    var options = JitsiMeetConferenceOptions(room: 'jitsiIsAwesome');
+    jitsiMeet.join(options);
+```
+
+## Configuration
+
+### 
+
+### iOS
+
+Make sure in `Podfile` from `ios` directory you set the ios version `12.4 or higher` 
+
+The plugin requests camera and microphone access, make sure to include the required entries for `NSCameraUsageDescription` and `NSMicrophoneUsageDescription` in your `Info.plist` file from the `ios/Runner` directory.
+
+```plist
+<key>NSCameraUsageDescription</key>
+<string>The app needs access to your camera for meetings.</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>The app needs access to your microphone for meetings.</string>
+```
+
+
+
 
