@@ -68,12 +68,12 @@ class _MyAppState extends State<MyApp> {
         debugPrint("participantLeft: participantId: $participantId");
       },
 
-      audioMutedChanged: (isMuted) {
-        debugPrint("audioMutedChanged: isMuted: $isMuted");
+      audioMutedChanged: (muted) {
+        debugPrint("audioMutedChanged: isMuted: $muted");
       },
 
-      videoMutedChanged: (isMuted) {
-        debugPrint("videoMutedChanged: isMuted: $isMuted");
+      videoMutedChanged: (muted) {
+        debugPrint("videoMutedChanged: isMuted: $muted");
       },
 
       endpointTextMessageReceived: (senderId, message) {
@@ -82,10 +82,10 @@ class _MyAppState extends State<MyApp> {
         );
       },
 
-      screenShareToggled: (participantId, isSharing) {
+      screenShareToggled: (participantId, sharing) {
         debugPrint(
           "screenShareToggled: participantId: $participantId, "
-              "isSharing: $isSharing",
+              "isSharing: $sharing",
         );
       },
 

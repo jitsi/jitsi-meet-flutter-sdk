@@ -112,7 +112,7 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     WrapperJitsiMeetActivity.launch(activity!!, options)
-    result.success("Successfully joined meeting")
+    result.success("Successfully joined meeting $room")
   }
 
   private fun hangUp(call: MethodCall, result: Result) {

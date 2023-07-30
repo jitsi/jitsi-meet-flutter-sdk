@@ -9,13 +9,13 @@ class JitsiMeetEventListener {
 
   final Function(String? participantId)? participantLeft;
 
-  final Function(bool isMuted)? audioMutedChanged;
+  final Function(bool muted)? audioMutedChanged;
 
-  final Function(bool isMuted)? videoMutedChanged;
+  final Function(bool muted)? videoMutedChanged;
 
   final Function(String senderId, String message)? endpointTextMessageReceived;
 
-  final Function(String participantId, bool isSharing)? screenShareToggled;
+  final Function(String participantId, bool sharing)? screenShareToggled;
 
   final Function(String senderId, String message, bool isPrivate)? chatMessageReceived;
 

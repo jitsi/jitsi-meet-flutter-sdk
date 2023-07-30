@@ -105,7 +105,7 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
         jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
         jitsiMeetViewController!.modalPresentationStyle = .overFullScreen
         flutterViewController.present(jitsiMeetViewController!, animated: true)
-        result("Successfully joined meeting")
+        result("Successfully joined meeting \(room)")
     }
 
     private func hangUp(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
