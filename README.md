@@ -51,6 +51,10 @@ Firstly, create a `JitsiMeetFlutterSdk` object, then call the method join from i
 
 Make sure in `Podfile` from `ios` directory you set the ios version `12.4 or higher` 
 
+```
+platform :ios, '12.4'
+```
+
 The plugin requests camera and microphone access, make sure to include the required entries for `NSCameraUsageDescription` and `NSMicrophoneUsageDescription` in your `Info.plist` file from the `ios/Runner` directory.
 
 ```plist
@@ -59,6 +63,37 @@ The plugin requests camera and microphone access, make sure to include the requi
 <key>NSMicrophoneUsageDescription</key>
 <string>The app needs access to your microphone for meetings.</string>
 ```
+
+### Android
+
+Go to `android/app/build.gradle` and make sure that the `minSdkVersion` is set to `at lest 24`
+
+```
+android {
+    ...
+    defaultConfig {
+        ...
+        minSdkVersion 24
+    }
+}
+```
+
+
+The application:label field from the Jitsi Meet Android SDK will conflict with your application's one . Go to `android/app/src/main/AndroidManifest.xml` and add the tools library and `tools:replace="android:label"` to the application tag.
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:tools="http://schemas.android.com/tools">
+    <application
+        tools:replace="android:label"
+        android:label="sample_app"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        ...
+    </application>
+</manifest>
+```
+
 
 
 
