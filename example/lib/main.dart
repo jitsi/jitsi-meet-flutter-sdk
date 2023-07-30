@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
   }
   
   setAudioMuted(bool? muted) async{
-    var a = await _jitsiMeetPlugin.setAudioMuted(muted: muted!);
+    var a = await _jitsiMeetPlugin.setAudioMuted(muted!);
     debugPrint("$a");
     setState(() {
       audioMuted = muted;
@@ -124,7 +124,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   setVideoMuted(bool? muted) async{
-    var a = await _jitsiMeetPlugin.setVideoMuted(muted: muted!);
+    var a = await _jitsiMeetPlugin.setVideoMuted(muted!);
     debugPrint("$a");
     setState(() {
       videoMuted = muted;
@@ -142,7 +142,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   toggleScreenShare(bool? enabled) async{
-    await _jitsiMeetPlugin.toggleScreenShare(enabled: enabled!);
+    await _jitsiMeetPlugin.toggleScreenShare(enabled!);
 
     setState(() {
       screenShareOn = enabled;
@@ -154,7 +154,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   sendChatMessage() async{
-    var a = await _jitsiMeetPlugin.sendChatMessage(to: null, message: "HEY1");
+    var a = await _jitsiMeetPlugin.sendChatMessage(message: "HEY1");
     debugPrint("$a");
 
     for (var p in participants) {

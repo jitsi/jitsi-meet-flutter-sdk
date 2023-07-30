@@ -27,13 +27,13 @@ class MockJitsiMeetPlatform
   }
 
   @override
-  Future<MethodResponse> setAudioMuted({required bool muted}) {
+  Future<MethodResponse> setAudioMuted(bool muted) {
     // TODO: implement setAudioMuted
     throw UnimplementedError();
   }
 
   @override
-  Future<MethodResponse> setVideoMuted({required bool muted}) {
+  Future<MethodResponse> setVideoMuted(bool muted) {
     // TODO: implement setVideoMuted
     throw UnimplementedError();
   }
@@ -45,13 +45,13 @@ class MockJitsiMeetPlatform
   }
 
   @override
-  Future<MethodResponse> toggleScreenShare({required bool enabled}) {
+  Future<MethodResponse> toggleScreenShare(bool enabled) {
     // TODO: implement toggleScreenShare
     throw UnimplementedError();
   }
 
   @override
-  Future<MethodResponse> openChat({String? to}) {
+  Future<MethodResponse> openChat([String? to]) {
     // TODO: implement openChat
     throw UnimplementedError();
   }

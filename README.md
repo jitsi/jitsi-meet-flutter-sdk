@@ -111,11 +111,11 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 
     The localParticipant leaves the current meeting.
 
-4. #### setAudioMuted({required bool muted})
+4. #### setAudioMuted(bool muted)
 
     Sets the state of the localParticipant audio muted according to the `muted` parameter.
 
-5. #### setVideoMuted({required bool muted})
+5. #### setVideoMuted(bool muted)
     Sets the state of the localParticipant video muted according to the `muted` parameter.
 
 6. #### sendEndpointTextMessage({String? to, required String message})
@@ -123,11 +123,11 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 
     In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.
 
-7. #### toggleScreenShare({required bool enabled})
+7. #### toggleScreenShare(bool enabled)
 
     Sets the state of the localParticipant screen sharing according to the `enabled` parameter.
 
-8. #### openChat({String? to})
+8. #### openChat([String? to])
 
     Opens the chat dialog. If `to` contains a valid participantId, the private chat with that particular participant will be opened.
 

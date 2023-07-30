@@ -20,24 +20,24 @@ class JitsiMeet {
     return await JitsiMeetPlatform.instance.hangUp();
   }
 
-  Future<MethodResponse> setAudioMuted({required bool muted}) async{
-    return await JitsiMeetPlatform.instance.setAudioMuted(muted: muted);
+  Future<MethodResponse> setAudioMuted(bool muted) async{
+    return await JitsiMeetPlatform.instance.setAudioMuted(muted);
   }
 
-  Future<MethodResponse> setVideoMuted({required bool muted}) async{
-    return await JitsiMeetPlatform.instance.setVideoMuted(muted: muted);
+  Future<MethodResponse> setVideoMuted(bool muted) async{
+    return await JitsiMeetPlatform.instance.setVideoMuted(muted);
   }
 
   Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) async {
     return await JitsiMeetPlatform.instance.sendEndpointTextMessage(to: to, message:message);
   }
 
-  Future<MethodResponse> toggleScreenShare({required bool enabled}) async {
-    return await JitsiMeetPlatform.instance.toggleScreenShare(enabled: enabled);
+  Future<MethodResponse> toggleScreenShare(bool enabled) async {
+    return await JitsiMeetPlatform.instance.toggleScreenShare(enabled);
   }
 
-  Future<MethodResponse> openChat({String? to}) async {
-    return await JitsiMeetPlatform.instance.openChat(to: to);
+  Future<MethodResponse> openChat([String? to]) async {
+    return await JitsiMeetPlatform.instance.openChat(to);
   }
 
   Future<MethodResponse> sendChatMessage({String? to, required String message}) async {

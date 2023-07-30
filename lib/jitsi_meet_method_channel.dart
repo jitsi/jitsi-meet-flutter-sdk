@@ -73,7 +73,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   }
 
   @override
-  Future<MethodResponse> setAudioMuted({required bool muted}) async {
+  Future<MethodResponse> setAudioMuted(bool muted) async {
     return await methodChannel
         .invokeMethod<String>('setAudioMuted', {'muted': muted})
         .then((message) {
@@ -88,7 +88,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   }
 
   @override
-  Future<MethodResponse> setVideoMuted({required bool muted}) async {
+  Future<MethodResponse> setVideoMuted(bool muted) async {
     return await methodChannel
         .invokeMethod<String>('setVideoMuted', {'muted': muted})
         .then((message) {
@@ -119,7 +119,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   }
 
   @override
-  Future<MethodResponse> toggleScreenShare({required bool enabled}) async {
+  Future<MethodResponse> toggleScreenShare(bool enabled) async {
     return await methodChannel.invokeMethod<String>('toggleScreenShare', {
       'enabled': enabled
     }).then((message) {
@@ -134,7 +134,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   }
 
   @override
-  Future<MethodResponse> openChat({String? to}) async {
+  Future<MethodResponse> openChat([String? to]) async {
     return await methodChannel.invokeMethod<String>('openChat', {
       'to': to,
     }).then((message) {

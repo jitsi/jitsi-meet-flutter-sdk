@@ -36,10 +36,10 @@ abstract class JitsiMeetPlatform extends PlatformInterface {
   Future<MethodResponse> hangUp() {
     throw UnimplementedError('hangUp() has not been implemented.');
   }
-  Future<MethodResponse> setAudioMuted({required bool muted}) {
+  Future<MethodResponse> setAudioMuted(bool muted) {
     throw UnimplementedError('setAudioMuted() has not been implemented.');
   }
-  Future<MethodResponse> setVideoMuted({required bool muted}) {
+  Future<MethodResponse> setVideoMuted(bool muted) {
     throw UnimplementedError('setVideoMuted() has not been implemented.');
   }
 
@@ -47,11 +47,11 @@ abstract class JitsiMeetPlatform extends PlatformInterface {
     throw UnimplementedError('sendEndpointTextMessage() has not been implemented.');
   }
 
-  Future<MethodResponse> toggleScreenShare({required bool enabled}) async {
+  Future<MethodResponse> toggleScreenShare(bool enabled) async {
     throw UnimplementedError('sendEndpointTextMessage() has not been implemented.');
   }
 
-  Future<MethodResponse> openChat({String? to}) async {
+  Future<MethodResponse> openChat([String? to]) async {
     throw UnimplementedError('openChat() has not been implemented.');
   }
 
