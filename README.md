@@ -55,7 +55,7 @@ platform :ios, '12.4'
 
 The plugin requests camera and microphone access, make sure to include the required entries for `NSCameraUsageDescription` and `NSMicrophoneUsageDescription` in your `Info.plist` file from the `ios/Runner` directory.
 
-```plist
+```
 <key>NSCameraUsageDescription</key>
 <string>The app needs access to your camera for meetings.</string>
 <key>NSMicrophoneUsageDescription</key>
