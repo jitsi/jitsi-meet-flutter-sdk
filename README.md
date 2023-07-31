@@ -19,7 +19,7 @@ dependencies:
 Install the packages from the terminal:
 
 ```bash
-$ pub get
+$ flutter pub get
 ```
 
 ### Import files
