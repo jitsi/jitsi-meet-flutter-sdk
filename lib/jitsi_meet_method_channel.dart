@@ -105,7 +105,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   @override
   Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) async {
     return await methodChannel.invokeMethod<String>('sendEndpointTextMessage', {
-          'to': to,
+          'to': to ?? '',
           'message': message
         }).then((message) {
       return MethodResponse(isSuccess: true, message: message);
@@ -136,7 +136,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   @override
   Future<MethodResponse> openChat([String? to]) async {
     return await methodChannel.invokeMethod<String>('openChat', {
-      'to': to,
+      'to': to ?? '',
     }).then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
@@ -151,7 +151,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   @override
   Future<MethodResponse> sendChatMessage({String? to, required String message}) async {
     return await methodChannel.invokeMethod<String>('sendChatMessage', {
-      'to': to,
+      'to': to ?? '',
       'message': message
     }).then((message) {
       return MethodResponse(isSuccess: true, message: message);

@@ -11,7 +11,7 @@ Add this to the `pubspec.yaml` file in your project:
 
 ```yaml
 dependencies:
-    jitsi_meet_flutter_sdk: '^0.0.1'
+    jitsi_meet_flutter_sdk: '^0.1.0'
 ```
 
 ### Install 
@@ -104,8 +104,8 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 2. ####  join(JitsiMeetConferenceOptions options, [JitsiMeetEventListener? listener])
     Joins a meeting with the given options and optionally a listener is given
 
-    - `options`: meeting options
-    - `listener:` event listener for events triggered by the native sdks
+    - `options` : meeting options
+    - `listener` : event listener for events triggered by the native sdks
 
 3. #### hangUp()
 
@@ -119,7 +119,7 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
     Sets the state of the localParticipant video muted according to the `muted` parameter.
 
 6. #### sendEndpointTextMessage({String? to, required String message})
-    Sends a message via the data channel to one particular participant or to all of them. If the to param is empty, the message will be sent to all the participants in the conference.
+    Sends a message via the data channel to one particular participant or to all of them. If the `to` param is empty, the message will be sent to all the participants in the conference.
 
     In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.
 
@@ -139,7 +139,7 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 
 10. #### closeChat()
 
-    ÅCloses the chat dialog.
+    Closes the chat dialog.
 
 11. #### retrieveParticipantsInfo()
 
@@ -154,6 +154,7 @@ Example:
 
 ```dart
 var options = JitsiMeetConferenceOptions(
+      serverURL: "https://meet.jit.si",
       room: "jitsiIsAwesomeWithFlutter",
       configOverrides: {
         "startWithAudioMuted": false,
@@ -185,14 +186,14 @@ This class intends to be used as a listener for events that come from the native
 1. #### conferenceJoined(String url)
 
     Called when a conference was joined.
-    - url: the conference URL
+    - `url` : the conference URL
 
 2. #### conferenceTerminated(String url, Object? error)
 
     Called when the active conference ends, be it because of user choice or because of a failure.
 
-    - url: the conference URL
-    - error: missing if the conference finished gracefully, otherwise contains the error message
+    - `url` : the conference URL
+    - `error` : missing if the conference finished gracefully, otherwise contains the error message
 
 3. #### conferenceWillJoin(String url)
 
@@ -204,57 +205,57 @@ This class intends to be used as a listener for events that come from the native
 
     Called when a participant has joined the conference.
 
-    - email: the email of the participant. It may not be set if the remote participant didn't set one.
-    - name: the name of the participant.
-    - role: the role of the participant.
-    - participantId: the id of the participant.
+    - `email` : the email of the participant. It may not be set if the remote participant didn't set one.
+    - `name` : the name of the participant.
+    - `role` : the role of the participant.
+    - `participantId` : the id of the participant.
 
 5. #### participantLeft(String? participantId)
 
     Called when a participant has left the conference.
 
-    - participantId: the id of the participant that left.
+    - `participantId` : the id of the participant that left.
 
 6. #### audioMutedChanged(bool muted)
 
     Called when the local participant's audio is muted or unmuted. 
 
-    - muted: a boolean indicating whether the audio is muted or not.
+    - `muted` : a boolean indicating whether the audio is muted or not.
 
 7. #### videoMutedChanged(bool muted)
 
     Called when the local participant's video is muted or unmuted. 
 
-    - muted: a boolean indicating whether the video is muted or not.
+    - `muted` : a boolean indicating whether the video is muted or not.
 
 8. #### endpointTextMessageReceived(String senderId, String message)
 
     Called when an endpoint text message is received.
 
-    - senderId: the participantId of the sender
-    - message: the content.
+    - `senderId` : the participantId of the sender
+    - `message` : the content.
 
 9. #### screenShareToggled(String participantId, bool sharing)
 
     Called when a chat message is received.
 
-    - participantId: the id of the participant
-    - sharing: the state of screen share
+    - `participantId` : the id of the participant
+    - `sharing` : the state of screen share
 
 10. #### chatMessageReceived(String senderId, String message, bool isPrivate)
 
     Called when a chat text message is received.
 
-    - senderId: the id of the participant that sent the message.
-    - message: the content of the message.
-    - isPrivate: true if the message is private, false otherwise.
-    - timestamp: the (optional) timestamp of the message.
+    - `senderId` : the id of the participant that sent the message.
+    - `message` : the content of the message.
+    - `isPrivate` : true if the message is private, false otherwise.
+    - `timestamp` : the (optional) timestamp of the message.
 
 11. #### chatToggled(bool isOpen)
 
     Called when the chat dialog is opened or closed.
 
-    - isOpen: true if the chat dialog is open, false otherwise.
+    - `isOpen` : true if the chat dialog is open, false otherwise.
 
 12. #### readyToClose()
     Called when the SDK is ready to be closed. No meeting is happening at this point.
@@ -288,7 +289,9 @@ var listener = JitsiMeetEventListener(
     );
 ```
 
+## References
 
+While building this project inspiration from https://github.com/saibotma/jitsi_meet_wrapper was taken.
 
 
 
