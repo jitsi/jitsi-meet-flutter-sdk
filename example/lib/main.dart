@@ -1,10 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_event_listener.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_user_info.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 
 void main() {
   runApp(const MyApp());

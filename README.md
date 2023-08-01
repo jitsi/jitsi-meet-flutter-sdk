@@ -11,7 +11,7 @@ Add this to the `pubspec.yaml` file in your project:
 
 ```yaml
 dependencies:
-    jitsi_meet_flutter_sdk: '^0.1.0'
+    jitsi_meet_flutter_sdk: '^0.1.2'
 ```
 
 ### Install 
@@ -27,8 +27,7 @@ $ flutter pub get
 Import the following files into your dart code:
 
 ```dart
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_conference_options.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 ```
 
 ### Usage

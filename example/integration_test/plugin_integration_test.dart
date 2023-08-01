@@ -10,7 +10,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

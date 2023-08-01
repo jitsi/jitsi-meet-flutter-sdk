@@ -52,3 +52,6 @@ class JitsiMeet {
     return await JitsiMeetPlatform.instance.retrieveParticipantsInfo();
   }
 }
+
+
+
