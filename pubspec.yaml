@@ -1,7 +1,8 @@
 name: jitsi_meet_flutter_sdk
-description: Jitsi Meet Flutter SDK
+description: A flutter plugin that serves as a Jitsi Meet flutter SDK
 version: 0.1.0
-homepage: https://jitsi.org
+homepage: https://jitsi.org/
+repository: https://github.com/jitsi/jitsi-meet-flutter-sdk
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
