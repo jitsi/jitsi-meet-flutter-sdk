@@ -1,7 +1,7 @@
 name: jitsi_meet_flutter_sdk
 description: Jitsi Meet Flutter SDK
 version: 0.1.0
-homepage: jitsi.org
+homepage: https://jitsi.org
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
