@@ -7,4 +7,6 @@ on:
 
 jobs:
   publish:
+    permissions:
+      id-token: write # This is required for requesting the JWT
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
