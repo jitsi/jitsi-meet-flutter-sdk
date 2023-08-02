@@ -2,6 +2,11 @@
 
 The Jitsi Meet Flutter SDK provides the same user experience as the Jitsi Meet app, in the form of a Flutter plugin so that you can embed and customize Jitsi Meet in your own Flutter app.
 
+## Sample application using the Flutter
+
+If you want to see how easy integrating the Jitsi Meet Flutter SDK into a Flutter application is, take a look at the<br/>
+[sample applications repository](https://github.com/jitsi/jitsi-meet-sdk-samples/flutter).
+
 ## Installation
 
 ### Add dependency
