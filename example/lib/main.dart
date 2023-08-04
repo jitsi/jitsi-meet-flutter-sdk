@@ -86,10 +86,10 @@ class _MyAppState extends State<MyApp> {
         );
       },
 
-      chatMessageReceived: (senderId, message, isPrivate) {
+      chatMessageReceived: (senderId, message, isPrivate, timestamp) {
         debugPrint(
           "chatMessageReceived: senderId: $senderId, message: $message, "
-              "isPrivate: $isPrivate",
+              "isPrivate: $isPrivate, timestamp: $timestamp",
         );
       },
 

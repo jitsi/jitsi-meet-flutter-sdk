@@ -25,6 +25,8 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     return version;
   }
 
+  /// Joins a meeting with the given meeting [options] and 
+  /// optionally a [listener] is given for listening to events triggered by the native sdks.
   @override
   Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) async {
     _listener = listener;
@@ -57,6 +59,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+   /// The localParticipant leaves the current meeting.
   @override
   Future<MethodResponse> hangUp() async {
     return await methodChannel
@@ -72,6 +75,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+  /// Sets the state of the localParticipant audio [muted] according to the muted parameter.
   @override
   Future<MethodResponse> setAudioMuted(bool muted) async {
     return await methodChannel
@@ -87,6 +91,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+  /// Sets the state of the localParticipant video [muted] according to the muted parameter.
   @override
   Future<MethodResponse> setVideoMuted(bool muted) async {
     return await methodChannel
@@ -102,6 +107,11 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+   /// Sends a message via the data channel [to] one particular participant or to all of them. 
+  /// If the [to] param is empty, the [message] will be sent to all the participants in the conference.
+  /// 
+  /// In order to get the participantId for the [to] parameter, the [JitsiMeetEventListener.participantsJoined] 
+  /// event should be listened for, which have as a parameter the participantId and this should be stored somehow.
   @override
   Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) async {
     return await methodChannel.invokeMethod<String>('sendEndpointTextMessage', {
@@ -118,6 +128,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+  /// Sets the state of the localParticipant screen sharing according to the [enabled] parameter.
   @override
   Future<MethodResponse> toggleScreenShare(bool enabled) async {
     return await methodChannel.invokeMethod<String>('toggleScreenShare', {
@@ -133,6 +144,8 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+  /// Opens the chat dialog. If [to] contains a valid participantId, the private chat with that 
+  /// particular participant will be opened.
   @override
   Future<MethodResponse> openChat([String? to]) async {
     return await methodChannel.invokeMethod<String>('openChat', {
@@ -148,6 +161,11 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+  /// Sends a chat message via [to] one particular participant or to all of them. 
+  /// If the [to] param is empty, the [message] will be sent to all the participants in the conference.
+  /// 
+  /// In order to get the participantId for the [to] parameter, the [JitsiMeetEventListener.participantsJoined] 
+  /// event should be listened for, which have as a parameter the participantId and this should be stored somehow.
   @override
   Future<MethodResponse> sendChatMessage({String? to, required String message}) async {
     return await methodChannel.invokeMethod<String>('sendChatMessage', {
@@ -164,6 +182,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+  /// Closes the chat dialog.
   @override
   Future<MethodResponse> closeChat() async {
     return await methodChannel
@@ -179,6 +198,8 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
+  /// Sends and event that will trigger the [JitsiMeetEventListener.participantsInfoRetrieved] event
+  /// which will contain participants information.
   @override
   Future<MethodResponse> retrieveParticipantsInfo() async {
     return await methodChannel
@@ -245,6 +266,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
             data["senderId"],
             data["message"],
             parseBool(data["isPrivate"]),
+            data["timestamp"],
           );
           break;
 
