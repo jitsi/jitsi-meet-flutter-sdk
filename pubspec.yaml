@@ -1,6 +1,6 @@
 name: jitsi_meet_flutter_sdk
 description: The Jitsi Meet Flutter SDK provides the same user experience as the Jitsi Meet app, in form of a Flutter plugin so that you can embed and customize Jitsi Meet in your own Flutter app. Android and iOS are supported. The plugin serves as a wrapper for the iOS and Android SDKs, on top of which a Flutter API was created with functionality similar to those found in native APIs.
-version: 0.1.3
+version: 0.1.4
 homepage: https://jitsi.org/
 repository: https://github.com/jitsi/jitsi-meet-flutter-sdk
 
