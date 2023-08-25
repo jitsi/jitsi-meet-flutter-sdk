@@ -99,7 +99,6 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
             if (userInfo != nil) {
                 builder.userInfo = userInfo
             }
-            builder.setFeatureFlag("call-integration.enabled", withBoolean: false);
         }
 
         jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
