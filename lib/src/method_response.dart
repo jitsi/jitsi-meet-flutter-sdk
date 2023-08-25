@@ -1,4 +1,4 @@
-class MethodResponse{
+class MethodResponse {
   final bool isSuccess;
   final String? message;
   final dynamic error;

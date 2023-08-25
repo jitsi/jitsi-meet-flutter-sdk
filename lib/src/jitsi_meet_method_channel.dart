@@ -21,14 +21,16 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
-  /// Joins a meeting with the given meeting [options] and 
+  /// Joins a meeting with the given meeting [options] and
   /// optionally a [listener] is given for listening to events triggered by the native sdks.
   @override
-  Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) async {
+  Future<MethodResponse> join(JitsiMeetConferenceOptions options,
+      JitsiMeetEventListener? listener) async {
     _listener = listener;
     if (!_eventChannelIsInitialized) {
       _initialize();
@@ -59,12 +61,10 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
-   /// The localParticipant leaves the current meeting.
+  /// The localParticipant leaves the current meeting.
   @override
   Future<MethodResponse> hangUp() async {
-    return await methodChannel
-        .invokeMethod<String>('hangUp')
-        .then((message) {
+    return await methodChannel.invokeMethod<String>('hangUp').then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return MethodResponse(
@@ -78,9 +78,8 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   /// Sets the state of the localParticipant audio [muted] according to the muted parameter.
   @override
   Future<MethodResponse> setAudioMuted(bool muted) async {
-    return await methodChannel
-        .invokeMethod<String>('setAudioMuted', {'muted': muted})
-        .then((message) {
+    return await methodChannel.invokeMethod<String>(
+        'setAudioMuted', {'muted': muted}).then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return MethodResponse(
@@ -94,9 +93,8 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   /// Sets the state of the localParticipant video [muted] according to the muted parameter.
   @override
   Future<MethodResponse> setVideoMuted(bool muted) async {
-    return await methodChannel
-        .invokeMethod<String>('setVideoMuted', {'muted': muted})
-        .then((message) {
+    return await methodChannel.invokeMethod<String>(
+        'setVideoMuted', {'muted': muted}).then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return MethodResponse(
@@ -107,17 +105,16 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
-   /// Sends a message via the data channel [to] one particular participant or to all of them. 
+  /// Sends a message via the data channel [to] one particular participant or to all of them.
   /// If the [to] param is empty, the [message] will be sent to all the participants in the conference.
-  /// 
-  /// In order to get the participantId for the [to] parameter, the [JitsiMeetEventListener.participantsJoined] 
+  ///
+  /// In order to get the participantId for the [to] parameter, the [JitsiMeetEventListener.participantsJoined]
   /// event should be listened for, which have as a parameter the participantId and this should be stored somehow.
   @override
-  Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) async {
-    return await methodChannel.invokeMethod<String>('sendEndpointTextMessage', {
-          'to': to ?? '',
-          'message': message
-        }).then((message) {
+  Future<MethodResponse> sendEndpointTextMessage(
+      {String? to, required String message}) async {
+    return await methodChannel.invokeMethod<String>('sendEndpointTextMessage',
+        {'to': to ?? '', 'message': message}).then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return MethodResponse(
@@ -131,9 +128,8 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   /// Sets the state of the localParticipant screen sharing according to the [enabled] parameter.
   @override
   Future<MethodResponse> toggleScreenShare(bool enabled) async {
-    return await methodChannel.invokeMethod<String>('toggleScreenShare', {
-      'enabled': enabled
-    }).then((message) {
+    return await methodChannel.invokeMethod<String>(
+        'toggleScreenShare', {'enabled': enabled}).then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return MethodResponse(
@@ -144,7 +140,7 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
-  /// Opens the chat dialog. If [to] contains a valid participantId, the private chat with that 
+  /// Opens the chat dialog. If [to] contains a valid participantId, the private chat with that
   /// particular participant will be opened.
   @override
   Future<MethodResponse> openChat([String? to]) async {
@@ -161,17 +157,16 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
     });
   }
 
-  /// Sends a chat message via [to] one particular participant or to all of them. 
+  /// Sends a chat message via [to] one particular participant or to all of them.
   /// If the [to] param is empty, the [message] will be sent to all the participants in the conference.
-  /// 
-  /// In order to get the participantId for the [to] parameter, the [JitsiMeetEventListener.participantsJoined] 
+  ///
+  /// In order to get the participantId for the [to] parameter, the [JitsiMeetEventListener.participantsJoined]
   /// event should be listened for, which have as a parameter the participantId and this should be stored somehow.
   @override
-  Future<MethodResponse> sendChatMessage({String? to, required String message}) async {
-    return await methodChannel.invokeMethod<String>('sendChatMessage', {
-      'to': to ?? '',
-      'message': message
-    }).then((message) {
+  Future<MethodResponse> sendChatMessage(
+      {String? to, required String message}) async {
+    return await methodChannel.invokeMethod<String>('sendChatMessage',
+        {'to': to ?? '', 'message': message}).then((message) {
       return MethodResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return MethodResponse(
@@ -253,7 +248,8 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
           break;
 
         case "endpointTextMessageReceived":
-          _listener?.endpointTextMessageReceived?.call(data["senderId"], data["message"]);
+          _listener?.endpointTextMessageReceived
+              ?.call(data["senderId"], data["message"]);
           break;
 
         case "screenShareToggled":

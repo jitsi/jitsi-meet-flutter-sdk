@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
@@ -21,13 +20,13 @@ class _MyAppState extends State<MyApp> {
   List<String> participants = [];
   final _jitsiMeetPlugin = JitsiMeet();
 
-  join() async{
+  join() async {
     var options = JitsiMeetConferenceOptions(
       room: "testgabigabi",
       configOverrides: {
         "startWithAudioMuted": false,
         "startWithVideoMuted": false,
-        "subject" : "Lipitori"
+        "subject": "Lipitori"
       },
       featureFlags: {
         "unsaferoomwarning.enabled": false,
@@ -36,71 +35,57 @@ class _MyAppState extends State<MyApp> {
       userInfo: JitsiMeetUserInfo(
           displayName: "Gabi",
           email: "gabi.borlea.1@gmail.com",
-          avatar: "https://avatars.githubusercontent.com/u/57035818?s=400&u=02572f10fe61bca6fc20426548f3920d53f79693&v=4"
-      ),
+          avatar:
+              "https://avatars.githubusercontent.com/u/57035818?s=400&u=02572f10fe61bca6fc20426548f3920d53f79693&v=4"),
     );
 
     var listener = JitsiMeetEventListener(
       conferenceJoined: (url) {
         debugPrint("conferenceJoined: url: $url");
       },
-
       conferenceTerminated: (url, error) {
         debugPrint("conferenceTerminated: url: $url, error: $error");
       },
-
       conferenceWillJoin: (url) {
         debugPrint("conferenceWillJoin: url: $url");
       },
-
       participantJoined: (email, name, role, participantId) {
         debugPrint(
           "participantJoined: email: $email, name: $name, role: $role, "
-              "participantId: $participantId",
+          "participantId: $participantId",
         );
         participants.add(participantId!);
       },
-
       participantLeft: (participantId) {
         debugPrint("participantLeft: participantId: $participantId");
       },
-
       audioMutedChanged: (muted) {
         debugPrint("audioMutedChanged: isMuted: $muted");
       },
-
       videoMutedChanged: (muted) {
         debugPrint("videoMutedChanged: isMuted: $muted");
       },
-
       endpointTextMessageReceived: (senderId, message) {
         debugPrint(
-            "endpointTextMessageReceived: senderId: $senderId, message: $message"
-        );
+            "endpointTextMessageReceived: senderId: $senderId, message: $message");
       },
-
       screenShareToggled: (participantId, sharing) {
         debugPrint(
           "screenShareToggled: participantId: $participantId, "
-              "isSharing: $sharing",
+          "isSharing: $sharing",
         );
       },
-
       chatMessageReceived: (senderId, message, isPrivate, timestamp) {
         debugPrint(
           "chatMessageReceived: senderId: $senderId, message: $message, "
-              "isPrivate: $isPrivate, timestamp: $timestamp",
+          "isPrivate: $isPrivate, timestamp: $timestamp",
         );
       },
-
       chatToggled: (isOpen) => debugPrint("chatToggled: isOpen: $isOpen"),
-
       participantsInfoRetrieved: (participantsInfo) {
         debugPrint(
-          "participantsInfoRetrieved: participantsInfo: $participantsInfo, "
-        );
+            "participantsInfoRetrieved: participantsInfo: $participantsInfo, ");
       },
-
       readyToClose: () {
         debugPrint("readyToClose");
       },
@@ -111,8 +96,8 @@ class _MyAppState extends State<MyApp> {
   hangUp() async {
     await _jitsiMeetPlugin.hangUp();
   }
-  
-  setAudioMuted(bool? muted) async{
+
+  setAudioMuted(bool? muted) async {
     var a = await _jitsiMeetPlugin.setAudioMuted(muted!);
     debugPrint("$a");
     setState(() {
@@ -120,7 +105,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  setVideoMuted(bool? muted) async{
+  setVideoMuted(bool? muted) async {
     var a = await _jitsiMeetPlugin.setVideoMuted(muted!);
     debugPrint("$a");
     setState(() {
@@ -128,17 +113,18 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  sendEndpointTextMessage() async{
+  sendEndpointTextMessage() async {
     var a = await _jitsiMeetPlugin.sendEndpointTextMessage(message: "HEY");
     debugPrint("$a");
 
     for (var p in participants) {
-      var b = await _jitsiMeetPlugin.sendEndpointTextMessage(to: p, message: "HEY");
+      var b =
+          await _jitsiMeetPlugin.sendEndpointTextMessage(to: p, message: "HEY");
       debugPrint("$b");
     }
   }
 
-  toggleScreenShare(bool? enabled) async{
+  toggleScreenShare(bool? enabled) async {
     await _jitsiMeetPlugin.toggleScreenShare(enabled!);
 
     setState(() {
@@ -146,11 +132,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  openChat() async{
+  openChat() async {
     await _jitsiMeetPlugin.openChat();
   }
 
-  sendChatMessage() async{
+  sendChatMessage() async {
     var a = await _jitsiMeetPlugin.sendChatMessage(message: "HEY1");
     debugPrint("$a");
 
@@ -160,11 +146,11 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  closeChat() async{
+  closeChat() async {
     await _jitsiMeetPlugin.closeChat();
   }
 
-  retrieveParticipantsInfo() async{
+  retrieveParticipantsInfo() async {
     var a = await _jitsiMeetPlugin.retrieveParticipantsInfo();
     debugPrint("$a");
   }
@@ -173,65 +159,54 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-
-              TextButton(
-                onPressed: join,
-                child: const Text("Join"),
-              ),
-              TextButton(
-                onPressed: hangUp,
-                child: const Text("Hang Up")
-              ),
-              Row(children: [
-                const Text("Set Audio Muted"),
-                Checkbox(
-                  value: audioMuted,
-                  onChanged: setAudioMuted,
-                ),
-              ]),
-              Row(children: [
-                const Text("Set Video Muted"),
-                Checkbox(
-                  value: videoMuted,
-                  onChanged: setVideoMuted,
-                ),
-              ]),
-              TextButton(
-                  onPressed: sendEndpointTextMessage,
-                  child: const Text("Send Hey Endpoint Message To All")
-              ),
-              Row(children: [
-                const Text("Toggle Screen Share"),
-                Checkbox(
-                  value: screenShareOn,
-                  onChanged: toggleScreenShare,
-                ),
-              ]),
-              TextButton(
-                  onPressed: openChat,
-                  child: const Text("Open Chat")
-              ),
-              TextButton(
-                  onPressed: sendChatMessage,
-                  child: const Text("Send Chat Message to All")
-              ),
-              TextButton(
-                  onPressed: closeChat,
-                  child: const Text("Close Chat")
-              ),
-
-              TextButton(
-                  onPressed: retrieveParticipantsInfo,
-                  child: const Text("Retrieve Participants Info")
-              ),
-            ]),
-      )),
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+          ),
+          body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: join,
+                    child: const Text("Join"),
+                  ),
+                  TextButton(onPressed: hangUp, child: const Text("Hang Up")),
+                  Row(children: [
+                    const Text("Set Audio Muted"),
+                    Checkbox(
+                      value: audioMuted,
+                      onChanged: setAudioMuted,
+                    ),
+                  ]),
+                  Row(children: [
+                    const Text("Set Video Muted"),
+                    Checkbox(
+                      value: videoMuted,
+                      onChanged: setVideoMuted,
+                    ),
+                  ]),
+                  TextButton(
+                      onPressed: sendEndpointTextMessage,
+                      child: const Text("Send Hey Endpoint Message To All")),
+                  Row(children: [
+                    const Text("Toggle Screen Share"),
+                    Checkbox(
+                      value: screenShareOn,
+                      onChanged: toggleScreenShare,
+                    ),
+                  ]),
+                  TextButton(
+                      onPressed: openChat, child: const Text("Open Chat")),
+                  TextButton(
+                      onPressed: sendChatMessage,
+                      child: const Text("Send Chat Message to All")),
+                  TextButton(
+                      onPressed: closeChat, child: const Text("Close Chat")),
+                  TextButton(
+                      onPressed: retrieveParticipantsInfo,
+                      child: const Text("Retrieve Participants Info")),
+                ]),
+          )),
     );
   }
 }

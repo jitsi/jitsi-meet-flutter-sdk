@@ -10,12 +10,12 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockJitsiMeetPlatform
     with MockPlatformInterfaceMixin
     implements JitsiMeetPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<MethodResponse> join(JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
+  Future<MethodResponse> join(
+      JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
     // TODO: implement join
     throw UnimplementedError();
   }
@@ -39,7 +39,8 @@ class MockJitsiMeetPlatform
   }
 
   @override
-  Future<MethodResponse> sendEndpointTextMessage({String? to, required String message}) {
+  Future<MethodResponse> sendEndpointTextMessage(
+      {String? to, required String message}) {
     // TODO: implement sendEndpointTextMessage
     throw UnimplementedError();
   }
@@ -57,7 +58,8 @@ class MockJitsiMeetPlatform
   }
 
   @override
-  Future<MethodResponse> sendChatMessage({String? to, required String message}) {
+  Future<MethodResponse> sendChatMessage(
+      {String? to, required String message}) {
     // TODO: implement sendChatMessage
     throw UnimplementedError();
   }
