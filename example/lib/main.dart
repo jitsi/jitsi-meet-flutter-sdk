@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
 
   join() async {
     var options = JitsiMeetConferenceOptions(
-      room: "UselessPeppersSentenceTypically",
+      room: "testgabigabi",
       configOverrides: {
         "startWithAudioMuted": true,
         "startWithVideoMuted": true,
@@ -83,7 +83,6 @@ class _MyAppState extends State<MyApp> {
     var listener = JitsiMeetEventListener(
       conferenceJoined: (url) {
         debugPrint("conferenceJoined: url: $url");
-        retrieveParticipantsInfo();
       },
       conferenceTerminated: (url, error) {
         debugPrint("conferenceTerminated: url: $url, error: $error");
