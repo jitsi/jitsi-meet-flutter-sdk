@@ -82,54 +82,54 @@ class _MyAppState extends State<MyApp> {
 
     var listener = JitsiMeetEventListener(
       conferenceJoined: (url) {
-        print("conferenceJoined: url: $url");
+        debugPrint("conferenceJoined: url: $url");
         retrieveParticipantsInfo();
       },
       conferenceTerminated: (url, error) {
-        print("conferenceTerminated: url: $url, error: $error");
+        debugPrint("conferenceTerminated: url: $url, error: $error");
       },
       conferenceWillJoin: (url) {
-        print("conferenceWillJoin: url: $url");
+        debugPrint("conferenceWillJoin: url: $url");
       },
       participantJoined: (email, name, role, participantId) {
-        print(
+        debugPrint(
           "participantJoined: email: $email, name: $name, role: $role, "
           "participantId: $participantId",
         );
         participants.add(participantId!);
       },
       participantLeft: (participantId) {
-        print("participantLeft: participantId: $participantId");
+        debugPrint("participantLeft: participantId: $participantId");
       },
       audioMutedChanged: (muted) {
-        print("audioMutedChanged: isMuted: $muted");
+        debugPrint("audioMutedChanged: isMuted: $muted");
       },
       videoMutedChanged: (muted) {
-        print("videoMutedChanged: isMuted: $muted");
+        debugPrint("videoMutedChanged: isMuted: $muted");
       },
       endpointTextMessageReceived: (senderId, message) {
-        print(
+        debugPrint(
             "endpointTextMessageReceived: senderId: $senderId, message: $message");
       },
       screenShareToggled: (participantId, sharing) {
-        print(
+        debugPrint(
           "screenShareToggled: participantId: $participantId, "
           "isSharing: $sharing",
         );
       },
       chatMessageReceived: (senderId, message, isPrivate, timestamp) {
-        print(
+        debugPrint(
           "chatMessageReceived: senderId: $senderId, message: $message, "
           "isPrivate: $isPrivate, timestamp: $timestamp",
         );
       },
-      chatToggled: (isOpen) => print("chatToggled: isOpen: $isOpen"),
+      chatToggled: (isOpen) => debugPrint("chatToggled: isOpen: $isOpen"),
       participantsInfoRetrieved: (participantsInfo) {
-        print(
+        debugPrint(
             "participantsInfoRetrieved: participantsInfo: $participantsInfo, ");
       },
       readyToClose: () {
-        print("readyToClose");
+        debugPrint("readyToClose");
       },
     );
     await _jitsiMeetPlugin.join(options, listener);
@@ -141,7 +141,7 @@ class _MyAppState extends State<MyApp> {
 
   setAudioMuted(bool? muted) async {
     var a = await _jitsiMeetPlugin.setAudioMuted(muted!);
-    print("$a");
+    debugPrint("$a");
     setState(() {
       audioMuted = muted;
     });
@@ -149,7 +149,7 @@ class _MyAppState extends State<MyApp> {
 
   setVideoMuted(bool? muted) async {
     var a = await _jitsiMeetPlugin.setVideoMuted(muted!);
-    print("$a");
+    debugPrint("$a");
     setState(() {
       videoMuted = muted;
     });
@@ -157,12 +157,12 @@ class _MyAppState extends State<MyApp> {
 
   sendEndpointTextMessage() async {
     var a = await _jitsiMeetPlugin.sendEndpointTextMessage(message: "HEY");
-    print("$a");
+    debugPrint("$a");
 
     for (var p in participants) {
       var b =
           await _jitsiMeetPlugin.sendEndpointTextMessage(to: p, message: "HEY");
-      print("$b");
+      debugPrint("$b");
     }
   }
 
@@ -180,11 +180,11 @@ class _MyAppState extends State<MyApp> {
 
   sendChatMessage() async {
     var a = await _jitsiMeetPlugin.sendChatMessage(message: "HEY1");
-    print("$a");
+    debugPrint("$a");
 
     for (var p in participants) {
       a = await _jitsiMeetPlugin.sendChatMessage(to: p, message: "HEY2");
-      print("$a");
+      debugPrint("$a");
     }
   }
 
@@ -194,7 +194,7 @@ class _MyAppState extends State<MyApp> {
 
   retrieveParticipantsInfo() async {
     var a = await _jitsiMeetPlugin.retrieveParticipantsInfo();
-    print("$a");
+    debugPrint("$a");
   }
 
   @override
