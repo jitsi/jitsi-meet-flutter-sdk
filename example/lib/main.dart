@@ -22,15 +22,56 @@ class _MyAppState extends State<MyApp> {
 
   join() async {
     var options = JitsiMeetConferenceOptions(
-      room: "testgabigabi",
+      room: "UselessPeppersSentenceTypically",
       configOverrides: {
-        "startWithAudioMuted": false,
-        "startWithVideoMuted": false,
-        "subject": "Lipitori"
+        "startWithAudioMuted": true,
+        "startWithVideoMuted": true,
       },
       featureFlags: {
-        "unsaferoomwarning.enabled": false,
-        "ios.screensharing.enabled": true
+        FeaturesFlag.addPeopleEnabled: true,
+        FeaturesFlag.welcomePageEnabled: true,
+        FeaturesFlag.preJoinPageEnabled: true,
+        FeaturesFlag.unsafeRoomWarningEnabled: true,
+        FeaturesFlag.resolution: FeaturesFlagVideoResolution.resolution720p,
+        FeaturesFlag.audioFocusDisabled: true,
+        FeaturesFlag.audioMuteButtonEnabled: true,
+        FeaturesFlag.audioOnlyButtonEnabled: true,
+        FeaturesFlag.calenderEnabled: true,
+        FeaturesFlag.callIntegrationEnabled: true,
+        FeaturesFlag.carModeEnabled: true,
+        FeaturesFlag.closeCaptionsEnabled: true,
+        FeaturesFlag.conferenceTimerEnabled: true,
+        FeaturesFlag.chatEnabled: true,
+        FeaturesFlag.filmstripEnabled: true,
+        FeaturesFlag.fullScreenEnabled: true,
+        FeaturesFlag.helpButtonEnabled: true,
+        FeaturesFlag.inviteEnabled: true,
+        FeaturesFlag.androidScreenSharingEnabled: true,
+        FeaturesFlag.speakerStatsEnabled: true,
+        FeaturesFlag.kickOutEnabled: true,
+        FeaturesFlag.liveStreamingEnabled: true,
+        FeaturesFlag.lobbyModeEnabled: true,
+        FeaturesFlag.meetingNameEnabled: true,
+        FeaturesFlag.meetingPasswordEnabled: true,
+        FeaturesFlag.notificationEnabled: true,
+        FeaturesFlag.overflowMenuEnabled: true,
+        FeaturesFlag.pipEnabled: true,
+        FeaturesFlag.pipWhileScreenSharingEnabled: true,
+        FeaturesFlag.preJoinPageHideDisplayName: true,
+        FeaturesFlag.raiseHandEnabled: true,
+        FeaturesFlag.reactionsEnabled: true,
+        FeaturesFlag.recordingEnabled: true,
+        FeaturesFlag.replaceParticipant: true,
+        FeaturesFlag.securityOptionEnabled: true,
+        FeaturesFlag.serverUrlChangeEnabled: true,
+        FeaturesFlag.settingsEnabled: true,
+        FeaturesFlag.tileViewEnabled: true,
+        FeaturesFlag.videoMuteEnabled: true,
+        FeaturesFlag.videoShareEnabled: true,
+        FeaturesFlag.toolboxEnabled: true,
+        FeaturesFlag.iosRecordingEnabled: true,
+        FeaturesFlag.iosScreenSharingEnabled: true,
+        FeaturesFlag.toolboxAlwaysVisible: true,
       },
       userInfo: JitsiMeetUserInfo(
           displayName: "Gabi",
@@ -41,53 +82,54 @@ class _MyAppState extends State<MyApp> {
 
     var listener = JitsiMeetEventListener(
       conferenceJoined: (url) {
-        debugPrint("conferenceJoined: url: $url");
+        print("conferenceJoined: url: $url");
+        retrieveParticipantsInfo();
       },
       conferenceTerminated: (url, error) {
-        debugPrint("conferenceTerminated: url: $url, error: $error");
+        print("conferenceTerminated: url: $url, error: $error");
       },
       conferenceWillJoin: (url) {
-        debugPrint("conferenceWillJoin: url: $url");
+        print("conferenceWillJoin: url: $url");
       },
       participantJoined: (email, name, role, participantId) {
-        debugPrint(
+        print(
           "participantJoined: email: $email, name: $name, role: $role, "
           "participantId: $participantId",
         );
         participants.add(participantId!);
       },
       participantLeft: (participantId) {
-        debugPrint("participantLeft: participantId: $participantId");
+        print("participantLeft: participantId: $participantId");
       },
       audioMutedChanged: (muted) {
-        debugPrint("audioMutedChanged: isMuted: $muted");
+        print("audioMutedChanged: isMuted: $muted");
       },
       videoMutedChanged: (muted) {
-        debugPrint("videoMutedChanged: isMuted: $muted");
+        print("videoMutedChanged: isMuted: $muted");
       },
       endpointTextMessageReceived: (senderId, message) {
-        debugPrint(
+        print(
             "endpointTextMessageReceived: senderId: $senderId, message: $message");
       },
       screenShareToggled: (participantId, sharing) {
-        debugPrint(
+        print(
           "screenShareToggled: participantId: $participantId, "
           "isSharing: $sharing",
         );
       },
       chatMessageReceived: (senderId, message, isPrivate, timestamp) {
-        debugPrint(
+        print(
           "chatMessageReceived: senderId: $senderId, message: $message, "
           "isPrivate: $isPrivate, timestamp: $timestamp",
         );
       },
-      chatToggled: (isOpen) => debugPrint("chatToggled: isOpen: $isOpen"),
+      chatToggled: (isOpen) => print("chatToggled: isOpen: $isOpen"),
       participantsInfoRetrieved: (participantsInfo) {
-        debugPrint(
+        print(
             "participantsInfoRetrieved: participantsInfo: $participantsInfo, ");
       },
       readyToClose: () {
-        debugPrint("readyToClose");
+        print("readyToClose");
       },
     );
     await _jitsiMeetPlugin.join(options, listener);
@@ -99,7 +141,7 @@ class _MyAppState extends State<MyApp> {
 
   setAudioMuted(bool? muted) async {
     var a = await _jitsiMeetPlugin.setAudioMuted(muted!);
-    debugPrint("$a");
+    print("$a");
     setState(() {
       audioMuted = muted;
     });
@@ -107,7 +149,7 @@ class _MyAppState extends State<MyApp> {
 
   setVideoMuted(bool? muted) async {
     var a = await _jitsiMeetPlugin.setVideoMuted(muted!);
-    debugPrint("$a");
+    print("$a");
     setState(() {
       videoMuted = muted;
     });
@@ -115,12 +157,12 @@ class _MyAppState extends State<MyApp> {
 
   sendEndpointTextMessage() async {
     var a = await _jitsiMeetPlugin.sendEndpointTextMessage(message: "HEY");
-    debugPrint("$a");
+    print("$a");
 
     for (var p in participants) {
       var b =
           await _jitsiMeetPlugin.sendEndpointTextMessage(to: p, message: "HEY");
-      debugPrint("$b");
+      print("$b");
     }
   }
 
@@ -138,11 +180,11 @@ class _MyAppState extends State<MyApp> {
 
   sendChatMessage() async {
     var a = await _jitsiMeetPlugin.sendChatMessage(message: "HEY1");
-    debugPrint("$a");
+    print("$a");
 
     for (var p in participants) {
       a = await _jitsiMeetPlugin.sendChatMessage(to: p, message: "HEY2");
-      debugPrint("$a");
+      print("$a");
     }
   }
 
@@ -152,7 +194,7 @@ class _MyAppState extends State<MyApp> {
 
   retrieveParticipantsInfo() async {
     var a = await _jitsiMeetPlugin.retrieveParticipantsInfo();
-    debugPrint("$a");
+    print("$a");
   }
 
   @override
