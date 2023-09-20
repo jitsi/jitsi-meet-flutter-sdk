@@ -1,3 +1,7 @@
+## 0.1.7
+
+* Update native sdks to 8.4.0 [a305704](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/a3057044b0b2652859064192f439309e0578b438).
+
 ## 0.1.6
 
 * Update native sdks to 8.3.1 [ef178bf](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/ef178bf258e5d24ad143b1eadc34f546eabceb1b).
