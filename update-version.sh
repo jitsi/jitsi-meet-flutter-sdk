@@ -12,7 +12,7 @@ git checkout main
 git pull origin main --rebase
 
 latest_relase=$(git describe --tags --abbrev=0)
-git log $latest_relase..HEAD --no-merges --oneline --pretty=format:'* %s [%h](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/%H)' >> temp
+git log $latest_relase..HEAD --no-merges --oneline --pretty=format:'* %s [%h](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/%H).' >> temp
 
 echo -e "\n" >> temp;
 

@@ -1,3 +1,9 @@
+## 0.1.8 
+
+* feat: add update version script [6617dff](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6617dff4599842c0e8d56c20a875d19299761296).
+* feat: add update sdks version script [6bce62a](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6bce62acb9888050c6b32ab18c3135fe7ed64bea).
+* chore(deps): update native sdks to 8.5.0 [d1450c6](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/d1450c6df63b17feb25cea57d8dc2d9493b402ea).
+
 ## 0.1.7
 
 * Update native sdks to 8.4.0 [a305704](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/a3057044b0b2652859064192f439309e0578b438).
