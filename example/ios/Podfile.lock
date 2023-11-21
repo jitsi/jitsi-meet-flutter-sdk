@@ -6,8 +6,8 @@ PODS:
     - Flutter
   - jitsi_meet_flutter_sdk (0.0.1):
     - Flutter
-    - JitsiMeetSDK (= 8.5.0)
-  - JitsiMeetSDK (8.5.0):
+    - JitsiMeetSDK (= 8.6.0)
+  - JitsiMeetSDK (8.6.0):
     - Giphy (= 2.1.20)
     - JitsiWebRTC (~> 111.0)
   - JitsiWebRTC (111.0.2)
@@ -48,8 +48,8 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   Giphy: b6d5087521d251bb8c99cdc0eb07bbdf86d142d5
   integration_test: 13825b8a9334a850581300559b8839134b124670
-  jitsi_meet_flutter_sdk: 6d21349052f5b12c7d2270e9b519a9410a23f680
-  JitsiMeetSDK: e219e130f3633c22600980f43bf5323441c39bf3
+  jitsi_meet_flutter_sdk: 67b7e09f4647a3c6f0197e7af0962dd3e4cb36c1
+  JitsiMeetSDK: 183d8131a8948f9b2887ff52f36e27a7ee29783b
   JitsiWebRTC: 80f62908fcf2a1160e0d14b584323fb6e6be630b
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
 
