@@ -1,3 +1,7 @@
+## 0.1.9 
+
+* chore(deps): update native sdks to 8.6.0 [c46ab1e](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/c46ab1e44c369b1441aa736ef8bbd0bf81f2275e).
+
 ## 0.1.8 
 
 * feat: add update version script [6617dff](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6617dff4599842c0e8d56c20a875d19299761296).
