@@ -72,6 +72,8 @@ The plugin requests camera and microphone access, make sure to include the requi
 <string>The app needs access to your microphone for meetings.</string>
 ```
 
+To use the screen sharing feature requires `Broadcast Upload Extension`. Please check the following to integrate it: [https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-ios-sdk/#screen-sharing-integration](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-ios-sdk/#screen-sharing-integration).
+
 ### Android
 
 Go to `android/app/build.gradle` and make sure that the `minSdkVersion` is set to `at lest 24`
