@@ -6,8 +6,8 @@ PODS:
     - Flutter
   - jitsi_meet_flutter_sdk (0.0.1):
     - Flutter
-    - JitsiMeetSDK (= 8.6.0)
-  - JitsiMeetSDK (8.6.0):
+    - JitsiMeetSDK (= 9.0.0)
+  - JitsiMeetSDK (9.0.0):
     - Giphy (= 2.1.20)
     - JitsiWebRTC (~> 111.0)
   - JitsiWebRTC (111.0.2)
@@ -45,14 +45,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/jitsi_meet_flutter_sdk/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   Giphy: b6d5087521d251bb8c99cdc0eb07bbdf86d142d5
   integration_test: 13825b8a9334a850581300559b8839134b124670
-  jitsi_meet_flutter_sdk: 67b7e09f4647a3c6f0197e7af0962dd3e4cb36c1
-  JitsiMeetSDK: 183d8131a8948f9b2887ff52f36e27a7ee29783b
+  jitsi_meet_flutter_sdk: d9bb2c30996a23cddb2967c496e83754c122c1cf
+  JitsiMeetSDK: 505977b8274edaeaeca513b0fe29f6fc3740542a
   JitsiWebRTC: 80f62908fcf2a1160e0d14b584323fb6e6be630b
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
 
 PODFILE CHECKSUM: 8e101fac9760a9fc2bf6ef04178c5d9c7f894567
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.3
