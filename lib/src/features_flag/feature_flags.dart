@@ -1,5 +1,5 @@
-class FeaturesFlags{
-  FeaturesFlags._();
+class FeatureFlags{
+  FeatureFlags._();
 
   /// FeaturesFlag [welcomePageEnabled] : Flag indicating if the welcome page should be enabled.
   /// Default: disabled (false).

@@ -1,5 +1,5 @@
-class FeaturesFlagVideoResolution{
-  FeaturesFlagVideoResolution._();
+class FeatureFlagVideoResolutions{
+  FeatureFlagVideoResolutions._();
 
   /// VARs [resolution180p] : Video resolution at 180p
   static const resolution180p = 180;
