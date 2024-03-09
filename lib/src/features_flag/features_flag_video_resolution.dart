@@ -4,7 +4,7 @@ class FeaturesFlagVideoResolution{
   /// VARs [resolution180p] : Video resolution at 180p
   static const resolution180p = 180;
 
-  /// VARs[resolution360p] : Video resolution at 360p
+  /// VARs [resolution360p] : Video resolution at 360p
   static const resolution360p = 360;
 
   /// VARs [resolution480p] : Video resolution at 480p

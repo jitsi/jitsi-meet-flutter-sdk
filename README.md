@@ -1,14 +1,14 @@
 # Jitsi Meet Flutter SDK
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-darkblue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![pub package](https://img.shields.io/badge/pub-v0.1.6-blue)](https://pub.dev/packages/jitsi_meet_flutter_sdk)
+[![pub package](https://img.shields.io/badge/pub-v0.2.0-blue)](https://pub.dev/packages/jitsi_meet_flutter_sdk)
 
 The Jitsi Meet Flutter SDK provides the same user experience as the Jitsi Meet app, in the form of a Flutter plugin so that you can embed and customize Jitsi Meet in your own Flutter app.
 
 ## Sample application using the Flutter
 
 If you want to see how easy integrating the Jitsi Meet Flutter SDK into a Flutter application is, take a look at the<br/>
-[sample applications repository](https://github.com/jitsi/jitsi-meet-sdk-samples/flutter).
+[sample applications repository](https://github.com/jitsi/jitsi-meet-sdk-samples/tree/master/flutter).
 
 ## Installation
 
@@ -22,7 +22,7 @@ $ flutter pub add jitsi_meet_flutter_sdk
 The command above will add this to the `pubspec.yaml` file in your project (you can do this manually):
 ```yaml
 dependencies:
-    jitsi_meet_flutter_sdk: ^0.1.6
+    jitsi_meet_flutter_sdk: ^0.2.0
 ```
 
 ### Install 
@@ -71,6 +71,8 @@ The plugin requests camera and microphone access, make sure to include the requi
 <key>NSMicrophoneUsageDescription</key>
 <string>The app needs access to your microphone for meetings.</string>
 ```
+
+To use the screen sharing feature requires `Broadcast Upload Extension`. Please check the following to integrate it: [https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-ios-sdk/#screen-sharing-integration](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-ios-sdk/#screen-sharing-integration).
 
 ### Android
 

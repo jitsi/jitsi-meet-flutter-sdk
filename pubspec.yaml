@@ -1,6 +1,6 @@
 name: jitsi_meet_flutter_sdk
 description: A flutter plugin that serves as a Jitsi Meet flutter SDK which provides the same user experience as the Jitsi Meet app.
-version: 0.1.6
+version: 0.2.0
 homepage: https://jitsi.org/
 repository: https://github.com/jitsi/jitsi-meet-flutter-sdk
 
