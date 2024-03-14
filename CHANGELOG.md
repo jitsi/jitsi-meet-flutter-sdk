@@ -1,3 +1,8 @@
+## 0.2.2 
+
+* update native sdks to 9.0.2 [6ecd313](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6ecd3132854280c95e855853e6b80d2bc90fb8c4).
+* Enhancement: Added Features Flags & Video Resolution (#13) [d1f08b3](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/d1f08b320c137c9e6fa14a58cfd795732c4882be).
+
 ## 0.2.0 
 
 * chore(deps): update native sdks to 9.0.0 [98d05bf](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/98d05bf5183f70b5df8625a0e0ce620664344cd7).
