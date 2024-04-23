@@ -1,3 +1,7 @@
+## 0.4.2 
+
+* chore(deps): update native sdks to 9.2.2 [c3b5fa3](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/c3b5fa3e12e7a471df2a1c7cfa963489659c3191).
+
 ## 0.4.1 
 
 * chore(deps): update native sdks to 9.2.1 [5c6b7f9](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/5c6b7f9cfa18b21be67e2c26bb1715e37b1ba60e).
