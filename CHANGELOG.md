@@ -1,3 +1,32 @@
+## 0.4.2 
+
+* v0.4.2 [44025dc](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/44025dce27d9bc5d358b9bce7f6cea604c6fedd8).
+* chore(deps): update native sdks to 9.2.2 [c3b5fa3](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/c3b5fa3e12e7a471df2a1c7cfa963489659c3191).
+
+## 0.4.2 
+
+* chore(deps): update native sdks to 9.2.2 [c3b5fa3](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/c3b5fa3e12e7a471df2a1c7cfa963489659c3191).
+
+## 0.4.1 
+
+* chore(deps): update native sdks to 9.2.1 [5c6b7f9](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/5c6b7f9cfa18b21be67e2c26bb1715e37b1ba60e).
+
+## 0.3.0 
+
+* chore(deps): update native sdks to 9.1.0 [c8d476f](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/c8d476f52db9b84af1e9d7c418c069948c54bea8).
+
+## 0.2.2 
+
+* update native sdks to 9.0.2 [6ecd313](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6ecd3132854280c95e855853e6b80d2bc90fb8c4).
+* Enhancement: Added Features Flags & Video Resolution (#13) [d1f08b3](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/d1f08b320c137c9e6fa14a58cfd795732c4882be).
+
+## 0.2.0 
+
+* chore(deps): update native sdks to 9.0.0 [98d05bf](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/98d05bf5183f70b5df8625a0e0ce620664344cd7).
+* Make it work on lockscreens as well (#10) [d369faa](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/d369faae3462a028c1e2958b9976b48d2d503649).
+* Update README.md [ada1230](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/ada123031bfc9ca4916b67c30926840249de2616).
+* fix: sample app link [bdf7051](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/bdf705101e4afb96420c375deee8bc9169e4693a).
+
 ## 0.1.9 
 
 * chore(deps): update native sdks to 8.6.0 [c46ab1e](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/c46ab1e44c369b1441aa736ef8bbd0bf81f2275e).
