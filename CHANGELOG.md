@@ -1,3 +1,7 @@
+## 0.5.0 
+
+
+
 ## 0.4.2 
 
 * v0.4.2 [44025dc](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/44025dce27d9bc5d358b9bce7f6cea604c6fedd8).
