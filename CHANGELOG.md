@@ -1,3 +1,7 @@
+## 10.0.1 
+
+* README file update [17e0694](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/17e06949bbfc861508bdb834a617f22427a88a61).
+
 ## 0.4.2 
 
 * v0.4.2 [44025dc](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/44025dce27d9bc5d358b9bce7f6cea604c6fedd8).
