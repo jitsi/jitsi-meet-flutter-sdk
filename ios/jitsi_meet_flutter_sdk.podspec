@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'jitsi_meet_flutter_sdk'
-  s.version          = '0.2.2'
+  s.version          = '0.5.0'
   s.summary          = 'Jitsi Meet Flutter SDK'
   s.description      = <<-DESC
 Jitsi Meet Flutter SDK
@@ -15,7 +15,7 @@ Jitsi Meet Flutter SDK
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'JitsiMeetSDK', '9.2.2'
+  s.dependency 'JitsiMeetSDK', '10.0.0'
   s.platform = :ios, '13.4'
 
   # Flutter.framework does not contain a i386 slice.
