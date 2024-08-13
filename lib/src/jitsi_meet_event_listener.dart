@@ -75,18 +75,25 @@ class JitsiMeetEventListener {
   /// Called when the SDK is ready to be closed. No meeting is happening at this point.
   final Function()? readyToClose;
 
-  JitsiMeetEventListener(
-      {this.conferenceJoined,
-      this.conferenceTerminated,
-      this.conferenceWillJoin,
-      this.participantJoined,
-      this.participantLeft,
-      this.audioMutedChanged,
-      this.videoMutedChanged,
-      this.endpointTextMessageReceived,
-      this.screenShareToggled,
-      this.participantsInfoRetrieved,
-      this.chatMessageReceived,
-      this.chatToggled,
-      this.readyToClose});
+  /// Called when a custom overflow menu button is pressed.
+  ///
+  /// [buttonId] : the id of the button that was pressed.
+  final Function(String buttonId)? customOverflowMenuButtonPressed;
+
+  JitsiMeetEventListener({
+    this.conferenceJoined,
+    this.conferenceTerminated,
+    this.conferenceWillJoin,
+    this.participantJoined,
+    this.participantLeft,
+    this.audioMutedChanged,
+    this.videoMutedChanged,
+    this.endpointTextMessageReceived,
+    this.screenShareToggled,
+    this.participantsInfoRetrieved,
+    this.chatMessageReceived,
+    this.chatToggled,
+    this.readyToClose,
+    this.customOverflowMenuButtonPressed,
+  });
 }

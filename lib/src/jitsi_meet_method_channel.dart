@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:jitsi_meet_flutter_sdk/src/method_response.dart';
 
-import 'jitsi_meet_platform_interface.dart';
-import 'jitsi_meet_event_listener.dart';
 import 'jitsi_meet_conference_options.dart';
+import 'jitsi_meet_event_listener.dart';
+import 'jitsi_meet_platform_interface.dart';
 
 /// An implementation of [JitsiMeetPlatform] that uses method channels.
 class MethodChannelJitsiMeet extends JitsiMeetPlatform {
@@ -284,6 +284,10 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
 
         case "readyToClose":
           _listener?.readyToClose?.call();
+          break;
+
+        case "customOverflowMenuButtonPressed":
+          _listener?.customOverflowMenuButtonPressed?.call(data["id"]);
           break;
       }
     }).onError((error) {
