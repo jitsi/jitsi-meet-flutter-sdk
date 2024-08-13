@@ -113,6 +113,10 @@ extension JitsiMeetViewController: JitsiMeetViewDelegate {
         self.eventSink(["event": "participantsInfoRetrieved", "data": data])
     }
 
+    func customOverflowMenuButtonPressed(_ data: [AnyHashable : Any]) {
+        self.eventSink(["event": "customOverflowMenuButtonPressed", "data": data])
+    }
+
     func ready(toClose data: [AnyHashable : Any]) {
         self.eventSink(["event": "readyToClose"])
         DispatchQueue.main.async {

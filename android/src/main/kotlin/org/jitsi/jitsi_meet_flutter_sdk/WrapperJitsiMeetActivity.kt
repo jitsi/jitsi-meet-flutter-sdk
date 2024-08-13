@@ -98,6 +98,8 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
                 )
 
                 BroadcastEvent.Type.READY_TO_CLOSE -> eventStreamHandler.readyToClose()
+
+                BroadcastEvent.Type.CUSTOM_OVERFLOW_MENU_BUTTON_PRESSED -> eventStreamHandler.customOverflowMenuButtonPressed(data)
                 else -> {}
             }
         }

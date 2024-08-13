@@ -3,6 +3,7 @@ package org.jitsi.jitsi_meet_flutter_sdk
 import android.app.Activity
 import androidx.annotation.NonNull
 import android.content.Intent
+import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -97,6 +98,21 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
           is Boolean -> setConfigOverride(key, value)
           is Int -> setConfigOverride(key, value)
           is Array<*> -> setConfigOverride(key, value as Array<out String>)
+          is List<*> -> {
+            if (value.isNotEmpty() && value[0] is Map<*, *>) {
+              val bundles = ArrayList<Bundle>()
+              for (map in value) {
+                val bundle = Bundle()
+                (map as Map<*, *>).forEach { (k, v) ->
+                  bundle.putString(k.toString(), v.toString())
+                }
+                bundles.add(bundle)
+              }
+              setConfigOverride(key, bundles)
+            } else {
+              setConfigOverride(key, value.toString())
+            }
+          }
           else -> setConfigOverride(key, value.toString())
         }
       }

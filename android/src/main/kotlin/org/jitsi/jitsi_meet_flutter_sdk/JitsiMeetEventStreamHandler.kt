@@ -70,9 +70,11 @@ class JitsiMeetEventStreamHandler private constructor() : EventChannel.StreamHan
         eventSink?.success(mapOf("event" to "readyToClose"))
     }
 
-
-
     fun onOpened() {
         eventSink?.success(mapOf("event" to "opened"))
+    }
+
+    fun customOverflowMenuButtonPressed(data: MutableMap<String, Any>?) {
+        eventSink?.success(mapOf("event" to "customOverflowMenuButtonPressed", "data" to data))
     }
 }
