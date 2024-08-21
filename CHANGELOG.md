@@ -1,3 +1,9 @@
+## 10.1.0 
+
+* chore(deps): update native sdks to 10.1.0 [b490e8a](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/b490e8a91afb02dabe83a52a5cf7789372599c11).
+* feat(event-listener): Add customOverflowMenuButtonPressed to JitsiMeetEventListener [3171f51](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/3171f518d237440990525c399629e97f1c817058).
+* Update README.md [0c1d270](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/0c1d2709f2656e97d02231262a83dffcaaff0ee6).
+
 ## 10.0.2 
 
 * chore(deps): update native sdks to 10.0.1 [b186bc3](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/b186bc3a54c7719d04e4562b204ba3ee8400d656).
