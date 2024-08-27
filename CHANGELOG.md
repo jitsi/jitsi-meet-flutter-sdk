@@ -1,3 +1,7 @@
+## 10.1.2 
+
+* chore(deps): update native sdks to 10.1.2 [4faf3e6](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/4faf3e6dc12e647527d0e762d1b1e8e67cf09ac1).
+
 ## 10.1.1 
 
 * chore(sdks, version): bump to 10.1.1 [33aa116](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/33aa116c3d38a9e7e083fa8eeeebbd9bb886d39c).
