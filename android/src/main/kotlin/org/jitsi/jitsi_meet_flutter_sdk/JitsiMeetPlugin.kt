@@ -196,6 +196,8 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   private fun enterPiP(call: MethodCall, result: Result) {
-    // TODO
+    val enterPiPIntent = Intent("org.jitsi.meet.ENTER_PICTURE_IN_PICTURE");
+    LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(enterPiPIntent)
+    result.success("Successfully entered PiP")
   }
 }
