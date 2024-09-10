@@ -1,6 +1,6 @@
-import 'jitsi_meet_platform_interface.dart';
-import 'jitsi_meet_event_listener.dart';
 import 'jitsi_meet_conference_options.dart';
+import 'jitsi_meet_event_listener.dart';
+import 'jitsi_meet_platform_interface.dart';
 import 'method_response.dart';
 
 /// The entry point for the sdk. It is used to launch the meeting screen,
@@ -75,5 +75,10 @@ class JitsiMeet {
   /// which will contain participants information.
   Future<MethodResponse> retrieveParticipantsInfo() async {
     return await JitsiMeetPlatform.instance.retrieveParticipantsInfo();
+  }
+
+  /// Enters Picture in Picture mode.
+  Future<MethodResponse> enterPiP() async {
+    return await JitsiMeetPlatform.instance.enterPiP();
   }
 }

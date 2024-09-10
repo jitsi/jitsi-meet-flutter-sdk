@@ -49,6 +49,7 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "sendChatMessage" -> sendChatMessage(call, result)
       "closeChat" -> closeChat(call, result)
       "retrieveParticipantsInfo" -> retrieveParticipantsInfo(call, result)
+      "enterPiP" -> enterPiP(call, result)
       else -> result.notImplemented()
     }
   }
@@ -192,5 +193,9 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     val retrieveParticipantsInfoIntent: Intent = Intent("org.jitsi.meet.RETRIEVE_PARTICIPANTS_INFO");
     LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(retrieveParticipantsInfoIntent)
     result.success("Successfully retrieved participants info")
+  }
+
+  private fun enterPiP(call: MethodCall, result: Result) {
+    // TODO
   }
 }
