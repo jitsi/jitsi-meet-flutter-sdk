@@ -4,7 +4,7 @@ PODS:
     - libwebp
   - integration_test (0.0.1):
     - Flutter
-  - jitsi_meet_flutter_sdk (10.1.2):
+  - jitsi_meet_flutter_sdk (10.2.0):
     - Flutter
     - JitsiMeetSDK (= 10.2.0)
   - JitsiMeetSDK (10.2.0):
@@ -48,7 +48,7 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   Giphy: 6b5f6986c8df4f71e01a8ef86595f426b3439fb5
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
-  jitsi_meet_flutter_sdk: 0162b3e8dce9d332355d35cad509823d092ca796
+  jitsi_meet_flutter_sdk: b5fac781b24e78c0182c550d532e7790ffda5c89
   JitsiMeetSDK: 7af9b7639cd4f519ca0747cf06ec2ebc60a1203e
   JitsiWebRTC: d0ae5fd6a81e771bfd82c2ee6c6bb542ebd65ee8
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
