@@ -1,3 +1,14 @@
+## 10.2.1 
+
+* chore(deps): update native sdks to 10.2.1 [bc0d282](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/bc0d282f102aab555079ee8fd25d2b07e4d645ec).
+
+## 10.2.0 
+
+* chore(deps): update native sdks to 10.2.0 [5e100b9](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/5e100b98ea3de5069850668aafdb23ba3ddc654b).
+* example Podfile update [8074483](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/8074483cb9b33c5604fcbd7f69da601abbd34aab).
+* podspec file update [24762dd](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/24762ddb9fd436493abd680e3d89fa136d139d04).
+* Update update-native-sdks.sh [629c3be](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/629c3bed823f7ed6bf060fca883be04a93ce95f3).
+
 ## 10.1.2 
 
 * chore(deps): update native sdks to 10.1.2 [4faf3e6](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/4faf3e6dc12e647527d0e762d1b1e8e67cf09ac1).
