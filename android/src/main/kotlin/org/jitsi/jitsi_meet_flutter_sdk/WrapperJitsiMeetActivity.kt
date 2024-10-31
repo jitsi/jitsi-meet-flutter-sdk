@@ -58,52 +58,57 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
         for (eventType in BroadcastEvent.Type.values()) {
             intentFilter.addAction(eventType.action)
         }
+        intentFilter.addAction("org.jitsi.meet.ENTER_PICTURE_IN_PICTURE")
         LocalBroadcastManager.getInstance(this)
             .registerReceiver(this.broadcastReceiver, intentFilter)
     }
 
     private fun onBroadcastReceived(intent: Intent?) {
         if (intent != null) {
-            val event = BroadcastEvent(intent)
-            val data = event.data
-            when (event.type.action!!) {
-                BroadcastEvent.Type.CONFERENCE_JOINED.action -> eventStreamHandler.conferenceJoined(data)
-                BroadcastEvent.Type.CONFERENCE_TERMINATED.action -> eventStreamHandler.conferenceTerminated(
-                    data
-                )
+            if (intent.action == "org.jitsi.meet.ENTER_PICTURE_IN_PICTURE") {
+                enterPiP()
+            } else {
+                val event = BroadcastEvent(intent)
+                val data = event.data
+                when (event.type.action!!) {
+                    BroadcastEvent.Type.CONFERENCE_JOINED.action -> eventStreamHandler.conferenceJoined(data)
+                    BroadcastEvent.Type.CONFERENCE_TERMINATED.action -> eventStreamHandler.conferenceTerminated(
+                        data
+                    )
 
-                BroadcastEvent.Type.CONFERENCE_WILL_JOIN .action-> eventStreamHandler.conferenceWillJoin(
-                    data
-                )
+                    BroadcastEvent.Type.CONFERENCE_WILL_JOIN.action -> eventStreamHandler.conferenceWillJoin(
+                        data
+                    )
 
-                BroadcastEvent.Type.PARTICIPANT_JOINED.action -> eventStreamHandler.participantJoined(data)
-                BroadcastEvent.Type.PARTICIPANT_LEFT.action -> eventStreamHandler.participantLeft(data)
-                BroadcastEvent.Type.AUDIO_MUTED_CHANGED.action -> eventStreamHandler.audioMutedChanged(data)
-                BroadcastEvent.Type.VIDEO_MUTED_CHANGED.action -> eventStreamHandler.videoMutedChanged(data)
-                BroadcastEvent.Type.ENDPOINT_TEXT_MESSAGE_RECEIVED.action -> eventStreamHandler.endpointTextMessageReceived(
-                    data
-                )
+                    BroadcastEvent.Type.PARTICIPANT_JOINED.action -> eventStreamHandler.participantJoined(data)
+                    BroadcastEvent.Type.PARTICIPANT_LEFT.action -> eventStreamHandler.participantLeft(data)
+                    BroadcastEvent.Type.AUDIO_MUTED_CHANGED.action -> eventStreamHandler.audioMutedChanged(data)
+                    BroadcastEvent.Type.VIDEO_MUTED_CHANGED.action -> eventStreamHandler.videoMutedChanged(data)
+                    BroadcastEvent.Type.ENDPOINT_TEXT_MESSAGE_RECEIVED.action -> eventStreamHandler.endpointTextMessageReceived(
+                        data
+                    )
 
-                BroadcastEvent.Type.SCREEN_SHARE_TOGGLED.action -> eventStreamHandler.screenShareToggled(
-                    data
-                )
+                    BroadcastEvent.Type.SCREEN_SHARE_TOGGLED.action -> eventStreamHandler.screenShareToggled(
+                        data
+                    )
 
-                BroadcastEvent.Type.CHAT_MESSAGE_RECEIVED.action -> eventStreamHandler.chatMessageReceived(
-                    data
-                )
+                    BroadcastEvent.Type.CHAT_MESSAGE_RECEIVED.action -> eventStreamHandler.chatMessageReceived(
+                        data
+                    )
 
-                BroadcastEvent.Type.CHAT_TOGGLED.action -> eventStreamHandler.chatToggled(data)
-                BroadcastEvent.Type.PARTICIPANTS_INFO_RETRIEVED.action -> eventStreamHandler.participantsInfoRetrieved(
-                    data
-                )
+                    BroadcastEvent.Type.CHAT_TOGGLED.action -> eventStreamHandler.chatToggled(data)
+                    BroadcastEvent.Type.PARTICIPANTS_INFO_RETRIEVED.action -> eventStreamHandler.participantsInfoRetrieved(
+                        data
+                    )
 
-                BroadcastEvent.Type.READY_TO_CLOSE.action -> eventStreamHandler.readyToClose()
+                    BroadcastEvent.Type.READY_TO_CLOSE.action -> eventStreamHandler.readyToClose()
 
-                BroadcastEvent.Type.CUSTOM_OVERFLOW_MENU_BUTTON_PRESSED.action -> eventStreamHandler.customOverflowMenuButtonPressed(data)
+                    BroadcastEvent.Type.CUSTOM_OVERFLOW_MENU_BUTTON_PRESSED.action -> eventStreamHandler.customOverflowMenuButtonPressed(
+                        data
+                    )
 
-                "org.jitsi.meet.ENTER_PICTURE_IN_PICTURE" -> enterPiP()
-
-                else -> {}
+                    else -> {}
+                }
             }
         }
     }
@@ -113,7 +118,7 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
         super.onDestroy()
     }
 
-    private fun enterPiP() {
+    fun enterPiP() {
         jitsiView?.enterPictureInPicture()
     }
 }
