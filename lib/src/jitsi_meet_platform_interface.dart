@@ -1,8 +1,8 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'jitsi_meet_method_channel.dart';
-import 'jitsi_meet_event_listener.dart';
 import 'jitsi_meet_conference_options.dart';
+import 'jitsi_meet_event_listener.dart';
+import 'jitsi_meet_method_channel.dart';
 import 'method_response.dart';
 
 abstract class JitsiMeetPlatform extends PlatformInterface {
@@ -95,5 +95,10 @@ abstract class JitsiMeetPlatform extends PlatformInterface {
   Future<MethodResponse> retrieveParticipantsInfo() async {
     throw UnimplementedError(
         'retrieveParticipantsInfo() has not been implemented.');
+  }
+
+  /// Enters Picture-in-Picture mode.
+  Future<MethodResponse> enterPiP() async {
+    throw UnimplementedError('enterPiP() has not been implemented.');
   }
 }

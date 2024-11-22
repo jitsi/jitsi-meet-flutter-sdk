@@ -56,6 +56,9 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
         case "retrieveParticipantsInfo":
             retrieveParticipantsInfo(call, result: result)
             return
+        case "enterPiP":
+            enterPiP(call, result: result)
+            return
         default:
           result(FlutterMethodNotImplemented)
         }
@@ -164,6 +167,11 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     private func retrieveParticipantsInfo(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         jitsiMeetViewController?.jitsiMeetView?.retrieveParticipantsInfo({ (data:[Any]?) in self.eventSink!(["event": "participantsInfoRetrieved", "data": data])})
         result("Successfully retrieved participants info")
+    }
+
+    private func enterPiP(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        jitsiMeetViewController?.enterPicture(inPicture: [:])
+        result("Successfully entered Picture in Picture")
     }
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
