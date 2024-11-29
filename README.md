@@ -111,6 +111,11 @@ The `application:label` field from the Jitsi Meet Android SDK will conflict with
     </application>
 </manifest>
 ```
+
+#### Using ProGuard
+
+If you are using ProGuard (common on Release builds) make sure you add [these rules](https://github.com/jitsi/jitsi-meet/blob/master/android/app/proguard-rules.pro) to your rules file.
+
 ## Using the API
 
 ### JitsiMeet
