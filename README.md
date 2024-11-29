@@ -10,7 +10,7 @@ The Jitsi Meet Flutter SDK provides the same user experience as the Jitsi Meet a
 | Platform | Supported | Notes                             |
 | -------- | --------- | --------------------------------- |
 | Android  | ✅         | Minimum API level is 24           |
-| iOS      | ✅         | Minimum supported version is 13.4 |
+| iOS      | ✅         | Minimum supported version is 15.1 |
 | Web      | ❌         |                                   |
 
 ## Sample application using the Flutter
