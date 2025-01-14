@@ -1,3 +1,7 @@
+import 'package:jitsi_meet_flutter_sdk/src/JitsiAudioRecorder.dart';
+import 'package:jitsi_meet_flutter_sdk/src/JitsiChatGPTHandler.dart';
+import 'package:jitsi_meet_flutter_sdk/src/JitsiWhisperHandler.dart';
+
 import 'jitsi_meet_conference_options.dart';
 import 'jitsi_meet_event_listener.dart';
 import 'jitsi_meet_platform_interface.dart';
@@ -6,6 +10,9 @@ import 'method_response.dart';
 /// The entry point for the sdk. It is used to launch the meeting screen,
 /// to send and receive all the events.
 class JitsiMeet {
+
+  final _recorder = JitsiAudioRecorder();
+
   Future<String?> getPlatformVersion() {
     return JitsiMeetPlatform.instance.getPlatformVersion();
   }
@@ -81,4 +88,25 @@ class JitsiMeet {
   Future<MethodResponse> enterPiP() async {
     return await JitsiMeetPlatform.instance.enterPiP();
   }
+
+  Future<MethodResponse> startRecording() async {
+    return await _recorder.startRecording();
+  }
+
+  Future<String?> stopRecording() async {
+    return await _recorder.stopRecording();
+  }
+
+  Future<String?> transcribeWithWhisper(String bearer, String recordingFilePath, {String model = 'whisper-1'}) async {
+    final whisperHandler = JitsiWhisperHandler(bearer: bearer, model: model);
+    final result = await whisperHandler.transcribeWithWhisper(recordingFilePath);
+    return result;
+  }
+
+  Future<String?>makeChatGPTRequest(String bearer, String prompt, {String model = 'gpt-4', int maxTokens = 10000}) async {
+    final chatGPTHandler = JitsiChatGPTHandler(bearer: bearer, model: model, maxTokens: maxTokens);
+    final result = chatGPTHandler.makeChatGPTRequest(prompt);
+    return result;
+  }
+
 }
