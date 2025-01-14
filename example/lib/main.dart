@@ -130,6 +130,9 @@ class _MyAppState extends State<MyApp> {
       readyToClose: () {
         debugPrint("readyToClose");
       },
+      bottomViewTapped: () {
+        debugPrint("bottomViewTapped");
+      },
     );
     await _jitsiMeetPlugin.join(options, listener);
   }

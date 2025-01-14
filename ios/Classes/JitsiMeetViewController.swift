@@ -6,13 +6,51 @@ class JitsiMeetViewController: UIViewController {
     fileprivate var pipViewCoordinator: PiPViewCoordinator?
     fileprivate var wrapperJitsiMeetView: UIView?
     var jitsiMeetView: JitsiMeetView?
+    
+    private lazy var topView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private lazy var bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let bottomImageSize: CGSize = CGSize(width: 250, height: 34)
+    
+    private lazy var bottomImageView: UIImageView = {
+        let view = UIImageView()
+        view.frame.size = bottomImageSize
+        view.contentMode = .scaleAspectFit
+        if let url = Bundle(for: type(of: self)).url(forResource: "bottomSection", withExtension: "png") {
+            view.image = UIImage(contentsOfFile: url.path)
+        }
+        return view
+    }()
+    
+    private lazy var bottomLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.textAlignment = .left
+        label.text = "Enter text"
+        return label
+    }()
+    
+    private var safeAreaTop: CGFloat { view.safeAreaInsets.top }
+    private var safeAreaBottom: CGFloat { view.safeAreaInsets.bottom }
+    private let topViewHeight: CGFloat = 50
+    private let bottomViewHeight: CGFloat = 50
 
     let options: JitsiMeetConferenceOptions
     let eventSink: FlutterEventSink
 
     init(options: JitsiMeetConferenceOptions, eventSink: @escaping FlutterEventSink) {
-        self.options = options;
-        self.eventSink = eventSink;
+        self.options = options
+        self.eventSink = eventSink
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -22,7 +60,12 @@ class JitsiMeetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        openJitsiMeet();
+        openJitsiMeet()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateViewFrames()
     }
 
     func openJitsiMeet() {
@@ -30,20 +73,26 @@ class JitsiMeetViewController: UIViewController {
 
         jitsiMeetView = JitsiMeetView()
         let wrapperJitsiMeetView = WrapperView()
-        wrapperJitsiMeetView.backgroundColor = .black
+        wrapperJitsiMeetView.backgroundColor = .clear
+        wrapperJitsiMeetView.frame = view.bounds
         self.wrapperJitsiMeetView = wrapperJitsiMeetView
 
+        wrapperJitsiMeetView.addSubview(topView)
         wrapperJitsiMeetView.addSubview(jitsiMeetView!)
-
-        jitsiMeetView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        wrapperJitsiMeetView.addSubview(bottomView)
+        
+        bottomView.addSubview(bottomImageView)
+        bottomView.addSubview(bottomLabel)
+        
+        let bottomViewGesture = UITapGestureRecognizer(target: self, action: #selector(handleBottomViewTap))
+        bottomView.isUserInteractionEnabled = true
+        bottomView.addGestureRecognizer(bottomViewGesture)
 
         jitsiMeetView!.delegate = self
         jitsiMeetView!.join(options)
 
         pipViewCoordinator = PiPViewCoordinator(withView: wrapperJitsiMeetView)
         pipViewCoordinator?.configureAsStickyView(withParentView: view)
-
-        wrapperJitsiMeetView.alpha = 0
         pipViewCoordinator?.show()
     }
 
@@ -61,6 +110,51 @@ class JitsiMeetViewController: UIViewController {
         jitsiMeetView = nil
         wrapperJitsiMeetView = nil
         pipViewCoordinator = nil
+    }
+    
+    private func updateViewFrames() {
+        guard let wrapperJitsiMeetView = wrapperJitsiMeetView else { return }
+        topView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: wrapperJitsiMeetView.bounds.width,
+            height: topViewHeight + safeAreaTop
+        )
+        
+        jitsiMeetView?.frame = CGRect(
+            x: 0,
+            y: topViewHeight + safeAreaTop,
+            width: wrapperJitsiMeetView.bounds.width,
+            height: wrapperJitsiMeetView.bounds.height - topViewHeight - bottomViewHeight - safeAreaTop - safeAreaBottom
+        )
+        
+        bottomView.frame = CGRect(
+            x: 0,
+            y: wrapperJitsiMeetView.bounds.height - bottomViewHeight - safeAreaBottom,
+            width: wrapperJitsiMeetView.bounds.width,
+            height: bottomViewHeight + safeAreaBottom
+        )
+        
+        
+        let bottomLabelWidth = view.frame.width - 16 - bottomImageSize.width - 16
+        bottomLabel.frame = CGRect(
+            x: 16,
+            y: 8,
+            width: bottomLabelWidth,
+            height: bottomImageSize.height
+        )
+        
+        bottomImageView.frame = CGRect(
+            x: 16 + bottomLabelWidth,
+            y: 8,
+            width: bottomImageSize.width,
+            height: bottomImageSize.height
+        )
+        
+    }
+    
+    @objc private func handleBottomViewTap() {
+        self.eventSink(["event": "bottomViewTapped"])
     }
 }
 

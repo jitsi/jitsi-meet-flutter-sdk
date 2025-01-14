@@ -306,6 +306,10 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
           _listener?.readyToClose?.call();
           break;
 
+        case "bottomViewTapped":
+          _listener?.bottomViewTapped?.call();
+          break;
+
         case "customOverflowMenuButtonPressed":
           _listener?.customOverflowMenuButtonPressed?.call(data["id"]);
           break;

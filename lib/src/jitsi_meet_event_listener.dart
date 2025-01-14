@@ -75,6 +75,8 @@ class JitsiMeetEventListener {
   /// Called when the SDK is ready to be closed. No meeting is happening at this point.
   final Function()? readyToClose;
 
+  final Function()? bottomViewTapped;
+
   /// Called when a custom overflow menu button is pressed.
   ///
   /// [buttonId] : the id of the button that was pressed.
@@ -95,5 +97,6 @@ class JitsiMeetEventListener {
     this.chatToggled,
     this.readyToClose,
     this.customOverflowMenuButtonPressed,
+    this.bottomViewTapped
   });
 }

@@ -14,6 +14,7 @@ Jitsi Meet Flutter SDK
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
+  s.resources    = 'Assets/**/*'
   s.dependency 'Flutter'
   s.dependency 'JitsiMeetSDK', '10.3.0'
   s.platform = :ios, '15.1'
