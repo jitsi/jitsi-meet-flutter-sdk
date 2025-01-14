@@ -77,6 +77,12 @@ class JitsiMeetEventListener {
 
   final Function()? bottomViewTapped;
 
+  final Function()? changeRoomTapped;
+
+  final Function()? saveResultsTapped;
+
+  final Function()? getTopicTapped;
+
   /// Called when a custom overflow menu button is pressed.
   ///
   /// [buttonId] : the id of the button that was pressed.
@@ -97,6 +103,9 @@ class JitsiMeetEventListener {
     this.chatToggled,
     this.readyToClose,
     this.customOverflowMenuButtonPressed,
-    this.bottomViewTapped
+    this.bottomViewTapped,
+    this.changeRoomTapped,
+    this.saveResultsTapped,
+    this.getTopicTapped
   });
 }

@@ -25,9 +25,7 @@ class JitsiMeetViewController: UIViewController {
         let view = UIImageView()
         view.frame.size = bottomImageSize
         view.contentMode = .scaleAspectFit
-        if let url = Bundle(for: type(of: self)).url(forResource: "bottomSection", withExtension: "png") {
-            view.image = UIImage(contentsOfFile: url.path)
-        }
+        view.image = self.getImage(forResource: "bottomSection", withExtension: "png")
         return view
     }()
     
@@ -40,10 +38,91 @@ class JitsiMeetViewController: UIViewController {
         return label
     }()
     
+    private lazy var saveResultStack: UIView = {
+        let view = UIView()
+        view.frame = CGRect(origin: .zero, size: stacksSize)
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self.getImage(forResource: "CrossIcon", withExtension: "png")
+        imageView.frame = CGRect(
+            x: (stacksSize.width / 2) - 12,
+            y: 0,
+            width: 24,
+            height: 24
+        )
+        
+        let label = UILabel()
+        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.textAlignment = .center
+        label.textColor = UIColor(red: 71/255, green: 158/255, blue: 132/255, alpha: 1)
+        label.text = "Save results"
+        label.frame = CGRect(
+            x: 0,
+            y: 24,
+            width: stacksSize.width,
+            height: stacksSize.height - 24
+        )
+        
+        view.addSubview(imageView)
+        view.addSubview(label)
+        
+        return view
+    }()
+    
+    private lazy var changeRoomStack: UIView = {
+        let view = UIView()
+        view.frame = CGRect(origin: .zero, size: stacksSize)
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self.getImage(forResource: "ChangeIcon", withExtension: "png")
+        imageView.frame = CGRect(
+            x: (stacksSize.width / 2) - 12,
+            y: 0,
+            width: 24,
+            height: 24
+        )
+        
+        let label = UILabel()
+        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.textAlignment = .center
+        label.textColor = UIColor(red: 85/255, green: 132/255, blue: 146/255, alpha: 1)
+        label.text = "Change room"
+        label.frame = CGRect(
+            x: 0,
+            y: 24,
+            width: stacksSize.width,
+            height: stacksSize.height - 24
+        )
+        
+        view.addSubview(imageView)
+        view.addSubview(label)
+        
+        return view
+    }()
+    
+    private lazy var getTopicButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(red: 242/255, green: 201/255, blue: 76/255, alpha: 1)
+        button.setTitle("Get a topic", for: [])
+        button.setTitleColor(.black, for: [])
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.layer.cornerRadius = 8
+        button.layer.shadowRadius = 2
+        button.layer.shadowOpacity = 1
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+        button.addTarget(self, action: #selector(handleGetTopicButtonTap), for: .touchUpInside)
+        return button
+    }()
+    
     private var safeAreaTop: CGFloat { view.safeAreaInsets.top }
     private var safeAreaBottom: CGFloat { view.safeAreaInsets.bottom }
-    private let topViewHeight: CGFloat = 50
+    private let topViewHeight: CGFloat = 58
     private let bottomViewHeight: CGFloat = 50
+    private var viewWidth: CGFloat { view.frame.width }
+    private let stacksSize = CGSize(width: 90, height: 50)
 
     let options: JitsiMeetConferenceOptions
     let eventSink: FlutterEventSink
@@ -81,8 +160,18 @@ class JitsiMeetViewController: UIViewController {
         wrapperJitsiMeetView.addSubview(jitsiMeetView!)
         wrapperJitsiMeetView.addSubview(bottomView)
         
+        topView.addSubview(getTopicButton)
+        topView.addSubview(changeRoomStack)
+        topView.addSubview(saveResultStack)
+        
         bottomView.addSubview(bottomImageView)
         bottomView.addSubview(bottomLabel)
+        
+        let changeRoomGesture = UITapGestureRecognizer(target: self, action: #selector(handleChangeRoomViewTap))
+        changeRoomStack.addGestureRecognizer(changeRoomGesture)
+        
+        let saveResultsGesture = UITapGestureRecognizer(target: self, action: #selector(handleSaveResultsViewTap))
+        saveResultStack.addGestureRecognizer(saveResultsGesture)
         
         let bottomViewGesture = UITapGestureRecognizer(target: self, action: #selector(handleBottomViewTap))
         bottomView.isUserInteractionEnabled = true
@@ -135,6 +224,26 @@ class JitsiMeetViewController: UIViewController {
             height: bottomViewHeight + safeAreaBottom
         )
         
+        getTopicButton.frame = CGRect(
+            x: 16,
+            y: topView.frame.height - stacksSize.height - 5,
+            width: viewWidth - 16 - 8 - stacksSize.width - 8 - stacksSize.width - 16,
+            height: 40
+        )
+        
+        changeRoomStack.frame = CGRect(
+            x: 16 + getTopicButton.frame.width + 8,
+            y: topView.frame.height - stacksSize.height - 8,
+            width: stacksSize.width,
+            height: stacksSize.height
+        )
+        
+        saveResultStack.frame = CGRect(
+            x: 16 + getTopicButton.frame.width + 8 + stacksSize.width + 8,
+            y: topView.frame.height - stacksSize.height - 8,
+            width: stacksSize.width,
+            height: stacksSize.height
+        )
         
         let bottomLabelWidth = view.frame.width - 16 - bottomImageSize.width - 16
         bottomLabel.frame = CGRect(
@@ -150,11 +259,31 @@ class JitsiMeetViewController: UIViewController {
             width: bottomImageSize.width,
             height: bottomImageSize.height
         )
-        
+        saveResultStack.layoutIfNeeded()
+        changeRoomStack.layoutIfNeeded()
     }
     
     @objc private func handleBottomViewTap() {
         self.eventSink(["event": "bottomViewTapped"])
+    }
+    
+    @objc private func handleChangeRoomViewTap() {
+        self.eventSink(["event": "changeRoomTapped"])
+    }
+    
+    @objc private func handleSaveResultsViewTap() {
+        self.eventSink(["event": "saveResultsTapped"])
+    }
+    
+    @objc private func handleGetTopicButtonTap() {
+        self.eventSink(["event": "getTopicTapped"])
+    }
+    
+    private func getImage(forResource resource: String, withExtension extensionPath: String) -> UIImage? {
+        guard let url = Bundle(for: type(of: self)).url(forResource: resource, withExtension: extensionPath) else {
+            return nil
+        }
+        return UIImage(contentsOfFile: url.path)
     }
 }
 

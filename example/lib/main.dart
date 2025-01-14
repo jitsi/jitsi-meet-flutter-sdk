@@ -133,6 +133,15 @@ class _MyAppState extends State<MyApp> {
       bottomViewTapped: () {
         debugPrint("bottomViewTapped");
       },
+      changeRoomTapped: () {
+        debugPrint("changeRoomTapped");
+      },
+      saveResultsTapped: () {
+        debugPrint("saveResultsTapped");
+      },
+      getTopicTapped: () {
+        debugPrint("getTopicTapped");
+      },
     );
     await _jitsiMeetPlugin.join(options, listener);
   }
