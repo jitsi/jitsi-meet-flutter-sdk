@@ -6,10 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.jitsi.meet.sdk.BroadcastEvent
 import org.jitsi.meet.sdk.JitsiMeetActivity
-import android.app.KeyguardManager
 import android.view.WindowManager
 import android.os.Build
 import android.view.View
@@ -39,6 +39,7 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity(), View.OnClickListener {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         showOnLockscreen()
         super.onCreate(savedInstanceState)
         registerForBroadcastMessages()
