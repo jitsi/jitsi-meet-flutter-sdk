@@ -13,6 +13,9 @@ import android.app.KeyguardManager
 import android.view.WindowManager
 import android.os.Build
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 
 class WrapperJitsiMeetActivity : JitsiMeetActivity(), View.OnClickListener {
@@ -40,6 +43,10 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         registerForBroadcastMessages()
         initListeners()
+        val jitsiLayout = findViewById<View>(R.id.jitsi_layout)
+        ViewCompat.setOnApplyWindowInsetsListener(jitsiLayout) { view, insets ->
+            applyInsets(view, insets)
+        }
     }
 
     private fun initListeners() {
@@ -146,5 +153,21 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity(), View.OnClickListener {
                 eventStreamHandler.handleBottomViewTap()
             }
         }
+    }
+
+    private fun applyInsets(view: View, windowInsets: WindowInsetsCompat): WindowInsetsCompat {
+        val insetTypeMask = systemBarsAndDisplayCutout()
+
+        val insets = windowInsets.getInsets(insetTypeMask)
+
+        view.updatePadding(top = insets.top, bottom = insets.bottom)
+
+        return WindowInsetsCompat.Builder()
+            .setInsets(insetTypeMask, insets)
+            .build()
+    }
+
+    private fun systemBarsAndDisplayCutout(): Int {
+        return WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
     }
 }
