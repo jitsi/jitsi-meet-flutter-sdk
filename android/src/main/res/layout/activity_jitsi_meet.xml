@@ -7,11 +7,6 @@
     android:orientation="vertical"
     tools:context="JitsiMeetActivity">
 
-    <View
-        android:id="@+id/topGap"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
