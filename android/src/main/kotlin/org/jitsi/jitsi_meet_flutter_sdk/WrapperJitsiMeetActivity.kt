@@ -161,7 +161,9 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity(), View.OnClickListener {
 
         val insets = windowInsets.getInsets(insetTypeMask)
 
-        view.updatePadding(top = insets.top, bottom = insets.bottom)
+        view.updatePadding(bottom = insets.bottom)
+
+        findViewById<View>(R.id.topGap).layoutParams.height = insets.top
 
         return WindowInsetsCompat.Builder()
             .setInsets(insetTypeMask, insets)
