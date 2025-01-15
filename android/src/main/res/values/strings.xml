@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="get_topic">Get a topic</string>
+    <string name="enter_text">Enter text</string>
+    <string name="change_room">Change room</string>
+    <string name="save_results">Save results</string>
+</resources>

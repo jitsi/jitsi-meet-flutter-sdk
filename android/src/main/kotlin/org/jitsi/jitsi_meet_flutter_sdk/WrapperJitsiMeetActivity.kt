@@ -12,9 +12,10 @@ import org.jitsi.meet.sdk.JitsiMeetActivity
 import android.app.KeyguardManager
 import android.view.WindowManager
 import android.os.Build
+import android.view.View
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 
-class WrapperJitsiMeetActivity : JitsiMeetActivity() {
+class WrapperJitsiMeetActivity : JitsiMeetActivity(), View.OnClickListener {
     private val eventStreamHandler = JitsiMeetEventStreamHandler.instance
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -38,6 +39,14 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
         showOnLockscreen()
         super.onCreate(savedInstanceState)
         registerForBroadcastMessages()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        findViewById<View>(R.id.getTopic).setOnClickListener(this)
+        findViewById<View>(R.id.changeRoom).setOnClickListener(this)
+        findViewById<View>(R.id.saveResults).setOnClickListener(this)
+        findViewById<View>(R.id.bottomView).setOnClickListener(this)
     }
 
     private fun showOnLockscreen() {
@@ -120,5 +129,22 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
 
     fun enterPiP() {
         jitsiView?.enterPictureInPicture()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.getTopic -> {
+                eventStreamHandler.handleGetTopicButtonTap()
+            }
+            R.id.changeRoom -> {
+                eventStreamHandler.handleChangeRoomViewTap()
+            }
+            R.id.saveResults -> {
+                eventStreamHandler.handleSaveResultsViewTap()
+            }
+            R.id.bottomView -> {
+                eventStreamHandler.handleBottomViewTap()
+            }
+        }
     }
 }

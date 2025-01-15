@@ -77,4 +77,20 @@ class JitsiMeetEventStreamHandler private constructor() : EventChannel.StreamHan
     fun customOverflowMenuButtonPressed(data: MutableMap<String, Any>?) {
         eventSink?.success(mapOf("event" to "customOverflowMenuButtonPressed", "data" to data))
     }
+
+    fun handleBottomViewTap() {
+        eventSink?.success(mapOf("event" to "bottomViewTapped"))
+    }
+
+    fun handleChangeRoomViewTap() {
+        eventSink?.success(mapOf("event" to "changeRoomTapped"))
+    }
+
+    fun handleSaveResultsViewTap() {
+        eventSink?.success(mapOf("event" to "saveResultsTapped"))
+    }
+
+    fun handleGetTopicButtonTap() {
+        eventSink?.success(mapOf("event" to "getTopicTapped"))
+    }
 }
