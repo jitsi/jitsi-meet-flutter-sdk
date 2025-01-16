@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   final _jitsiMeetPlugin = JitsiMeet();
 
   join() async {
-    final options = JitsiMeetConferenceOptions.fromUrl('https://meet.govar.online:9443/govar_speaking_club');
+    final options = JitsiMeetConferenceOptions.fromUrl('');
     var listener = JitsiMeetEventListener(
       conferenceJoined: (url) {
         debugPrint("conferenceJoined: url: $url");
