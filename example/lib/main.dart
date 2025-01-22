@@ -162,7 +162,7 @@ class _MyAppState extends State<MyApp> {
                   const SizedBox(
                     width: double.infinity,
                     height: 500,
-                    child: JitsiMeetWidget(roomUrl: 'https://meet.govar.online/govar_speaking_club'),
+                    child: JitsiMeetWidget(room: 'https://meet.govar.online/govar_speaking_club'),
                   ),
                   TextButton(
                     onPressed: join,

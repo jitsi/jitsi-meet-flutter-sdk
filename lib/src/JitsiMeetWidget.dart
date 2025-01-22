@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 
 class JitsiMeetWidget extends StatelessWidget {
-  final String roomUrl;
+  final String room;
 
-  const JitsiMeetWidget({super.key, required this.roomUrl});
+  const JitsiMeetWidget({super.key, required this.room});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class JitsiMeetWidget extends StatelessWidget {
       return AndroidView(
         viewType: 'JitsiNativeView',
         creationParams: {
-          'roomUrl': roomUrl,
+          'room': room,
         },
         creationParamsCodec: const StandardMessageCodec(),
       );
@@ -22,7 +22,7 @@ class JitsiMeetWidget extends StatelessWidget {
       return UiKitView(
         viewType: 'JitsiNativeView',
         creationParams: {
-          'roomUrl': roomUrl
+          'room': room
         },
         creationParamsCodec: const StandardMessageCodec(),
       );

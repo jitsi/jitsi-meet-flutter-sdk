@@ -37,7 +37,7 @@ class JitsiNativeView(context: Context, id: Int, creationParams: Map<String?, An
         jitsiMeetView = JitsiMeetView(context)
         registerForBroadcastMessages()
         val params = creationParams as Map<String, Any>
-        val roomUrl = params["roomUrl"] as String
+        val roomUrl = params["room"] as String
         val options = this.fromUrl(roomUrl)
         jitsiMeetView.join(options)
     }

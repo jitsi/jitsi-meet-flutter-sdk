@@ -20,7 +20,7 @@ class JitsiNativeViewFactory: NSObject, FlutterPlatformViewFactory {
         arguments args: Any?
     ) -> FlutterPlatformView {
         let arguments = args as! [String: Any]
-        let roomUrl = arguments["roomUrl"] as! String
+        let roomUrl = arguments["room"] as! String
         
         let options = try! JitsiMeetConferenceOptions.fromUrl(roomUrl)
         
@@ -57,7 +57,6 @@ extension JitsiMeetConferenceOptions {
             builder.room = roomName
             builder.serverURL = URL(string: "https://\(domain)")
             
-            // Парсинг query-параметров
             components?.queryItems?.forEach { item in
                 let key = item.name
                 let value = item.value ?? ""
