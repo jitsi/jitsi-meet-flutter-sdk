@@ -14,8 +14,7 @@ class MockJitsiMeetPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<MethodResponse> join(
-      JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
+  void join(JitsiMeetEventListener? listener) {
     // TODO: implement join
     throw UnimplementedError();
   }

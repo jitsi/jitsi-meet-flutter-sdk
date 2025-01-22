@@ -5,3 +5,4 @@ export 'src/jitsi_meet_user_info.dart' show JitsiMeetUserInfo;
 export 'src/features_flag/feature_flags.dart' show FeatureFlags;
 export 'src/features_flag/feature_flag_video_resolutions.dart'
     show FeatureFlagVideoResolutions;
+export 'src/JitsiMeetWidget.dart';

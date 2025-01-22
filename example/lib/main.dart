@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 
 void main() {
@@ -21,7 +20,6 @@ class _MyAppState extends State<MyApp> {
   final _jitsiMeetPlugin = JitsiMeet();
 
   join() async {
-    final options = JitsiMeetConferenceOptions.fromUrl('');
     var listener = JitsiMeetEventListener(
       conferenceJoined: (url) {
         debugPrint("conferenceJoined: url: $url");
@@ -85,7 +83,7 @@ class _MyAppState extends State<MyApp> {
         debugPrint("getTopicTapped");
       },
     );
-    await _jitsiMeetPlugin.join(options, listener);
+    _jitsiMeetPlugin.join(listener);
   }
 
   hangUp() async {
@@ -161,6 +159,11 @@ class _MyAppState extends State<MyApp> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 500,
+                    child: JitsiMeetWidget(roomUrl: 'https://meet.govar.online/govar_speaking_club'),
+                  ),
                   TextButton(
                     onPressed: join,
                     child: const Text("Join"),

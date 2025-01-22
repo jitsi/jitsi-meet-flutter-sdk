@@ -19,10 +19,8 @@ class JitsiMeet {
 
   /// Joins a meeting with the given meeting [options] and
   /// optionally a [listener] is given for listening to events triggered by the native sdks.
-  Future<MethodResponse> join(JitsiMeetConferenceOptions options,
-      [JitsiMeetEventListener? listener]) async {
-    return await JitsiMeetPlatform.instance
-        .join(options, listener ?? JitsiMeetEventListener());
+  void join([JitsiMeetEventListener? listener]) async {
+    JitsiMeetPlatform.instance.join(listener ?? JitsiMeetEventListener());
   }
 
   /// The localParticipant leaves the current meeting.

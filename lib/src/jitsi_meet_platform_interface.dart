@@ -32,8 +32,7 @@ abstract class JitsiMeetPlatform extends PlatformInterface {
 
   /// Joins a meeting with the given meeting [options] and
   /// optionally a [listener] is given for listening to events triggered by the native sdks.
-  Future<MethodResponse> join(
-      JitsiMeetConferenceOptions options, JitsiMeetEventListener? listener) {
+  void join(JitsiMeetEventListener? listener) {
     throw UnimplementedError('join() has not been implemented.');
   }
 

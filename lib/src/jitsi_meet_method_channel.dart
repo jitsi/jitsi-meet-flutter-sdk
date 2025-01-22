@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -29,36 +30,11 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   /// Joins a meeting with the given meeting [options] and
   /// optionally a [listener] is given for listening to events triggered by the native sdks.
   @override
-  Future<MethodResponse> join(JitsiMeetConferenceOptions options,
-      JitsiMeetEventListener? listener) async {
+  void join(JitsiMeetEventListener? listener) async {
     _listener = listener;
     if (!_eventChannelIsInitialized) {
       _initialize();
     }
-
-    Map<String, dynamic> parsedOptions = {
-      'serverURL': options.serverURL,
-      'room': options.room,
-      'token': options.token,
-      'userInfo': {
-        'displayName': options.userInfo?.displayName,
-        'email': options.userInfo?.email,
-        'avatar': options.userInfo?.avatar,
-      },
-      'featureFlags': options.featureFlags,
-      'configOverrides': options.configOverrides
-    };
-    return await methodChannel
-        .invokeMethod<String>('join', parsedOptions)
-        .then((message) {
-      return MethodResponse(isSuccess: true, message: message);
-    }).catchError((error) {
-      return MethodResponse(
-        isSuccess: false,
-        message: error.toString(),
-        error: error,
-      );
-    });
   }
 
   /// The localParticipant leaves the current meeting.
