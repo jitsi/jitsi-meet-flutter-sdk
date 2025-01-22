@@ -25,14 +25,4 @@ internal class JitsiMeetPluginTest {
     Mockito.verify(mockResult).success("Android " + android.os.Build.VERSION.RELEASE)
   }
 
-  @Test
-  fun onMethodCall_join_returnsExpectedValue() {
-    val plugin = JitsiMeetPlugin()
-
-    val call = MethodCall("join", null)
-    val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)
-    plugin.onMethodCall(call, mockResult)
-
-    Mockito.verify(mockResult).success("Succesfully joined room")
-  }
 }

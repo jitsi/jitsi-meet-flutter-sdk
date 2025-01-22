@@ -27,6 +27,7 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   private lateinit var eventChannel: EventChannel
   private val eventStreamHandler = JitsiMeetEventStreamHandler.instance
   private var activity: Activity? = null
+  private lateinit var viewFactory: JitsiNativeViewFactory
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     methodChannel = MethodChannel(flutterPluginBinding.binaryMessenger, "jitsi_meet_flutter_sdk")
@@ -34,12 +35,15 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
     eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "jitsi_meet_flutter_sdk_events")
     eventChannel.setStreamHandler(eventStreamHandler)
+
+
+    viewFactory = JitsiNativeViewFactory()
+    flutterPluginBinding.platformViewRegistry.registerViewFactory("JitsiNativeView", viewFactory)
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     when (call.method) {
       "getPlatformVersion" -> {result.success("Android ${android.os.Build.VERSION.RELEASE}")}
-      "join" -> join(call, result)
       "hangUp" -> hangUp(call, result)
       "setAudioMuted" -> setAudioMuted(call, result)
       "setVideoMuted" -> setVideoMuted(call, result)
@@ -49,7 +53,6 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "sendChatMessage" -> sendChatMessage(call, result)
       "closeChat" -> closeChat(call, result)
       "retrieveParticipantsInfo" -> retrieveParticipantsInfo(call, result)
-      "enterPiP" -> enterPiP(call, result)
       else -> result.notImplemented()
     }
   }
@@ -72,64 +75,6 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onDetachedFromActivityForConfigChanges() {
     onDetachedFromActivity()
-  }
-  private fun join(call: MethodCall, result: Result) {
-    val serverURL = if (call.argument<String?>("serverURL") != null) URL(call.argument<String?>("serverURL")) else null
-    val room: String? = call.argument("room")
-    val token: String? = call.argument("token")
-    val featureFlags = call.argument<HashMap<String, Any?>>("featureFlags")
-    val configOverrides = call.argument<HashMap<String, Any?>>("configOverrides")
-    val rawUserInfo = call.argument<HashMap<String, String?>>("userInfo")
-    val displayName = rawUserInfo?.get("displayName")
-    val email = rawUserInfo?.get("email")
-    val avatar = if (rawUserInfo?.get("avatar") != null) URL(rawUserInfo.get("avatar")) else null
-    val userInfo = JitsiMeetUserInfo().apply {
-      if (displayName != null) this.displayName = displayName
-      if (email != null) this.email = email
-      if (avatar != null) this.avatar = avatar
-    }
-
-    val options = JitsiMeetConferenceOptions.Builder().run {
-      if (serverURL != null) setServerURL(serverURL)
-      if (room != null) setRoom(room)
-      if (token != null) setToken(token)
-
-      configOverrides?.forEach { (key, value) ->
-        when (value) {
-          is Boolean -> setConfigOverride(key, value)
-          is Int -> setConfigOverride(key, value)
-          is Array<*> -> setConfigOverride(key, value as Array<out String>)
-          is List<*> -> {
-            if (value.isNotEmpty() && value[0] is Map<*, *>) {
-              val bundles = ArrayList<Bundle>()
-              for (map in value) {
-                val bundle = Bundle()
-                (map as Map<*, *>).forEach { (k, v) ->
-                  bundle.putString(k.toString(), v.toString())
-                }
-                bundles.add(bundle)
-              }
-              setConfigOverride(key, bundles)
-            } else {
-              setConfigOverride(key, value.toString())
-            }
-          }
-          else -> setConfigOverride(key, value.toString())
-        }
-      }
-      featureFlags?.forEach { (key, value) ->
-        when (value) {
-          is Boolean -> setFeatureFlag(key, value)
-          is Int -> setFeatureFlag(key, value)
-          else -> setFeatureFlag(key, value.toString())
-        }
-      }
-      if (userInfo != null) setUserInfo(userInfo)
-      build()
-    }
-
-    WrapperJitsiMeetActivity.launch(activity!!, options)
-    result.success("Successfully joined meeting $room")
   }
 
   private fun hangUp(call: MethodCall, result: Result) {
@@ -195,9 +140,4 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     result.success("Successfully retrieved participants info")
   }
 
-  private fun enterPiP(call: MethodCall, result: Result) {
-    val enterPiPIntent = Intent("org.jitsi.meet.ENTER_PICTURE_IN_PICTURE");
-    LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(enterPiPIntent)
-    result.success("Successfully entered PiP")
-  }
 }
