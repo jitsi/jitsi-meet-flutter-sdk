@@ -1,4 +1,4 @@
-group 'org.jitsi.jitsi_meet_flutter_sdk'
+group 'org.jitsi.jitsi_meet_govar_flutter_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {

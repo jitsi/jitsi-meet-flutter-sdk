@@ -143,7 +143,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  jitsi_meet_flutter_sdk:
+  jitsi_meet_govar_flutter_sdk:
     dependency: "direct main"
     description:
       path: ".."

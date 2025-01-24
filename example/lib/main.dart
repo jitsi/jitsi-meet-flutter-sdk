@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
+import 'package:jitsi_meet_govar_flutter_sdk/jitsi_meet_govar_flutter_sdk.dart';
 
 void main() {
   runApp(const MyApp());
