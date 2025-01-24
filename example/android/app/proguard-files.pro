@@ -1,0 +1,1 @@
+-keep class com.facebook.imagepipeline.nativecode.WebpTranscoder { *; }
