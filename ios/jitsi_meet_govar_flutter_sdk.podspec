@@ -3,9 +3,9 @@
 # Run `pod lib lint jitsi_meet_flutter_sdk.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'jitsi_meet_flutter_sdk'
+  s.name             = 'jitsi_meet_govar_flutter_sdk'
   s.version          = '10.3.0'
-  s.summary          = 'Jitsi Meet Flutter SDK'
+  s.summary          = 'A custom fork of jitsi_meet_flutter_sdk with some modifications.'
   s.description      = <<-DESC
 Jitsi Meet Flutter SDK
                        DESC

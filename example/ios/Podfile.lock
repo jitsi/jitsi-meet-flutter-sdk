@@ -4,7 +4,7 @@ PODS:
     - libwebp
   - integration_test (0.0.1):
     - Flutter
-  - jitsi_meet_flutter_sdk (10.3.0):
+  - jitsi_meet_govar_flutter_sdk (10.3.0):
     - Flutter
     - JitsiMeetSDK (= 10.3.0)
   - JitsiMeetSDK (10.3.0):
@@ -32,7 +32,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
-  - jitsi_meet_flutter_sdk (from `.symlinks/plugins/jitsi_meet_flutter_sdk/ios`)
+  - jitsi_meet_govar_flutter_sdk (from `.symlinks/plugins/jitsi_meet_govar_flutter_sdk/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - record_darwin (from `.symlinks/plugins/record_darwin/ios`)
 
@@ -48,8 +48,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
-  jitsi_meet_flutter_sdk:
-    :path: ".symlinks/plugins/jitsi_meet_flutter_sdk/ios"
+  jitsi_meet_govar_flutter_sdk:
+    :path: ".symlinks/plugins/jitsi_meet_govar_flutter_sdk/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   record_darwin:
@@ -59,7 +59,7 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   Giphy: 83628960ed04e1c3428ff1b4fb2b027f65e82f50
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
-  jitsi_meet_flutter_sdk: 908d0f8388edc2ba102ec0b6c98d3961a8d3eab8
+  jitsi_meet_govar_flutter_sdk: 7c48b4acbe260f531f971ee0813f77cd2972e12c
   JitsiMeetSDK: 439fc3e45870c5ebf7b371fa038719bf70ef76d9
   JitsiWebRTC: b47805ab5668be38e7ee60e2258f49badfe8e1d0
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009

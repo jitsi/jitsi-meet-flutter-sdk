@@ -30,7 +30,7 @@ $ flutter pub add jitsi_meet_flutter_sdk
 The command above will add this to the `pubspec.yaml` file in your project (you can do this manually):
 ```yaml
 dependencies:
-    jitsi_meet_flutter_sdk: ^10.3.0
+    jitsi_meet_govar_flutter_sdk: ^10.3.0
 ```
 
 ### Install 
@@ -46,7 +46,7 @@ $ flutter pub get
 Import the following files into your dart code:
 
 ```dart
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
+import 'package:jitsi_meet_govar_flutter_sdk/jitsi_meet_govar_flutter_sdk.dart';
 ```
 
 ### Usage

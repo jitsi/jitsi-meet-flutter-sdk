@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:jitsi_meet_flutter_sdk/src/method_response.dart';
+import 'package:jitsi_meet_govar_flutter_sdk/src/method_response.dart';
 
 import 'jitsi_meet_conference_options.dart';
 import 'jitsi_meet_event_listener.dart';

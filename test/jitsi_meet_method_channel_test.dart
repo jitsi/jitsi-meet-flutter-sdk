@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jitsi_meet_flutter_sdk/src/jitsi_meet_method_channel.dart';
+import 'package:jitsi_meet_govar_flutter_sdk/src/jitsi_meet_method_channel.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
