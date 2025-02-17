@@ -1,3 +1,11 @@
+## 11.0.0 
+
+* chore(deps): update native sdks to 11.0.0 [166b62b](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/166b62bfe6d9b653db4eb13666eba77f3454701b).
+* Update minimum supported iOS version [cd20737](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/cd207374f5cb1b413471a710e5b03b63a5747174).
+* Add ProGuard rules information to README [134610f](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/134610fc724d9879b592c8752df1822584b5ae91).
+* [Feature] Add the possibility to control PiP programmatically (#94) [6b981b3](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6b981b30c0491e899e1f6d3f34b7b1547085306e).
+* feat(example): use latest Jitsi Flutter SDK [6fb926a](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6fb926adb98d8ad1231699fd20edb43a7488414b).
+
 ## 10.3.0 
 
 * chore(deps): update native sdks to 10.3.0 [1d34c15](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/1d34c15615dcbd8a161b8850bfe0906584598161).
