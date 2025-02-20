@@ -1,7 +1,7 @@
 # Jitsi Meet Flutter SDK
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-darkblue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![pub package](https://img.shields.io/badge/pub-v11.0.0-blue)](https://pub.dev/packages/jitsi_meet_flutter_sdk)
+[![pub package](https://img.shields.io/badge/pub-v11.0.1-blue)](https://pub.dev/packages/jitsi_meet_flutter_sdk)
 
 The Jitsi Meet Flutter SDK provides the same user experience as the Jitsi Meet app, in the form of a Flutter plugin so that you can embed and customize Jitsi Meet in your own Flutter app.
 
@@ -30,7 +30,7 @@ $ flutter pub add jitsi_meet_flutter_sdk
 The command above will add this to the `pubspec.yaml` file in your project (you can do this manually):
 ```yaml
 dependencies:
-    jitsi_meet_flutter_sdk: ^11.0.0
+    jitsi_meet_flutter_sdk: ^11.0.1
 ```
 
 ### Install 

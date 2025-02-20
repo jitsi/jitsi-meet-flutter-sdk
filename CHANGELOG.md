@@ -1,3 +1,7 @@
+## 11.0.1 
+
+* chore(deps): update ios native sdk to 11.0.1 [f0fbfe9](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/f0fbfe992015780d6f28330292ebd6776f643eb9).
+
 ## 11.0.0 
 
 * chore(deps): update native sdks to 11.0.0 [166b62b](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/166b62bfe6d9b653db4eb13666eba77f3454701b).
