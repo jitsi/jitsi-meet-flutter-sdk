@@ -1,3 +1,8 @@
+## 11.0.2 
+
+* changed customOverflowMenuButtonPressed to customButtonPressed [cc2e16e](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/cc2e16e600231aea0c6e2c407ef3e9a0af09e75d).
+* fix(wrapper-activity): Update broadcast event type for custom button press [6ed8c05](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6ed8c0541291b91fee7cf51c5ccb937048237f70).
+
 ## 11.0.1 
 
 * chore(deps): update ios native sdk to 11.0.1 [f0fbfe9](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/f0fbfe992015780d6f28330292ebd6776f643eb9).
