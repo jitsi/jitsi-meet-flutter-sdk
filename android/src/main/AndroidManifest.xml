@@ -9,6 +9,7 @@
             android:resizeableActivity="true"
             android:showOnLockScreen="true"
             android:supportsPictureInPicture="true"
+            android:excludeFromRecents="true"
             android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
