@@ -1,3 +1,8 @@
+## 11.1.1 
+
+* chore(deps): update native sdks to 11.1.0 [0039ad8](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/0039ad81157366fabd24b6a9c69ac360c2c52902).
+* Exclude Jitsi Meet activity from recents [7fcd733](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/7fcd733e73fe3e0c9236651ff5ca6792f7890f19).
+
 ## 11.0.2 
 
 * changed customOverflowMenuButtonPressed to customButtonPressed [cc2e16e](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/cc2e16e600231aea0c6e2c407ef3e9a0af09e75d).
