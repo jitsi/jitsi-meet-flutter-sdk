@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'jitsi_meet_flutter_sdk'
-  s.version          = '11.2.0'
+  s.version          = '11.3.0'
   s.summary          = 'Jitsi Meet Flutter SDK'
   s.description      = <<-DESC
 Jitsi Meet Flutter SDK
