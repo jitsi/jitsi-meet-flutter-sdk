@@ -9,9 +9,8 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 Jitsi Meet Flutter SDK
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-flutter-sdk'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
