@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
 Jitsi Meet Flutter SDK
                        DESC
   s.homepage         = 'https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-flutter-sdk'
+  s.authors          = 'Jitsi Meet'
   s.license          = { :file => '../LICENSE' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'

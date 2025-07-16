@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace "org.jitsi.jitsi_meet_flutter_sdk_example"
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion "27.1.12297006"
 
     compileOptions {
