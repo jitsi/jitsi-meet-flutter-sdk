@@ -26,6 +26,28 @@ class _MyAppState extends State<MyApp> {
       configOverrides: {
         "startWithAudioMuted": true,
         "startWithVideoMuted": true,
+        // "customToolbarButtons": [
+        //   {
+        //     'id': 'location',
+        //     'backgroundColor': 'orange',
+        //     'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFRSURBVHgB1VTRcYMwDBWdgBG8QTMCGzQbNBuUDWCDsgHZICPQDdINSCcgncCV7p5bVXHADpePvDsdRBbvyX5yiO6MIqXIe+/4UXE4pD4liqI40RowccUx+OsYIH4TeQOSiaPVRPy+4dhxjKhpKAeKfM9RztSVqBHUlALpFB8cKBFSi29cSvEeW3dGdMBxSfRmvUR+uSl00hvyEQSdamDUx4e1ae5Ig3mCF/Ohj+xI0KrcDrmN5nwyGkH9W+WeOT70zONd7oImOxmOqMAZT6dyX4bINmN/n+kalFmdylVh1nE0UvOO3KuqE28mWgJGbjIGtv4SrVoPg9CnCETvAfJviCrS1L9BWBKpw7Ek1DZ2R6kiYTy3MzVb1HSUC5h5hB8usu6wdqRbocwbjek672gN/N/tHlTuELu1a0R+TVempv09Z4h06g7km5ooUmeP48PjBzBGLGGSG2WSAAAAAElFTkSuQmCC',
+        //   },
+        // ],
+        // "toolbarButtons": [
+        //   'location',
+        //   'overflowmenu',
+        //   'hangup'
+        // ],
+        // "participantsPane": {
+        //   // Enables feature
+        //   "enabled": false,
+        //   // Hides the moderator settings tab.
+        //   "hideModeratorSettingsTab": true,
+        //   // Hides the more actions button.
+        //   "hideMoreActionsButton": true,
+        //   // Hides the mute all button.
+        //   "hideMuteAllButton": true,
+        // },
       },
       featureFlags: {
         FeatureFlags.addPeopleEnabled: true,
