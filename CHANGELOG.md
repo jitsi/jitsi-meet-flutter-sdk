@@ -1,3 +1,8 @@
+## 11.3.1 
+
+* chore(deps): update native sdks to 11.3.1/2 [0aef245](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/0aef245629f85610be03bb707b3ffa3de4f92a8d).
+* feat(android): handle overrides for diff array and object types [92fffe9](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/92fffe91252c886307abe6c1bc8b4f449743f376).
+
 ## 11.3.0 
 
 * chore(deps): update native sdks to 11.3.0 [684a5f5](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/684a5f55451172649a868175dbcf5f0d7460c138).
