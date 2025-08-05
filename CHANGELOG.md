@@ -1,3 +1,7 @@
+## 11.4.0 
+
+* 11.4.0 [5c558d4](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/5c558d4fbb45c4ebd79dcf832d4a6ef7660f9f5b).
+
 ## 11.3.1 
 
 * chore(deps): update native sdks to 11.3.1/2 [0aef245](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/0aef245629f85610be03bb707b3ffa3de4f92a8d).
