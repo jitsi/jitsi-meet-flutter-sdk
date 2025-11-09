@@ -1,4 +1,4 @@
-class FeatureFlags{
+class FeatureFlags {
   FeatureFlags._();
 
   /// FeatureFlags [welcomePageEnabled] : Flag indicating if the welcome page should be enabled.
@@ -64,7 +64,8 @@ class FeatureFlags{
 
   /// FeatureFlags [androidScreenSharingEnabled] : Flag indicating if screen sharing should be enabled in android.
   /// Default: enabled (true).
-  static const String androidScreenSharingEnabled = "android.screensharing.enabled";
+  static const String androidScreenSharingEnabled =
+      "android.screensharing.enabled";
 
   /// FeatureFlags [speakerStatsEnabled] : Flag indicating if speaker statistics should be enabled.
   /// Default: enabled (true).
@@ -105,7 +106,8 @@ class FeatureFlags{
 
   /// FeatureFlags [pipWhileScreenSharingEnabled] : Flag indicating if Picture-in-Picture button should be shown while screen sharing.
   /// Default: disabled (false).
-  static const String pipWhileScreenSharingEnabled = "pip-while-screen-sharing.enabled";
+  static const String pipWhileScreenSharingEnabled =
+      "pip-while-screen-sharing.enabled";
 
   /// FeatureFlags [preJoinPageEnabled] : Flag indicating if the prejoin page should be enabled.
   /// Default: enabled (true).
@@ -113,7 +115,8 @@ class FeatureFlags{
 
   /// FeatureFlags [preJoinPageHideDisplayName] :Flag indicating if the participant name editing field should be displayed on the prejoin page.
   /// Default: disabled (false).
-  static const String preJoinPageHideDisplayName = "prejoinpage.hideDisplayName";
+  static const String preJoinPageHideDisplayName =
+      "prejoinpage.hideDisplayName";
 
   /// FeatureFlags [raiseHandEnabled] :Flag indicating if raise hand feature should be enabled.
   /// Default: enabled.
@@ -179,4 +182,7 @@ class FeatureFlags{
   /// Default: disabled (false).
   static const String toolboxAlwaysVisible = "toolbox.alwaysVisible";
 
+  /// FeatureFlags [breakoutRoomsEnabled] : Flag indicating if the breakout Rooms should be always be visible
+  /// Default: enabled (true).
+  static const String breakoutRoomsEnabled = "breakout-rooms.enabled";
 }
