@@ -2,20 +2,24 @@ import Flutter
 import UIKit
 import JitsiMeetSDK
 
-public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
-    var flutterViewController: UIViewController
+public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler, FlutterSceneLifeCycleDelegate {
+    weak var registrar: FlutterPluginRegistrar?
     var jitsiMeetViewController: JitsiMeetViewController?
     var eventSink: FlutterEventSink?
 
-    init(flutterViewController: UIViewController) {
-        self.flutterViewController = flutterViewController
+    init(registrar: FlutterPluginRegistrar) {
+        self.registrar = registrar
+    }
+
+    private var flutterViewController: UIViewController? {
+        registrar?.viewController
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "jitsi_meet_flutter_sdk", binaryMessenger: registrar.messenger())
-        let flutterViewController: UIViewController = (UIApplication.shared.delegate?.window??.rootViewController)!
-        let instance = JitsiMeetPlugin(flutterViewController: flutterViewController)
+        let instance = JitsiMeetPlugin(registrar: registrar)
         registrar.addMethodCallDelegate(instance, channel: channel)
+        registrar.addSceneDelegate(instance)
 
         let eventChannel = FlutterEventChannel(name: "jitsi_meet_flutter_sdk_events", binaryMessenger: registrar.messenger())
         eventChannel.setStreamHandler(instance)
@@ -104,10 +108,26 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
             }
         }
 
-        jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
+        guard let viewController = flutterViewController else {
+            result(FlutterError(
+                code: "UNAVAILABLE",
+                message: "Flutter view controller is not available (UIScene lifecycle).",
+                details: nil
+            ))
+            return
+        }
+        guard let sink = eventSink else {
+            result(FlutterError(
+                code: "NO_EVENT_SINK",
+                message: "Event stream not listened to. Call JitsiMeetEventListener first.",
+                details: nil
+            ))
+            return
+        }
+        jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: sink)
         jitsiMeetViewController!.modalPresentationStyle = .overFullScreen
-        flutterViewController.present(jitsiMeetViewController!, animated: true)
-        result("Successfully joined meeting \(room)")
+        viewController.present(jitsiMeetViewController!, animated: true)
+        result("Successfully joined meeting \(room ?? "")")
     }
 
     private func hangUp(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -165,7 +185,9 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
 
     private func retrieveParticipantsInfo(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        jitsiMeetViewController?.jitsiMeetView?.retrieveParticipantsInfo({ (data:[Any]?) in self.eventSink!(["event": "participantsInfoRetrieved", "data": data])})
+        jitsiMeetViewController?.jitsiMeetView?.retrieveParticipantsInfo({ [weak self] (data: [Any]?) in
+            self?.eventSink?(["event": "participantsInfoRetrieved", "data": data ?? []])
+        })
         result("Successfully retrieved participants info")
     }
 
