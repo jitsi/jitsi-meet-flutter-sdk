@@ -3,18 +3,27 @@ import UIKit
 import JitsiMeetSDK
 
 public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
-    var flutterViewController: UIViewController
     var jitsiMeetViewController: JitsiMeetViewController?
     var eventSink: FlutterEventSink?
 
-    init(flutterViewController: UIViewController) {
-        self.flutterViewController = flutterViewController
+    private var rootViewController: UIViewController? {
+        if #available(iOS 15.0, *) {
+            return UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first { $0.activationState == .foregroundActive }?
+                .keyWindow?.rootViewController
+        } else if #available(iOS 13.0, *) {
+            return UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }?.rootViewController
+        }
+        return UIApplication.shared.delegate?.window??.rootViewController
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "jitsi_meet_flutter_sdk", binaryMessenger: registrar.messenger())
-        let flutterViewController: UIViewController = (UIApplication.shared.delegate?.window??.rootViewController)!
-        let instance = JitsiMeetPlugin(flutterViewController: flutterViewController)
+        let instance = JitsiMeetPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
 
         let eventChannel = FlutterEventChannel(name: "jitsi_meet_flutter_sdk_events", binaryMessenger: registrar.messenger())
@@ -104,9 +113,14 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
             }
         }
 
+        guard let presenter = rootViewController else {
+            result(FlutterError(code: "NO_VIEW_CONTROLLER", message: "Root view controller not available", details: nil))
+            return
+        }
+
         jitsiMeetViewController = JitsiMeetViewController.init(options: options, eventSink: eventSink!)
         jitsiMeetViewController!.modalPresentationStyle = .overFullScreen
-        flutterViewController.present(jitsiMeetViewController!, animated: true)
+        presenter.present(jitsiMeetViewController!, animated: true)
         result("Successfully joined meeting \(room)")
     }
 
