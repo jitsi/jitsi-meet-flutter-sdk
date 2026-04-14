@@ -19,7 +19,9 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import org.jitsi.meet.sdk.JitsiMeetUserInfo
 import org.jitsi.meet.sdk.BroadcastAction
 import org.jitsi.meet.sdk.*
+import org.jitsi.meet.sdk.JitsiMeet
 import java.net.URL
+import org.jitsi.jitsi_meet_flutter_sdk.JitsiMeetEventStreamHandler
 
 /** JitsiMeetPlugin */
 class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -145,6 +147,10 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       if (userInfo != null) setUserInfo(userInfo)
       build()
     }
+
+    // Ensure JitsiMeet is initialized
+    val defaultOptions = JitsiMeetConferenceOptions.Builder().build()
+    JitsiMeet.setDefaultConferenceOptions(defaultOptions)
 
     WrapperJitsiMeetActivity.launch(activity!!, options)
     result.success("Successfully joined meeting $room")
