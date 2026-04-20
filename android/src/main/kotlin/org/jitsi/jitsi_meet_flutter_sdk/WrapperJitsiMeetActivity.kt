@@ -13,6 +13,8 @@ import android.app.KeyguardManager
 import android.view.WindowManager
 import android.os.Build
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.jitsi_meet_flutter_sdk.JitsiMeetEventStreamHandler
+import org.jitsi.meet.sdk.JitsiMeet
 
 class WrapperJitsiMeetActivity : JitsiMeetActivity() {
     private val eventStreamHandler = JitsiMeetEventStreamHandler.instance
@@ -36,6 +38,15 @@ class WrapperJitsiMeetActivity : JitsiMeetActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showOnLockscreen()
+
+        // Ensure JitsiMeet is initialized as a safeguard
+        try {
+            val defaultOptions = JitsiMeetConferenceOptions.Builder().build()
+            JitsiMeet.setDefaultConferenceOptions(defaultOptions)
+        } catch (e: Exception) {
+            // Log or handle initialization error
+        }
+
         super.onCreate(savedInstanceState)
         registerForBroadcastMessages()
     }
