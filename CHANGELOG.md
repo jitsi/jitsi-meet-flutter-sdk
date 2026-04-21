@@ -2,11 +2,8 @@
 
 * Fix NullPointerException and Android Build Conflicts (#161) [f7d610f](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/f7d610f0342ba70c2f57eef12aae6ea0e22b95e2).
 * iOS UIScene compatibility. [6186e11](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/6186e11a4eee59d66f5ff5d2e833599670a3b18d).
-
-## 12.0.0 
-
-* chore(deps): update native sdks to 12.0.0 [385878e](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/385878e922eb66528462c22f7b2b7cc9b5823df0).
-* Added the breakout Rooms flag in the features_flags [208814b](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/208814b2d6b875eab9ad122cf379d4c32f4cda40).
+* Pin GitHub Actions to SHA hashes (#162) [994dd92](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/994dd9268480b1b93ae29e7a775191bf6623a5b2).
+* Added the breakout Rooms flag in the features_flags (#149) [208814b](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/208814b2d6b875eab9ad122cf379d4c32f4cda40).
 
 ## 11.6.0 
 
