@@ -1,3 +1,7 @@
+## 12.1.3 
+
+* chore(deps): update native sdks to 12.1.3 [3f402ce](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/3f402ce24bfe8a9cb3b4ae2539d5ebfaa1a614d7).
+
 ## 12.1.1 
 
 * Fix NullPointerException and Android Build Conflicts (#161) [f7d610f](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/f7d610f0342ba70c2f57eef12aae6ea0e22b95e2).
