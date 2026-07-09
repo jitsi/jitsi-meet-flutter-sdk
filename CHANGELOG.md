@@ -1,3 +1,7 @@
+## 12.1.5 
+
+* chore(deps): update native sdks to 12.1.5 [2d640db](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/2d640db28168fda123f95bde654eb74afef63dc6).
+
 ## 12.1.3 
 
 * chore(deps): update native sdks to 12.1.3 [3f402ce](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/3f402ce24bfe8a9cb3b4ae2539d5ebfaa1a614d7).
