@@ -80,6 +80,16 @@ class MockJitsiMeetPlatform
   Future<MethodResponse> enterPiP() {
     throw UnimplementedError();
   }
+
+  @override
+  Future<MethodResponse> setE2EEEnabled(bool enabled) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MethodResponse> setE2EEKey(String key) {
+    throw UnimplementedError();
+  }
 }
 
 void main() {

@@ -101,4 +101,20 @@ abstract class JitsiMeetPlatform extends PlatformInterface {
   Future<MethodResponse> enterPiP() async {
     throw UnimplementedError('enterPiP() has not been implemented.');
   }
+
+  /// Enables or disables end-to-end encryption for the current conference.
+  ///
+  /// Requires an E2EE-capable Jitsi Meet mobile SDK build and
+  /// `e2ee.externallyManagedKey` set to true (automatically applied when
+  /// joining with [JitsiMeetConferenceOptions.e2eeKey]).
+  Future<MethodResponse> setE2EEEnabled(bool enabled) async {
+    throw UnimplementedError('setE2EEEnabled() has not been implemented.');
+  }
+
+  /// Sets the shared E2EE key for the current conference. All participants
+  /// must use the same key. Setting a key implicitly enables encryption;
+  /// setting an empty key disables it.
+  Future<MethodResponse> setE2EEKey(String key) async {
+    throw UnimplementedError('setE2EEKey() has not been implemented.');
+  }
 }

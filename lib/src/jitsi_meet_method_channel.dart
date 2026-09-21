@@ -19,6 +19,10 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
   bool _eventChannelIsInitialized = false;
   JitsiMeetEventListener? _listener;
 
+  // E2EE settings requested via join options, applied on conferenceJoined.
+  bool _pendingE2eeEnabled = false;
+  String? _pendingE2eeKey;
+
   @override
   Future<String?> getPlatformVersion() async {
     final version =
@@ -36,6 +40,9 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
       _initialize();
     }
 
+    _pendingE2eeEnabled = options.e2eeEnabled;
+    _pendingE2eeKey = options.e2eeKey;
+
     Map<String, dynamic> parsedOptions = {
       'serverURL': options.serverURL,
       'room': options.room,
@@ -46,7 +53,9 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
         'avatar': options.userInfo?.avatar,
       },
       'featureFlags': options.featureFlags,
-      'configOverrides': options.configOverrides
+      'configOverrides': options.configOverrides,
+      'e2eeEnabled': options.e2eeEnabled,
+      'e2eeKey': options.e2eeKey,
     };
     return await methodChannel
         .invokeMethod<String>('join', parsedOptions)
@@ -230,12 +239,52 @@ class MethodChannelJitsiMeet extends JitsiMeetPlatform {
         );
   }
 
+  /// Enables or disables end-to-end encryption for the current conference.
+  @override
+  Future<MethodResponse> setE2EEEnabled(bool enabled) async {
+    return await methodChannel.invokeMethod<String>(
+        'setE2EEEnabled', {'enabled': enabled}).then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  /// Sets the shared E2EE key for the current conference.
+  @override
+  Future<MethodResponse> setE2EEKey(String key) async {
+    return await methodChannel.invokeMethod<String>(
+        'setE2EEKey', {'key': key}).then((message) {
+      return MethodResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return MethodResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
   void _initialize() {
     eventChannel.receiveBroadcastStream().listen((message) {
       final data = message['data'];
       switch (message['event']) {
         case "conferenceJoined":
           _listener?.conferenceJoined?.call(data["url"]);
+          // Apply E2EE settings requested via join options. The conference
+          // must be fully joined before the native side can handle them.
+          if (_pendingE2eeKey != null && _pendingE2eeKey!.isNotEmpty) {
+            setE2EEKey(_pendingE2eeKey!);
+            _pendingE2eeKey = null;
+          }
+          if (_pendingE2eeEnabled) {
+            setE2EEEnabled(true);
+            _pendingE2eeEnabled = false;
+          }
           break;
 
         case "conferenceTerminated":
