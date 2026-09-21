@@ -52,6 +52,8 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "closeChat" -> closeChat(call, result)
       "retrieveParticipantsInfo" -> retrieveParticipantsInfo(call, result)
       "enterPiP" -> enterPiP(call, result)
+      "setE2EEEnabled" -> setE2EEEnabled(call, result)
+      "setE2EEKey" -> setE2EEKey(call, result)
       else -> result.notImplemented()
     }
   }
@@ -80,8 +82,18 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     val room: String? = call.argument("room")
     val token: String? = call.argument("token")
     val featureFlags = call.argument<HashMap<String, Any?>>("featureFlags")
-    val configOverrides = call.argument<HashMap<String, Any?>>("configOverrides")
+    val configOverrides = call.argument<HashMap<String, Any?>>("configOverrides") ?: HashMap()
+    val e2eeEnabled = call.argument<Boolean>("e2eeEnabled") ?: false
+    val e2eeKey = call.argument<String?>("e2eeKey")
     val rawUserInfo = call.argument<HashMap<String, String?>>("userInfo")
+
+    // E2EE on mobile works with an externally managed shared key, which is the
+    // only mode that does not require Olm (unavailable on React Native).
+    if (e2eeEnabled || !e2eeKey.isNullOrEmpty()) {
+      val e2eeConfig = (configOverrides["e2ee"] as? Map<*, *>)?.toMutableMap() ?: mutableMapOf()
+      e2eeConfig["externallyManagedKey"] = true
+      configOverrides["e2ee"] = e2eeConfig
+    }
     val displayName = rawUserInfo?.get("displayName")
     val email = rawUserInfo?.get("email")
     val avatar = if (rawUserInfo?.get("avatar") != null) URL(rawUserInfo.get("avatar")) else null
@@ -223,5 +235,21 @@ class JitsiMeetPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     val enterPiPIntent = Intent("org.jitsi.meet.ENTER_PICTURE_IN_PICTURE");
     LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(enterPiPIntent)
     result.success("Successfully entered PiP")
+  }
+
+  // E2EE commands are forwarded to the custom Jitsi Meet SDK build via the
+  // broadcast intents it declares (see E2EE-IMPLEMENTATION-GUIDE.md, WP3).
+  private fun setE2EEEnabled(call: MethodCall, result: Result) {
+    val enabled = call.argument<Boolean>("enabled") ?: false
+    val intent = BroadcastIntentHelper.buildSetE2EEEnabledIntent(enabled)
+    LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(intent)
+    result.success("Successfully set E2EE enabled $enabled")
+  }
+
+  private fun setE2EEKey(call: MethodCall, result: Result) {
+    val key = call.argument<String>("key") ?: ""
+    val intent = BroadcastIntentHelper.buildSetE2EEKeyIntent(key)
+    LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(intent)
+    result.success("Successfully set E2EE key")
   }
 }

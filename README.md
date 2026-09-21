@@ -169,6 +169,16 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 
     Sends and event that will trigger the `participantsInfoRetrieved` event which will contain participants information
 
+12. #### setE2EEEnabled(bool enabled)
+
+    Enables or disables end-to-end encryption for the current conference.
+
+    > **Note:** Requires an E2EE-capable Jitsi Meet mobile SDK build (see `E2EE-IMPLEMENTATION-GUIDE.md`). E2EE on mobile uses an externally managed shared key; set it with `setE2EEKey` or by joining with `JitsiMeetConferenceOptions.e2eeKey`.
+
+13. #### setE2EEKey(String key)
+
+    Sets the shared E2EE key for the current conference. All participants must join with the same key. Setting a key implicitly enables encryption; setting an empty key disables it.
+
 
 ### JitsiMeetConferenceOptions
 
@@ -192,6 +202,18 @@ var options = JitsiMeetConferenceOptions(
           displayName: "Flutter user",
           email: "user@example.com"
       ),
+    );
+```
+
+End-to-end encryption can be requested at join time (requires an E2EE-capable
+mobile SDK build):
+
+```dart
+var options = JitsiMeetConferenceOptions(
+      serverURL: "https://meet.example.com",
+      room: "e2eeRoom",
+      e2eeEnabled: true,
+      e2eeKey: "shared-secret-distributed-securely",
     );
 ```
 

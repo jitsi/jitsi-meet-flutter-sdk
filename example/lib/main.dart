@@ -14,45 +14,44 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // When built with --dart-define=E2EE_AUTOJOIN=1 the app joins the room
+  // automatically with E2EE enabled and no prejoin page (used for headless
+  // simulator/device testing).
+  static const bool _autoJoin = bool.fromEnvironment('E2EE_AUTOJOIN');
   bool audioMuted = true;
   bool videoMuted = true;
   bool screenShareOn = false;
+  bool e2eeEnabled = false;
   List<String> participants = [];
   final _jitsiMeetPlugin = JitsiMeet();
+  final TextEditingController _roomController =
+      TextEditingController(text: "e2ee-test-room");
+  final TextEditingController _e2eeKeyController =
+      TextEditingController(text: "correct horse battery staple");
+
+  @override
+  void initState() {
+    super.initState();
+    if (_autoJoin) {
+      e2eeEnabled = true;
+      Future.delayed(const Duration(seconds: 3), join);
+    }
+  }
 
   join() async {
     var options = JitsiMeetConferenceOptions(
-      room: "testgabigabi",
+      serverURL: "https://meet.ffmuc.net",
+      room: _roomController.text,
+      e2eeEnabled: e2eeEnabled,
+      e2eeKey: e2eeEnabled ? _e2eeKeyController.text : null,
       configOverrides: {
         "startWithAudioMuted": true,
         "startWithVideoMuted": true,
-        // "customToolbarButtons": [
-        //   {
-        //     'id': 'location',
-        //     'backgroundColor': 'orange',
-        //     'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFRSURBVHgB1VTRcYMwDBWdgBG8QTMCGzQbNBuUDWCDsgHZICPQDdINSCcgncCV7p5bVXHADpePvDsdRBbvyX5yiO6MIqXIe+/4UXE4pD4liqI40RowccUx+OsYIH4TeQOSiaPVRPy+4dhxjKhpKAeKfM9RztSVqBHUlALpFB8cKBFSi29cSvEeW3dGdMBxSfRmvUR+uSl00hvyEQSdamDUx4e1ae5Ig3mCF/Ohj+xI0KrcDrmN5nwyGkH9W+WeOT70zONd7oImOxmOqMAZT6dyX4bINmN/n+kalFmdylVh1nE0UvOO3KuqE28mWgJGbjIGtv4SrVoPg9CnCETvAfJviCrS1L9BWBKpw7Ek1DZ2R6kiYTy3MzVb1HSUC5h5hB8usu6wdqRbocwbjek672gN/N/tHlTuELu1a0R+TVempv09Z4h06g7km5ooUmeP48PjBzBGLGGSG2WSAAAAAElFTkSuQmCC',
-        //   },
-        // ],
-        // "toolbarButtons": [
-        //   'location',
-        //   'overflowmenu',
-        //   'hangup'
-        // ],
-        // "participantsPane": {
-        //   // Enables feature
-        //   "enabled": false,
-        //   // Hides the moderator settings tab.
-        //   "hideModeratorSettingsTab": true,
-        //   // Hides the more actions button.
-        //   "hideMoreActionsButton": true,
-        //   // Hides the mute all button.
-        //   "hideMuteAllButton": true,
-        // },
       },
       featureFlags: {
         FeatureFlags.addPeopleEnabled: true,
-        FeatureFlags.welcomePageEnabled: true,
-        FeatureFlags.preJoinPageEnabled: true,
+        FeatureFlags.welcomePageEnabled: !_autoJoin,
+        FeatureFlags.preJoinPageEnabled: !_autoJoin,
         FeatureFlags.unsafeRoomWarningEnabled: true,
         FeatureFlags.resolution: FeatureFlagVideoResolutions.resolution720p,
         FeatureFlags.audioFocusDisabled: true,
@@ -218,57 +217,77 @@ class _MyAppState extends State<MyApp> {
     debugPrint("$a");
   }
 
+  toggleE2EE(bool? enabled) async {
+    setState(() {
+      e2eeEnabled = enabled ?? false;
+    });
+    var a = await _jitsiMeetPlugin.setE2EEEnabled(e2eeEnabled);
+    debugPrint("setE2EEEnabled: $a");
+  }
+
+  rotateE2EEKey() async {
+    final newKey = _e2eeKeyController.text;
+    var a = await _jitsiMeetPlugin.setE2EEKey(newKey);
+    debugPrint("setE2EEKey: $a");
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Plugin example app'),
+            title: const Text('Jitsi E2EE test app'),
           ),
-          body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: join,
-                    child: const Text("Join"),
-                  ),
-                  TextButton(onPressed: hangUp, child: const Text("Hang Up")),
-                  Row(children: [
-                    const Text("Set Audio Muted"),
-                    Checkbox(
-                      value: audioMuted,
-                      onChanged: setAudioMuted,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    TextField(
+                      controller: _roomController,
+                      decoration: const InputDecoration(labelText: "Room"),
                     ),
-                  ]),
-                  Row(children: [
-                    const Text("Set Video Muted"),
-                    Checkbox(
-                      value: videoMuted,
-                      onChanged: setVideoMuted,
+                    TextField(
+                      controller: _e2eeKeyController,
+                      decoration:
+                          const InputDecoration(labelText: "E2EE shared key"),
                     ),
-                  ]),
-                  TextButton(
-                      onPressed: sendEndpointTextMessage,
-                      child: const Text("Send Hey Endpoint Message To All")),
-                  Row(children: [
-                    const Text("Toggle Screen Share"),
-                    Checkbox(
-                      value: screenShareOn,
-                      onChanged: toggleScreenShare,
+                    Row(children: [
+                      const Text("E2EE enabled"),
+                      Checkbox(
+                        value: e2eeEnabled,
+                        onChanged: (v) =>
+                            setState(() => e2eeEnabled = v ?? false),
+                      ),
+                    ]),
+                    TextButton(
+                      onPressed: join,
+                      child: const Text("Join"),
                     ),
+                    TextButton(onPressed: hangUp, child: const Text("Hang Up")),
+                    TextButton(
+                        onPressed: rotateE2EEKey,
+                        child: const Text("Apply E2EE Key (mid-call)")),
+                    TextButton(
+                        onPressed: () => toggleE2EE(!e2eeEnabled),
+                        child: const Text("Toggle E2EE (mid-call)")),
+                    Row(children: [
+                      const Text("Set Audio Muted"),
+                      Checkbox(
+                        value: audioMuted,
+                        onChanged: setAudioMuted,
+                      ),
+                    ]),
+                    Row(children: [
+                      const Text("Set Video Muted"),
+                      Checkbox(
+                        value: videoMuted,
+                        onChanged: setVideoMuted,
+                      ),
+                    ]),
                   ]),
-                  TextButton(
-                      onPressed: openChat, child: const Text("Open Chat")),
-                  TextButton(
-                      onPressed: sendChatMessage,
-                      child: const Text("Send Chat Message to All")),
-                  TextButton(
-                      onPressed: closeChat, child: const Text("Close Chat")),
-                  TextButton(
-                      onPressed: retrieveParticipantsInfo,
-                      child: const Text("Retrieve Participants Info")),
-                ]),
+            ),
           )),
     );
   }

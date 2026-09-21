@@ -14,8 +14,18 @@ buildscript {
     }
 }
 
+// Local Maven repository containing the custom E2EE-enabled Jitsi Meet SDK
+// build (see E2EE-IMPLEMENTATION-GUIDE.md). The path is provided via the
+// `jitsiE2EEMavenRepo` gradle property (set in the app's gradle.properties).
+def e2eeMavenRepo = rootProject.findProperty('jitsiE2EEMavenRepo')
+
 rootProject.allprojects {
     repositories {
+        if (e2eeMavenRepo != null) {
+            maven {
+                url "file://${e2eeMavenRepo}"
+            }
+        }
         maven {
             url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
         }
@@ -79,7 +89,7 @@ configurations.all {
  
 dependencies {
     implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
-    implementation ("org.jitsi.react:jitsi-meet-sdk:13.1.1") {
+    implementation ("org.jitsi.react:jitsi-meet-sdk:13.1.1-e2ee.1") {
         transitive = true
     }
 }

@@ -81,4 +81,19 @@ class JitsiMeet {
   Future<MethodResponse> enterPiP() async {
     return await JitsiMeetPlatform.instance.enterPiP();
   }
+
+  /// Enables or disables end-to-end encryption for the current conference.
+  ///
+  /// E2EE uses an externally managed shared key; set it with [setE2EEKey] or
+  /// by joining with [JitsiMeetConferenceOptions.e2eeKey]. All participants
+  /// must use the same key. Requires an E2EE-capable mobile SDK build.
+  Future<MethodResponse> setE2EEEnabled(bool enabled) async {
+    return await JitsiMeetPlatform.instance.setE2EEEnabled(enabled);
+  }
+
+  /// Sets the shared E2EE key for the current conference. Setting a key
+  /// implicitly enables encryption; setting an empty key disables it.
+  Future<MethodResponse> setE2EEKey(String key) async {
+    return await JitsiMeetPlatform.instance.setE2EEKey(key);
+  }
 }

@@ -31,6 +31,14 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  # Use the locally built E2EE-capable JitsiMeetSDK (see
+  # ../../E2EE-IMPLEMENTATION-GUIDE.md). The podspec lives in the local
+  # releases repo; its git source is rewritten to the local path below.
+  jitsi_e2ee_podspec = File.expand_path(File.join(File.dirname(File.realpath(__FILE__)), '..', '..', '..', 'e2ee-native', 'jitsi-meet-ios-sdk-releases', 'JitsiMeetSDK.podspec'))
+  if File.exist?(jitsi_e2ee_podspec)
+    pod 'JitsiMeetSDK', :podspec => jitsi_e2ee_podspec
+  end
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths
@@ -40,5 +48,9 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    # Xcode 27 no longer supports deployment targets below 15.0.
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.1'
+    end
   end
 end

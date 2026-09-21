@@ -63,6 +63,12 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler, Flu
         case "enterPiP":
             enterPiP(call, result: result)
             return
+        case "setE2EEEnabled":
+            setE2EEEnabled(call, result: result)
+            return
+        case "setE2EEKey":
+            setE2EEKey(call, result: result)
+            return
         default:
           result(FlutterMethodNotImplemented)
         }
@@ -73,8 +79,19 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler, Flu
         let serverURL = arguments["serverURL"] as? String
         let room = arguments["room"] as? String
         let token = arguments["token"] as? String
-        let configOverrides = arguments["configOverrides"] as? Dictionary<String, Any>
+        var configOverrides = arguments["configOverrides"] as? Dictionary<String, Any>
         let featureFlags = arguments["featureFlags"] as? Dictionary<String, Any>
+        let e2eeEnabled = arguments["e2eeEnabled"] as? Bool ?? false
+        let e2eeKey = arguments["e2eeKey"] as? String
+
+        // E2EE on mobile works with an externally managed shared key, which is
+        // the only mode that does not require Olm (unavailable on React Native).
+        if e2eeEnabled || (e2eeKey?.isEmpty == false) {
+            var e2eeConfig = configOverrides?["e2ee"] as? Dictionary<String, Any> ?? [:]
+            e2eeConfig["externallyManagedKey"] = true
+            if configOverrides == nil { configOverrides = [:] }
+            configOverrides?["e2ee"] = e2eeConfig
+        }
         let rawUserInfo = arguments["userInfo"] as! [String: Any]
         let displayName = rawUserInfo["displayName"] as? String
         let email = rawUserInfo["email"] as? String
@@ -194,6 +211,22 @@ public class JitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler, Flu
     private func enterPiP(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         jitsiMeetViewController?.enterPicture(inPicture: [:])
         result("Successfully entered Picture in Picture")
+    }
+
+    // NOTE: these require the custom JitsiMeetSDK build with E2EE support
+    // (see E2EE-IMPLEMENTATION-GUIDE.md). They do not exist in the stock SDK.
+    private func setE2EEEnabled(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let arguments = call.arguments as! [String: Any]
+        let enabled = arguments["enabled"] as! Bool
+        jitsiMeetViewController?.jitsiMeetView?.setE2EEEnabled(enabled)
+        result("Successfully set E2EE enabled \(enabled)")
+    }
+
+    private func setE2EEKey(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let arguments = call.arguments as! [String: Any]
+        let key = arguments["key"] as! String
+        jitsiMeetViewController?.jitsiMeetView?.setE2EEKey(key)
+        result("Successfully set E2EE key")
     }
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {

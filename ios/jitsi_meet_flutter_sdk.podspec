@@ -15,7 +15,10 @@ Jitsi Meet Flutter SDK
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'JitsiMeetSDK', '13.1.1'
+  # The version is intentionally unpinned so that a locally built
+  # E2EE-capable JitsiMeetSDK (see E2EE-IMPLEMENTATION-GUIDE.md) can be
+  # consumed via the app's Podfile.
+  s.dependency 'JitsiMeetSDK'
   s.platform = :ios, '15.1'
 
   # Flutter.framework does not contain a i386 slice.
