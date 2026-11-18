@@ -9,7 +9,7 @@ The Jitsi Meet Flutter SDK provides the same user experience as the Jitsi Meet a
 
 | Platform | Supported | Notes                             |
 | -------- | --------- | --------------------------------- |
-| Android  | ✅         | Minimum API level is 24           |
+| Android  | ✅         | Minimum API level is 26           |
 | iOS      | ✅         | Minimum supported version is 15.1 |
 | Web      | ❌         |                                   |
 
@@ -84,15 +84,25 @@ To use the screen sharing feature requires `Broadcast Upload Extension`. Please 
 
 ### Android
 
-Go to `android/app/build.gradle` and make sure that the `minSdkVersion` is set to `at lest 24`
+Go to `android/app/build.gradle` and make sure that `compileSdkVersion` is set to at least 35 and `minSdkVersion` is set to at least 26.
 
 ```
 android {
     ...
+    compileSdkVersion 35
     defaultConfig {
         ...
-        minSdkVersion 24
+        minSdkVersion 26
     }
+}
+```
+
+The native SDK requires Android Gradle Plugin 8.6.0 or higher. Go to `android/settings.gradle` and set the version of the `com.android.application` plugin:
+
+```
+plugins {
+    ...
+    id "com.android.application" version "8.6.0" apply false
 }
 ```
 
