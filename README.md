@@ -13,6 +13,8 @@ The Jitsi Meet Flutter SDK provides the same user experience as the Jitsi Meet a
 | iOS      | ✅         | Minimum supported version is 15.1 |
 | Web      | ❌         |                                   |
 
+Requires Flutter 3.38.0 or higher.
+
 ## Sample application using the Flutter
 
 If you want to see how easy integrating the Jitsi Meet Flutter SDK into a Flutter application is, take a look at the<br/>
@@ -80,6 +82,16 @@ The plugin requests camera and microphone access, make sure to include the requi
 <string>The app needs access to your microphone for meetings.</string>
 ```
 
+To keep the meeting running in the background, enable the `audio` and `voip` background modes in the same `Info.plist` file.
+
+```
+<key>UIBackgroundModes</key>
+<array>
+    <string>audio</string>
+    <string>voip</string>
+</array>
+```
+
 To use the screen sharing feature requires `Broadcast Upload Extension`. Please check the following to integrate it: [https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-ios-sdk/#screen-sharing-integration](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-ios-sdk/#screen-sharing-integration).
 
 ### Android
@@ -107,7 +119,7 @@ plugins {
 ```
 
 
-The `application:label` field from the Jitsi Meet Android SDK will conflict with your application's one . Go to `android/app/src/main/AndroidManifest.xml` and add the tools library and `tools:replace="android:label"` to the application tag.
+The `application:label` field from the Jitsi Meet Android SDK will conflict with the label of your application. Go to `android/app/src/main/AndroidManifest.xml` and add the tools library and `tools:replace="android:label"` to the application tag.
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -156,7 +168,7 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 6. #### sendEndpointTextMessage({String? to, required String message})
     Sends a message via the data channel to one particular participant or to all of them. If the `to` param is empty, the message will be sent to all the participants in the conference.
 
-    In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.
+    To get the participantId, listen for the `participantJoined` event and store its `participantId` parameter.
 
 7. #### toggleScreenShare(bool enabled)
     Sets the state of the localParticipant screen sharing according to the `enabled` parameter.
@@ -167,9 +179,9 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 
 9. #### sendChatMessage({String? to, required String message})
 
-    Sends a chat message via to one particular participant or to all of them. If the `to` param is empty, the message will be sent to all the participants in the conference.
+    Sends a chat message to one particular participant or to all of them. If the `to` param is empty, the message will be sent to all the participants in the conference.
 
-    In order to get the participantId, the `participantsJoined` event should be listened for, which have as a parameter the `participantId` and this should be stored somehow.
+    To get the participantId, listen for the `participantJoined` event and store its `participantId` parameter.
 
 10. #### closeChat()
 
@@ -177,8 +189,11 @@ The `JitsiMeet` class is the entry point for the sdk. It is used to launch the m
 
 11. #### retrieveParticipantsInfo()
 
-    Sends and event that will trigger the `participantsInfoRetrieved` event which will contain participants information
+    Sends an event that will trigger the `participantsInfoRetrieved` event which will contain participants information.
 
+12. #### enterPiP()
+
+    Enters Picture-in-Picture mode.
 
 ### JitsiMeetConferenceOptions
 
@@ -196,7 +211,7 @@ var options = JitsiMeetConferenceOptions(
         "subject" : "Jitsi with Flutter",
       },
       featureFlags: {
-        "unsaferoomwarning.enabled": false
+        FeatureFlags.unsafeRoomWarningEnabled: false,
       },
       userInfo: JitsiMeetUserInfo(
           displayName: "Flutter user",
@@ -205,9 +220,14 @@ var options = JitsiMeetConferenceOptions(
     );
 ```
 
-- All the values that can be added to the `configOverrides` can be found [here](https://github.com/jitsi/jitsi-meet/blob/master/config.js).
+- `serverURL` : the server where the conference takes place. If not set, the native SDK default is used (`https://meet.jit.si`).
+- `room` : the room name. This is the only required option.
+- `token` : a JWT token used for authentication.
+- `configOverrides` : all the values that can be added can be found [here](https://github.com/jitsi/jitsi-meet/blob/master/config.js).
+- `featureFlags` : use the constants from the `FeatureFlags` class, or any value from [here](https://github.com/jitsi/jitsi-meet/blob/master/react/features/base/flags/constants.ts). For video resolution values, use `FeatureFlagVideoResolutions`.
+- `userInfo` : information about the local user. It is used in absence of a token.
 
-- All the values that can be added to the `featureFlags` can be found [here](https://github.com/jitsi/jitsi-meet/blob/master/react/features/base/flags/constants.ts).
+Keep `FeatureFlags.welcomePageEnabled` set to `false` (the default). If it is enabled, hanging up shows the Jitsi welcome page instead of closing the meeting screen, and `readyToClose` is not called.
 
 - #### JitsiMeetUserInfo({String displayName, String email, String avatar})
     The constructor for the JitsiMeetUserInfo. 
@@ -271,7 +291,7 @@ This class intends to be used as a listener for events that come from the native
 
 9. #### screenShareToggled(String participantId, bool sharing)
 
-    Called when a participant starts or stops sharing his screen.
+    Called when a participant starts or stops sharing their screen.
 
     - `participantId` : the id of the participant
     - `sharing` : the state of screen share
@@ -299,6 +319,11 @@ This class intends to be used as a listener for events that come from the native
 13. #### readyToClose()
     Called when the SDK is ready to be closed. No meeting is happening at this point.
 
+14. #### customButtonPressed(String buttonId)
+    Called when a custom button is pressed. Custom buttons are added with the `customToolbarButtons` config override.
+
+    - `buttonId` : the id of the button that was pressed.
+
 #### Example of listener:
 
 ```dart
@@ -315,10 +340,10 @@ var listener = JitsiMeetEventListener(
         participants.add(participantId!);
       },
 
-      chatMessageReceived: (senderId, message, isPrivate) {
+      chatMessageReceived: (senderId, message, isPrivate, timestamp) {
         debugPrint(
           "chatMessageReceived: senderId: $senderId, message: $message, "
-              "isPrivate: $isPrivate",
+              "isPrivate: $isPrivate, timestamp: $timestamp",
         );
       },
 
@@ -331,12 +356,3 @@ var listener = JitsiMeetEventListener(
 ## References
 
 While building this project inspiration from https://github.com/saibotma/jitsi_meet_wrapper was taken.
-
-
-
-
-
-
-
-
-
