@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
       },
       featureFlags: {
         FeatureFlags.addPeopleEnabled: true,
-        FeatureFlags.welcomePageEnabled: true,
+        FeatureFlags.welcomePageEnabled: false,
         FeatureFlags.preJoinPageEnabled: true,
         FeatureFlags.unsafeRoomWarningEnabled: true,
         FeatureFlags.resolution: FeatureFlagVideoResolutions.resolution720p,
