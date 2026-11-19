@@ -1,3 +1,8 @@
+## 13.3.4 
+
+* chore(deps): update ios sdk to 13.3.4 [dcf9e46](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/dcf9e46e551b6ffd16f7f6d28457a4d890c1fa7f).
+* iOS uses JitsiMeetSDK 13.3.4 (PiP fix); Android stays on jitsi-meet-sdk 13.3.3.
+
 ## 13.3.3 
 
 * chore(deps): update native sdks to 13.3.3 [a9176cd](https://github.com/jitsi/jitsi-meet-flutter-sdk/commit/a9176cd43b761cc4d27da47d9cfdde69d06fc006).
